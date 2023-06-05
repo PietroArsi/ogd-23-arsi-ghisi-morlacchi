@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using  UnityEngine.SceneManagement;
 
-public static  class SceneLoader
+public static class SceneLoader
 {
     //here we put the scene names when we have a more developed game
     public enum Scene
