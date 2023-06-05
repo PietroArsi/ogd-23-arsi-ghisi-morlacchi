@@ -9,36 +9,32 @@ public class LobbyMenuUI : MonoBehaviour
 {
     // [Header("Movement")]
     public static LobbyManagementUI LocalInstance { get; private set; }
-    [SerializeField] private Button HostLobby;
+    [Header("Create Lobby UI")]
     [SerializeField] private Button ReturnMenu;
     //[SerializeField] private Button JoinGameButton;
-    [SerializeField] private TextMeshProUGUI playerName;
+    [SerializeField] private TMP_InputField nameLobbyInputs;
     [SerializeField] private Button CreateLobby;
-    [SerializeField] private Button cancleCreation;
-    [SerializeField] private Image createLobbyImage;
+
+    [Header("Join Lobby UI")]
     [SerializeField] private Transform lobbyContainer;
     [SerializeField] private Transform lobbyTemplate;
 
-    [SerializeField] private TMP_InputField nameLobbyInputs;
+    [Header("Main Canvas")]
+    [SerializeField] private GameObject hostCanvas;
+    [SerializeField] private GameObject JoinCanvas;
 
-    public bool isActive = false;
+    [Header("Playergenerator")]
+    [SerializeField] private TextMeshProUGUI playerName;
+
 
     private void Awake()
     {
-        isActive = true;
-        Debug.Log("ADD LISTENERS");
-        HostLobby.onClick.AddListener(() =>
-        {
-            createLobbyImage.gameObject.SetActive(true);
-        });
         CreateLobby.onClick.AddListener(() =>
         {
 
             CatnipLobby.Instance.CreateLobby(nameLobbyInputs.text);
         });
-        cancleCreation.onClick.AddListener(()=>{
-            createLobbyImage.gameObject.SetActive(false);
-        });
+        
         ReturnMenu.onClick.AddListener(() =>
         {
 
@@ -57,6 +53,18 @@ public class LobbyMenuUI : MonoBehaviour
         playerName.text = GenerateRandomName();
 
         lobbyTemplate.gameObject.SetActive(false);
+
+        if (HostOrJoin.returnValueHost())
+        {
+            hostCanvas.SetActive(true);
+            JoinCanvas.SetActive(false);
+
+        }
+        else
+        {
+            hostCanvas.SetActive(false);
+            JoinCanvas.SetActive(true);
+        }
     }
 
     private void Start()

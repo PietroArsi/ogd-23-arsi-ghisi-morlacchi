@@ -9,6 +9,7 @@ using Unity.Services.Lobbies.Models;
 public class CharacterSelectUI : MonoBehaviour
 {
     //see tutorial later for more complex when all the player are ready.
+    [Header("Character Menu UI")]
     [SerializeField] private Button startButton;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private Button Menu;
@@ -36,6 +37,7 @@ public class CharacterSelectUI : MonoBehaviour
             }
             else
             {
+                Debug.Log("<color:yellow>CharacterSlectUI LEAVE LOBBY");
                 CatnipLobby.Instance.LeaveLobby();
             }
             SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
@@ -46,7 +48,7 @@ public class CharacterSelectUI : MonoBehaviour
     private void Start()
     {
         Lobby lobby = CatnipLobby.Instance.GetLobby();
-        Debug.Log(lobby.Name);
+        Debug.Log("<color=yellow>CharacterSelectUI: Lobby Name: " + lobby.Name +  "</color>");
         lobbyNameText.text = "Lobby Name: " + lobby.Name;
     }
     private void show()

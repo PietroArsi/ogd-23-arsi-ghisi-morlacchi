@@ -10,8 +10,10 @@ public static class SceneLoader
     public enum Scene
     {
         //temporary names
+        Title,
         MainMenu,
         LobbyManagement,
+        JoinLobby,
         CharacterSlectionScreen,
         SceneFlowLevel
     }

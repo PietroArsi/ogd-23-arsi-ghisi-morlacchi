@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1567,7 +1567,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cbfb846e948e445bf52bec3770f06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GotoLobby: {fileID: 1289563941}
+  GoToCreate: {fileID: 1289563941}
+  GoToJoin: {fileID: 1736018794}
 --- !u!1 &1289563939
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,10 +2001,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1178773473}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GenericSceneManager, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2576,12 +2577,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e435bca4890d214c9ac119efc69b94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 5783803693308687763, guid: 34ef6ca02be441742bc5f3cf8e40af6a, type: 3}
   spawnableObj:
   - {fileID: 4214819476982542002, guid: 5ca1ede7a31b3424c98376f74a563986, type: 3}
   - {fileID: 2307626590562149801, guid: d49a6015cb341ea43bd02027d50ca059, type: 3}
   - {fileID: 4214819476982542002, guid: ebbdd9362ac858c48a278816f52f5220, type: 3}
   - {fileID: 4214819476982542002, guid: 3556c794faf20d241aceafe73d39556d, type: 3}
-  playerPrefab: {fileID: 5783803693308687763, guid: 34ef6ca02be441742bc5f3cf8e40af6a, type: 3}
 --- !u!4 &2071109991
 Transform:
   m_ObjectHideFlags: 0

@@ -16,14 +16,17 @@ public class ConnectionManager : NetworkBehaviour
 
     public static ConnectionManager Instance { get; private set; }
 
-  
 
+    [Header("Player Data")]
     // Create Player identification
     private NetworkList<PlayerData> playerDataNetworkList;
     private string playerName;
     private const string PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER = "PlayerNameMultiplayer";
-    public const int MAX_NUMBER_PLAYER = 4; 
+    public const int MAX_NUMBER_PLAYER = 4;
+    //need to create when the game start
+    [SerializeField] private Transform playerPrefab;
 
+    [Header("Spawn Object")]
     //list of object that can spawn during gameplay
     [SerializeField] List<GameObject> spawnableObj;
     
@@ -34,13 +37,12 @@ public class ConnectionManager : NetworkBehaviour
     public event EventHandler OnTryingToJoinGame;
     public event EventHandler OnFailToJoinGame;
 
-    //need to create when the game start
-    [SerializeField] private Transform playerPrefab;
+   
 
     //tell when the  netowkr list changes when player connects or leaves
    public event EventHandler onListPlayerDataChanged;
 
-   //  [SerializeField] private bool inGame = false;
+     //[SerializeField] private bool isHostScreen = false;
     private void Awake()
     {
         if (Instance != null) Destroy(this.gameObject);
@@ -123,6 +125,7 @@ public class ConnectionManager : NetworkBehaviour
         }
     }
 
+    //give data to conneted clients
     private void NetworkManager_OnClientConnectedCallback(ulong clientID)
     {
         playerDataNetworkList.Add(new PlayerData
@@ -194,7 +197,8 @@ public class ConnectionManager : NetworkBehaviour
         playerDataNetworkList[playerDataIndex] = playerData;
     }
 
-    //get the corret element form the client that caalled the serverRpc.
+    
+    //Get the id function form the sender of the ServerRpc
     private int getPlayerDataIndexFromClientId(ulong senderClientId)
     {
         for (int i = 0; i < playerDataNetworkList.Count; i++)
@@ -226,6 +230,7 @@ public class ConnectionManager : NetworkBehaviour
         else
             return false;
     }
+    // Getting information from the player data
     public PlayerData GetPlayerDataFromPlayerIndex(int playerIndex)
     {
         return playerDataNetworkList[playerIndex];
@@ -246,13 +251,14 @@ public class ConnectionManager : NetworkBehaviour
 
     //------------------------- HANDLE THE SPAWNABLE OBJECTS------------------------------------------////
 
-    //in the future when the player gonna carry like a block to place in the map
+    //Functionality to spawn an non player object 
     public void spawnNetworkObject(GameObject currentObj, SpawnableObjParent parent)
     { 
         spawnObjServerRpc(getSpawnIndex(currentObj),parent.getNetwrokObject());
     }
 
    
+    // spawn the object in the server.
     [ServerRpc(RequireOwnership = false)]
     private void spawnObjServerRpc(int current, NetworkObjectReference currParent, ServerRpcParams serverRpcParams = default)
     {
@@ -282,4 +288,8 @@ public class ConnectionManager : NetworkBehaviour
     }
 
     //------------------------- HANDLE THE SPAWNABLE OBJECTS
+
+
+
+    //Handle Host and join
 }
