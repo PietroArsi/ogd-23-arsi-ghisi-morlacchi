@@ -7,6 +7,9 @@ public class CharaterSelectPlayer : MonoBehaviour
 {
     [SerializeField] private TextMeshPro playerName;
     [SerializeField] private int playerIndex;
+    [SerializeField] private TextMeshPro youText;
+    [SerializeField] private PlayerVisual playerVisual;
+    [SerializeField] private CharacterSelectColor characterSelectColor;
     private void Start()
     {
         ConnectionManager.Instance.onListPlayerDataChanged += ConnectionManager_OnPlayerDataNetworkChanged;
@@ -25,10 +28,15 @@ public class CharaterSelectPlayer : MonoBehaviour
         {
             PlayerData playerData = ConnectionManager.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
             playerName.text = playerData.playerName.ToString();
+            youText.gameObject.SetActive(ConnectionManager.Instance.showYou(playerData.clientID));
+            playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerData.colorId));
             Show();
         }
         else
+        {
             Hide();
+            
+        }
     }
     private void Show()
     {

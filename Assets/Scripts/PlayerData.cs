@@ -11,10 +11,12 @@ public struct PlayerData:IEquatable<PlayerData>, INetworkSerializable
     public ulong clientID;
     public FixedString64Bytes playerName;
     public FixedString64Bytes playerId;
+   public int colorId;
 
     public bool Equals(PlayerData other)
     {
-        return clientID == other.clientID && playerName==other.playerName && playerId==other.playerId;
+        return clientID == other.clientID && playerName==other.playerName &&
+            playerId==other.playerId && colorId==other.colorId;
     }
 
     public string NameGenerator()
@@ -26,5 +28,6 @@ public struct PlayerData:IEquatable<PlayerData>, INetworkSerializable
         serializer.SerializeValue(ref clientID);
         serializer.SerializeValue(ref playerName);
         serializer.SerializeValue(ref playerId);
+        serializer.SerializeValue(ref colorId);
     }
 }

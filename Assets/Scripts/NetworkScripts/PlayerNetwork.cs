@@ -19,6 +19,8 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     public Transform interactionCollider;
     public static PlayerNetwork LocalIstance { get; private set; }
 
+    [SerializeField] private PlayerVisual playerVisual;
+
     //private bool _carriedObject=false;
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
@@ -39,6 +41,12 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
       
     }
 }
+    public void Start()
+    {
+
+        PlayerData playerdData = ConnectionManager.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerdData.colorId));
+    }
     public void Update()
     {
         if (!IsOwner) return;

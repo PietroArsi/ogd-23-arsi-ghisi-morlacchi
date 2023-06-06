@@ -23,6 +23,7 @@ public class ConnectionManager : NetworkBehaviour
     private string playerName;
     private const string PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER = "PlayerNameMultiplayer";
     public const int MAX_NUMBER_PLAYER = 4;
+    [SerializeField] private List<Color> playerColorList;
     //need to create when the game start
     [SerializeField] private Transform playerPrefab;
 
@@ -69,11 +70,21 @@ public class ConnectionManager : NetworkBehaviour
     {
         return playerName;
     }
-
+    //get color of the Player
+    public Color GetPlayerColor(int colorId)
+    {
+        Debug.Log("<color=yellow>ConnectionManager: Player color id: " + colorId +"</color>");
+        return playerColorList[colorId];
+    }
     public void SetPlayerName(string playerName)
     {
         this.playerName = playerName;
         PlayerPrefs.SetString(PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER, playerName);
+    }
+    // change the color
+    public void ChangePlayerColor(int colorId)
+    {
+        ChangePlayerColorServerRpc(colorId);
     }
     public override void OnNetworkSpawn()
     {
@@ -131,6 +142,8 @@ public class ConnectionManager : NetworkBehaviour
         playerDataNetworkList.Add(new PlayerData
         {
             clientID = clientID,
+            colorId = GetFirstAvailableColorId(),
+
         });
         SetPlayerNameServerRpc(GetPlayerName());
         SetPlayerIdServerRpc(AuthenticationService.Instance.PlayerId);
@@ -176,6 +189,7 @@ public class ConnectionManager : NetworkBehaviour
         SetPlayerIdServerRpc(AuthenticationService.Instance.PlayerId);
     }
 
+    //------------------------- PLAYER SERVER RPC -------------------------//
     //client tell the server its name 
     [ServerRpc(RequireOwnership = false)]
     private void SetPlayerNameServerRpc(string playerName, ServerRpcParams serverRpcParams = default)
@@ -197,7 +211,24 @@ public class ConnectionManager : NetworkBehaviour
         playerDataNetworkList[playerDataIndex] = playerData;
     }
 
-    
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangePlayerColorServerRpc(int colorId, ServerRpcParams serverRpcParams = default)
+    {
+        if (!IsColorAvailable(colorId))
+        {
+            //colorNotAvailable
+            return;
+
+        }
+        int playerDataIndex = getPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
+        PlayerData playerData = playerDataNetworkList[playerDataIndex];
+
+        playerData.colorId = colorId;
+        playerDataNetworkList[playerDataIndex] = playerData;
+
+
+    }
+
     //Get the id function form the sender of the ServerRpc
     private int getPlayerDataIndexFromClientId(ulong senderClientId)
     {
@@ -209,6 +240,36 @@ public class ConnectionManager : NetworkBehaviour
             }
         }
         return -1;
+    }
+    //check if the color for character selection is available
+    private bool IsColorAvailable(int colorId)
+    {
+        foreach (PlayerData playerData in playerDataNetworkList)
+        {
+            if (playerData.colorId == colorId)
+            {
+                //already used
+                return false;
+            }
+        }
+        return true;
+    }
+    //get the first color that is not used
+    private int GetFirstAvailableColorId()
+    {
+        for (int i = 0; i < playerColorList.Count; i++)
+        {
+            if (IsColorAvailable(i))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    //get list Color
+    public List<Color> totalColors()
+    {
+        return playerColorList;
     }
 
     // On player Disconnet 
@@ -247,6 +308,16 @@ public class ConnectionManager : NetworkBehaviour
         return GetPlayerDataFromClientId(NetworkManager.Singleton.LocalClientId);
     }
 
+
+    public bool showYou(ulong clientId)
+    {
+        PlayerData playerData = GetPlayerData();
+        if (playerData.clientID == clientId)
+            return true;
+        else
+            return false;
+
+    }
 
 
     //------------------------- HANDLE THE SPAWNABLE OBJECTS------------------------------------------////

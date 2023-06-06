@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &40919615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3330,12 +3330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e435bca4890d214c9ac119efc69b94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
   spawnableObj:
   - {fileID: 4214819476982542002, guid: 5ca1ede7a31b3424c98376f74a563986, type: 3}
   - {fileID: 2307626590562149801, guid: d49a6015cb341ea43bd02027d50ca059, type: 3}
   - {fileID: 4214819476982542002, guid: ebbdd9362ac858c48a278816f52f5220, type: 3}
   - {fileID: 4214819476982542002, guid: 3556c794faf20d241aceafe73d39556d, type: 3}
-  playerPrefab: {fileID: 0}
 --- !u!4 &643777920
 Transform:
   m_ObjectHideFlags: 0

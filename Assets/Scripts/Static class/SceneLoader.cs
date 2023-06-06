@@ -15,7 +15,7 @@ public static class SceneLoader
         LobbyManagement,
         JoinLobby,
         CharacterSlectionScreen,
-        SceneFlowLevel
+        NetworkTestLevel,
     }
 
     //this when passing form main menu (is for single player loading screen)

@@ -12,7 +12,7 @@ public class LobbyMenuUI : MonoBehaviour
     [Header("Create Lobby UI")]
     [SerializeField] private Button ReturnMenu;
     //[SerializeField] private Button JoinGameButton;
-    [SerializeField] private TMP_InputField nameLobbyInputs;
+    [SerializeField] private TextMeshProUGUI nameLobby;
     [SerializeField] private Button CreateLobby;
 
     [Header("Join Lobby UI")]
@@ -32,7 +32,7 @@ public class LobbyMenuUI : MonoBehaviour
         CreateLobby.onClick.AddListener(() =>
         {
 
-            CatnipLobby.Instance.CreateLobby(nameLobbyInputs.text);
+            CatnipLobby.Instance.CreateLobby(nameLobby.text);
         });
         
         ReturnMenu.onClick.AddListener(() =>
@@ -40,17 +40,8 @@ public class LobbyMenuUI : MonoBehaviour
 
             SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
         });
-        //}
 
-        // JoinGameButton.onClick.AddListener(() =>
-        //  {
-        //      ConnectionManager.Instance.StartClient();
-        //      CatnipLobby.Instance.QuickJoin();
-        //  });
-
-
-
-        playerName.text = GenerateRandomName();
+        playerName.text = GenerateRandomPlayerName();
 
         lobbyTemplate.gameObject.SetActive(false);
 
@@ -65,11 +56,13 @@ public class LobbyMenuUI : MonoBehaviour
             hostCanvas.SetActive(false);
             JoinCanvas.SetActive(true);
         }
+
+      nameLobby.text=NameGenerator.GenerateRandomName();
     }
 
     private void Start()
     {
-       playerName.text = "Cat0" + Random.Range(0, 100);
+       //playerName.text = "Cat0" + Random.Range(0, 100);
        ConnectionManager.Instance.SetPlayerName(playerName.text);
 
         CatnipLobby.Instance.OnLobbyListChanged += CatnipLobby_OnLobbyListChanged;
@@ -107,7 +100,7 @@ public class LobbyMenuUI : MonoBehaviour
         CatnipLobby.Instance.OnLobbyListChanged -= CatnipLobby_OnLobbyListChanged;
     }
 
-    private string GenerateRandomName() {
+    private string GenerateRandomPlayerName() {
         
         return "Cat0" + Random.Range(0, 100);
     }

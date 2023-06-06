@@ -170,12 +170,9 @@ public class CatnipLobby : MonoBehaviour
     }
     private void HandlePeriodicListLobbies()
     {
-         Debug.Log(joinedLobby==null);
-        Debug.Log(AuthenticationService.Instance.IsSignedIn);
-       
         if (joinedLobby == null && AuthenticationService.Instance.IsSignedIn && SceneManager.GetActiveScene().name==SceneLoader.Scene.LobbyManagement.ToString())
         {
-            Debug.Log("<color=yellow>CatnipLobby See List</color>");
+            //Debug.Log("<color=yellow>CatnipLobby See List</color>");
             lobbylistTimer -= Time.deltaTime;
             if (lobbylistTimer <= 0f)
             {
@@ -282,7 +279,7 @@ public class CatnipLobby : MonoBehaviour
             }
             };
             QueryResponse queryResponse = await LobbyService.Instance.QueryLobbiesAsync(queryLobbiesOptions);
-            Debug.Log("<color=yellow>CatnipLobby Query Response Lobby: "+ queryResponse +"</ color > ");
+            Debug.Log("<color=yellow>CatnipLobby Query Response Lobby: "+ queryResponse +"</color>");
 
            OnLobbyListChanged?.Invoke(this, new OnLobbyListChangedEventArgs
             {
