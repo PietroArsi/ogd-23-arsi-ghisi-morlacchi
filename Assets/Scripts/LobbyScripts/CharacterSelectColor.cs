@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class CharacterSelectColor : MonoBehaviour
 {
-   // [SerializeField] private List<int> colorId;
     [SerializeField] private int colorId;
    // [SerializeField] private Image image;
 
@@ -17,11 +16,7 @@ public class CharacterSelectColor : MonoBehaviour
     private void Start()
     {
         ConnectionManager.Instance.onListPlayerDataChanged += ConnectionManager_onListPlayerDataChanged;
-        Debug.Log("IMAGE");
-        
         //image.color = ConnectionManager.Instance.GetPlayerColor(colorId[currentIndex]);
-    
-        //colorIsselected();
     }
 
     private void ConnectionManager_onListPlayerDataChanged(object sender, System.EventArgs e)
@@ -69,17 +64,4 @@ public class CharacterSelectColor : MonoBehaviour
             }
         }
     }
-    /*
-    private void colorIsselected()
-    {
-        foreach(int currentColor in colorId)
-        if (ConnectionManager.Instance.GetPlayerData().colorId == currentColor)
-        {
-            selectedColor.SetActive(true);
-        }
-        else
-        {
-            selectedColor.SetActive(false);
-        }
-    }*/
 }

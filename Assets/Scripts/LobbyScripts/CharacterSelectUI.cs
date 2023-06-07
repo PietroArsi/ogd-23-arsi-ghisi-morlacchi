@@ -13,42 +13,14 @@ public class CharacterSelectUI : MonoBehaviour
     [Header("Character Menu UI")]
     [SerializeField] private Button startButton;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
-    [SerializeField] private Button Menu;
     [SerializeField] private int connettedPlayers;
     // Start is called before the first frame update
     void Awake()
     {
-        startButton.onClick.AddListener(()=>{
-
-
-            CatnipLobby.Instance.DeleteLobby();
-            //ConnectionManager.Instance.StartGame();
-            SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
-           
-            ConnectionManager.Instance.spawnPlayers();
-        });
-
         if (!NetworkManager.Singleton.IsHost)
             startButton.gameObject.SetActive(false);
         else
             startButton.enabled = false;
-        Menu.onClick.AddListener(() => {
-       
-            NetworkManager.Singleton.Shutdown();
-           
-            if (NetworkManager.Singleton.IsHost)
-            {
-                Debug.Log("<color:yellow>CharacterSlectUI DELETE LOBBY </color>");
-                CatnipLobby.Instance.DeleteLobby();
-            }
-            else
-            {
-                Debug.Log("<color:yellow>CharacterSlectUI LEAVE LOBBY</color>");
-                CatnipLobby.Instance.LeaveLobby();
-            }
-            SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
-            ConnectionManager.Instance.spawnPlayers();
-        });
     }
 
     private void Start()
@@ -60,6 +32,29 @@ public class CharacterSelectUI : MonoBehaviour
         lobbyNameText.text = "Lobby Name: " + lobby.Name;
     }
 
+    public void StartGame()
+    {
+        CatnipLobby.Instance.DeleteLobby();
+        SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
+        ConnectionManager.Instance.spawnPlayers();
+    }
+    public void ReturnMenu()
+    {
+        NetworkManager.Singleton.Shutdown();
+
+        if (NetworkManager.Singleton.IsHost)
+        {
+            Debug.Log("<color:yellow>CharacterSlectUI DELETE LOBBY </color>");
+            CatnipLobby.Instance.DeleteLobby();
+        }
+        else
+        {
+            Debug.Log("<color:yellow>CharacterSlectUI LEAVE LOBBY</color>");
+            CatnipLobby.Instance.LeaveLobby();
+        }
+        SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+        ConnectionManager.Instance.spawnPlayers();
+    }
     private void NetworkManager_OnClientDisconnectCallback(ulong obj)
     {
         Debug.Log("<color=yellow>CharacterSelectUI OnClientDisconnetedCallback</color>");
@@ -81,8 +76,17 @@ public class CharacterSelectUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_Client_OnClientConnetedCallback;
-        NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
+        
+        if (NetworkManager.Singleton != null)
+        {
+            Debug.Log("<color=yellow>CharacterSelectUI remove event</color>");
+            NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_Client_OnClientConnetedCallback;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
+        }
+        else
+        {
+            Debug.Log("<color=yellow>CharacterSelectUI no event to remove</color>");
+        }
     }
 
 

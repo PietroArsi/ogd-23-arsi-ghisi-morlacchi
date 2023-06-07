@@ -53,6 +53,7 @@ public class CharaterSelectPlayer : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("<color=yellow> CharacterSelectPlayer called Destroy function OnPlayerDataNetworkChanged event</color>");
         ConnectionManager.Instance.onListPlayerDataChanged -= ConnectionManager_OnPlayerDataNetworkChanged;
     }
 }

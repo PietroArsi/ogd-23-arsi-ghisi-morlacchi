@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class LobbyMenuUI : MonoBehaviour
 {
     // [Header("Movement")]
-    public static LobbyManagementUI LocalInstance { get; private set; }
+    //public static LobbyManagementUI LocalInstance { get; private set; }
     [Header("Create Lobby UI")]
-    [SerializeField] private Button ReturnMenu;
+   // [SerializeField] private Button ReturnMenu;
     //[SerializeField] private Button JoinGameButton;
     [SerializeField] private TextMeshProUGUI nameLobby;
-    [SerializeField] private Button CreateLobby;
+    //[SerializeField] private Button CreateLobby;
 
     [Header("Join Lobby UI")]
     [SerializeField] private Transform lobbyContainer;
@@ -29,19 +29,8 @@ public class LobbyMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        CreateLobby.onClick.AddListener(() =>
-        {
-
-            CatnipLobby.Instance.CreateLobby(nameLobby.text);
-        });
-        
-        ReturnMenu.onClick.AddListener(() =>
-        {
-
-            SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
-        });
-
         playerName.text = GenerateRandomPlayerName();
+        nameLobby.text = NameGenerator.GenerateRandomName();
 
         lobbyTemplate.gameObject.SetActive(false);
 
@@ -56,19 +45,24 @@ public class LobbyMenuUI : MonoBehaviour
             hostCanvas.SetActive(false);
             JoinCanvas.SetActive(true);
         }
-
-      nameLobby.text=NameGenerator.GenerateRandomName();
     }
 
     private void Start()
     {
-       //playerName.text = "Cat0" + Random.Range(0, 100);
        ConnectionManager.Instance.SetPlayerName(playerName.text);
 
         CatnipLobby.Instance.OnLobbyListChanged += CatnipLobby_OnLobbyListChanged;
         UpdateLobbyList(new List<Lobby>());
     }
 
+    public void CreateLobby()
+    {
+        CatnipLobby.Instance.CreateLobby(nameLobby.text);
+    }
+    public void ReturnMenu()
+    {
+        SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+    }
     private void CatnipLobby_OnLobbyListChanged(object sender, CatnipLobby.OnLobbyListChangedEventArgs e)
     {
         UpdateLobbyList(e.lobbyList);
@@ -97,6 +91,7 @@ public class LobbyMenuUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("<color=yellow> LobbyMenuUI called Destroy function Remove LobbyListChangedEvent</color>");
         CatnipLobby.Instance.OnLobbyListChanged -= CatnipLobby_OnLobbyListChanged;
     }
 
