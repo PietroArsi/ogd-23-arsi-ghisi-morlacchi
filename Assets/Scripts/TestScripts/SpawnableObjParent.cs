@@ -14,6 +14,7 @@ public interface SpawnableObjParent
     public bool hasSpawnObject();
     public NetworkObject getNetworkObject();
     public void setspawnObject(GameObject obj);
+    public void ClearSpawnObject();
 
     //public bool IsListEmpty();
 }

@@ -78,6 +78,11 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     {
         spawnObject = obj;
     }
+        public void ClearSpawnObject()
+    {
+        spawnObject = null;
+    }
+
     //this need to be updated to check when there is a big block i cannot place it on top of it
     private void GetInput()
     {
@@ -87,7 +92,6 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
             PlaceDownObject();
     }
 
-    
     private void PickUpObject()
     {
         
@@ -97,7 +101,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
 
             if (c.gameObject.GetComponent<pickableObject>())
             {
-
+                c.gameObject.GetComponent<pickableObject>().currentParent().ClearSpawnObject();
                 c.GetComponent<pickableObject>().setObjectParent(this);
                 Debug.Log("<color=yellow>PickUp Object</color>");
             }
@@ -124,7 +128,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
             }
         }
         //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-        spawnObject = null;
+        ClearSpawnObject();
     }
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
     {

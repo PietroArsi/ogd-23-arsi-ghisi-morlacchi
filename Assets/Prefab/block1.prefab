@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 11428936908723074}
   - component: {fileID: 7382712714937235469}
   - component: {fileID: 8030659072659575327}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: block1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,8 +33,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5736184076579115743}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -129,11 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac945cd89d0f2c4ebb12d6761162990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickedObj: {fileID: 4214819476982542002}
   targetTransform: {fileID: 0}
   placebleObject: {fileID: 0}
-  placementLocation:
-  - {fileID: 5736184076579115743}
   isPlaced: 0
 --- !u!114 &8030659072659575327
 MonoBehaviour:
@@ -148,48 +144,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
---- !u!1 &6272122328745297780
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5736184076579115743}
-  - component: {fileID: 6277759576739122167}
-  m_Layer: 0
-  m_Name: PlacementLocation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5736184076579115743
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272122328745297780}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7293354833011513103}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6277759576739122167
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272122328745297780}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

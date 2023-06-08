@@ -54,6 +54,10 @@ public class pickableObject : NetworkBehaviour//,SpawnableObjParent
         currentParent.TryGet(out NetworkObject parentSpawn);
         SpawnableObjParent parent = parentSpawn.GetComponent<SpawnableObjParent>();
         currentPickParent = parent;
+        if (this.currentPickParent != null)
+        {
+            this.currentPickParent.ClearSpawnObject();
+        }
         visualDebugger.AddMessage("Update parent of the object");
         //visualDebugger.AddMessage("Parent: "+ parent);
         currentPickParent.setspawnObject(this.gameObject);
@@ -66,6 +70,10 @@ public class pickableObject : NetworkBehaviour//,SpawnableObjParent
 
     }
 
+    public SpawnableObjParent currentParent()
+    {
+        return currentPickParent;
+    }
     /*
     public Transform getObjectFollowTransform()
     {

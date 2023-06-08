@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,6 +8,13 @@ public class placeObj : NetworkBehaviour,SpawnableObjParent
 {
     [SerializeField] private GameObject spawnObject;
     [SerializeField] private Transform placement;
+    public static event EventHandler OnAnyObjectPlacedHere;
+
+    public void ClearSpawnObject()
+    {
+        spawnObject = null;
+    }
+
     public NetworkObject getNetworkObject()
     {
         return NetworkObject;
@@ -33,6 +41,11 @@ public class placeObj : NetworkBehaviour,SpawnableObjParent
     public void setspawnObject(GameObject obj)
     {
         spawnObject = obj;
+
+        if (spawnObject != null)
+        {
+            OnAnyObjectPlacedHere?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     // Start is called before the first frame update
