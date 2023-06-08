@@ -6,7 +6,8 @@ using UnityEngine;
 public class placeObj : NetworkBehaviour,SpawnableObjParent
 {
     [SerializeField] private GameObject spawnObject;
-    public NetworkObject getNetwrokObject()
+    [SerializeField] private Transform placement;
+    public NetworkObject getNetworkObject()
     {
         return NetworkObject;
     }
@@ -18,17 +19,15 @@ public class placeObj : NetworkBehaviour,SpawnableObjParent
 
     public Transform getObjectFollowTransform()
     {
-        return transform;
+        if (placement != null)
+            return placement;
+       else
+            return transform;
     }
 
     public bool hasSpawnObject()
     {
         return spawnObject != null;
-    }
-
-    public bool IsListEmpty()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void setspawnObject(GameObject obj)

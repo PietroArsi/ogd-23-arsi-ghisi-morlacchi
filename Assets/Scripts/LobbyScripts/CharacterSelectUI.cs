@@ -20,7 +20,7 @@ public class CharacterSelectUI : MonoBehaviour
         if (!NetworkManager.Singleton.IsHost)
             startButton.gameObject.SetActive(false);
         else
-            startButton.enabled = false;
+            startButton.enabled = true;
     }
 
     private void Start()
@@ -59,7 +59,7 @@ public class CharacterSelectUI : MonoBehaviour
     {
         Debug.Log("<color=yellow>CharacterSelectUI OnClientDisconnetedCallback</color>");
         connettedPlayers--;
-        startButton.enabled = false;
+        startButton.enabled = true;
         startButton.gameObject.SetActive(false);
     }
 

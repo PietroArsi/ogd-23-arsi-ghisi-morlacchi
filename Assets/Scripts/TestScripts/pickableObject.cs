@@ -5,15 +5,15 @@ using Unity.Netcode;
 
 
 //REALLY ROUGH Pickup objects 
-public class pickableObject : NetworkBehaviour,SpawnableObjParent
+public class pickableObject : NetworkBehaviour//,SpawnableObjParent
 {
 
-    [SerializeField]private GameObject pickedObj;
+   // [SerializeField]private GameObject pickedObj;
     [SerializeField] private FollowTransform targetTransform;
     [SerializeField] private SpawnableObjParent currentPickParent;
 
     [SerializeField] private GameObject placebleObject;
-    [SerializeField] private List<Transform> placementLocation = new List<Transform>();
+    //[SerializeField] private List<Transform> placementLocation = new List<Transform>();
     //private GameObject attachedObj;
 
     public bool isPlaced = false;
@@ -34,9 +34,7 @@ public class pickableObject : NetworkBehaviour,SpawnableObjParent
 
         // targetTransform.SetTargetTransform(currentParent);
         //problem with picking up object in the test this is going to be updated in the future
-        
-       
-        setObjectParentServerRpc(currentParent.getNetwrokObject());
+        setObjectParentServerRpc(currentParent.getNetworkObject());
       
     }
 
@@ -68,6 +66,7 @@ public class pickableObject : NetworkBehaviour,SpawnableObjParent
 
     }
 
+    /*
     public Transform getObjectFollowTransform()
     {
         
@@ -80,46 +79,6 @@ public class pickableObject : NetworkBehaviour,SpawnableObjParent
         }
         return null;
 
-        
-        //return this.transform;
-
     }
-
-    public bool hasSpawnObject()
-    {
-        return placebleObject != null;
-    }
-
-    public NetworkObject getNetwrokObject()
-    {
-        return NetworkObject;
-    }
-
-    public pickableObject GetObject()
-    {
-        return placebleObject.GetComponent<pickableObject>();
-    }
-
-    public void setspawnObject(GameObject obj)
-    {
-        placebleObject = obj;
-    }
-    public bool IsListEmpty()
-    {
-        int count = 0;
-        foreach(Transform place in placementLocation)
-        {
-            if (place == null) count++;
-            if (count == placementLocation.Count) break;
-        }
-        if (count == placementLocation.Count) return true;
-        else return false;
-    }
-
-
-
-    public void destoryObjec()
-    {
-        Destroy(this.gameObject);
-    }
+    */
 }

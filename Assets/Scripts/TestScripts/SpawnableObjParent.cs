@@ -12,8 +12,8 @@ public interface SpawnableObjParent
     public pickableObject GetObject();
     public Transform getObjectFollowTransform();
     public bool hasSpawnObject();
-    public NetworkObject getNetwrokObject();
+    public NetworkObject getNetworkObject();
     public void setspawnObject(GameObject obj);
 
-    public bool IsListEmpty();
+    //public bool IsListEmpty();
 }

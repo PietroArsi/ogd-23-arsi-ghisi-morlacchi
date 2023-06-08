@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetWall : ResourceInteractable
+public class GetWall : MonoBehaviour//ResourceInteractable
 {
     public GameObject block;
 
@@ -19,11 +19,17 @@ public class GetWall : ResourceInteractable
     {
         
     }
-    public override void Collect()
+   // public override void Collect()
+    //{
+     //   if (!PlayerNetwork.LocalIstance.hasSpawnObject())
+    //     pickableObject.spawnObj(block, PlayerNetwork.LocalIstance.gameObject);
+
+
+    //}
+
+    public void getWall()
     {
         if (!PlayerNetwork.LocalIstance.hasSpawnObject())
-         pickableObject.spawnObj(block, PlayerNetwork.LocalIstance.gameObject);
-
-
+            pickableObject.spawnObj(block, PlayerNetwork.LocalIstance.gameObject);
     }
 }

@@ -325,7 +325,7 @@ public class ConnectionManager : NetworkBehaviour
     //Functionality to spawn an non player object 
     public void spawnNetworkObject(GameObject currentObj, SpawnableObjParent parent)
     { 
-        spawnObjServerRpc(getSpawnIndex(currentObj),parent.getNetwrokObject());
+        spawnObjServerRpc(getSpawnIndex(currentObj),parent.getNetworkObject());
     }
 
    
