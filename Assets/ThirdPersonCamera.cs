@@ -39,7 +39,7 @@ public class ThirdPersonCamera : MonoBehaviour
         //}
         if(PlayerNetwork.LocalIstance!=null)
         {
-            Debug.Log("HELLO THERE");
+            //Debug.Log("HELLO THERE");
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = true;
             player = PlayerNetwork.LocalIstance.gameObject.transform;

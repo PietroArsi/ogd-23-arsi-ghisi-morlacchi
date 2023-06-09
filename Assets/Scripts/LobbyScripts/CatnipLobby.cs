@@ -163,7 +163,7 @@ public class CatnipLobby : MonoBehaviour
             {
                 float heartbeatTimerMax = 15f;
                 heartbeatTimer = heartbeatTimerMax;
-                Debug.Log("<color=yellow>KeepLobbyAlive</color>");
+                Debug.Log("<color=yellow>CatnipLobby: KeepLobbyAlive</color>");
                 LobbyService.Instance.SendHeartbeatPingAsync(joinedLobby.Id);
             }
         }

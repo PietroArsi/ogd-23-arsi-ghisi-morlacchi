@@ -82,7 +82,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     }
         public void ClearSpawnObject()
     {
-        Debug.Log("<color=yellow> remove spawnObject");
+        Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
         spawnObject = null;
     }
 
@@ -106,7 +106,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
             {
                 c.gameObject.GetComponent<pickableObject>().currentParent().ClearSpawnObject();
                 c.GetComponent<pickableObject>().setObjectParent(this);
-                Debug.Log("<color=yellow>PickUp Object</color>");
+                Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
             else if(c.gameObject.GetComponent<GetWall>()) {
 
@@ -117,7 +117,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     }
     private void PlaceDownObject()
     {
-        Debug.Log("<color=yellow>Leave Object </color>");
+        Debug.Log("<color=yellow>PlayerNetwork Leave Object </color>");
        
         Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders)
