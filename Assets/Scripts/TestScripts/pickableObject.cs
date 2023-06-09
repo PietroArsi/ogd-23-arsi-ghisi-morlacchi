@@ -31,7 +31,6 @@ public class pickableObject : NetworkBehaviour//,SpawnableObjParent
 
     public void setObjectParent(SpawnableObjParent currentParent)
     {
-
         // targetTransform.SetTargetTransform(currentParent);
         //problem with picking up object in the test this is going to be updated in the future
         setObjectParentServerRpc(currentParent.getNetworkObject());
@@ -54,10 +53,6 @@ public class pickableObject : NetworkBehaviour//,SpawnableObjParent
         currentParent.TryGet(out NetworkObject parentSpawn);
         SpawnableObjParent parent = parentSpawn.GetComponent<SpawnableObjParent>();
         currentPickParent = parent;
-        if (this.currentPickParent != null)
-        {
-            this.currentPickParent.ClearSpawnObject();
-        }
         visualDebugger.AddMessage("Update parent of the object");
         //visualDebugger.AddMessage("Parent: "+ parent);
         currentPickParent.setspawnObject(this.gameObject);
@@ -74,19 +69,4 @@ public class pickableObject : NetworkBehaviour//,SpawnableObjParent
     {
         return currentPickParent;
     }
-    /*
-    public Transform getObjectFollowTransform()
-    {
-        
-        foreach (Transform place in placementLocation)
-        {
-            if(place!=null)
-                return place;
-            
-
-        }
-        return null;
-
-    }
-    */
 }

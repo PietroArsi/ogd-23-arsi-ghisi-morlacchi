@@ -12,7 +12,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     public GameObject spawnObject;
     public GameObject temp;
     public bool collect;
-    public GameObject ground;
+    //public GameObject ground;
 
 
     public LayerMask interactionLayer;
@@ -29,7 +29,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         {
             LocalIstance = this;
             this.transform.position = new Vector3(0, 0.61f, 0);
-            ground = GameObject.Find("map");
+            //ground = GameObject.Find("map");
             // temp = this.gameObject;
         }
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
@@ -51,6 +51,8 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     {
         if (!IsOwner) return;
         GetInput();
+       // bool notPlacable = Physics.BoxCast(interactionCollider.transform.position, interactionCollider.localScale, Vector3.forward, Quaternion.identity, 1f);
+        //Debug.Log("CAN I PLACE OBJECT" + notPlacable);
     }
 
     // functionality needed to place/move the picked object
@@ -80,6 +82,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     }
         public void ClearSpawnObject()
     {
+        Debug.Log("<color=yellow> remove spawnObject");
         spawnObject = null;
     }
 
@@ -115,20 +118,27 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     private void PlaceDownObject()
     {
         Debug.Log("<color=yellow>Leave Object </color>");
-        spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-        //spawnObject = null;
+       
         Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders)
         {
-
-            if (c.gameObject.GetComponent<SpawnableObjParent>() != null)
+            if (c.name == "Cube" && hasSpawnObject())
             {
-                spawnObject.GetComponent<pickableObject>().setObjectParent(c.GetComponent<SpawnableObjParent>());
-
+                GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
+                ClearSpawnObject();
             }
+            if (c.gameObject.GetComponent<SpawnableObjParent>() != null && hasSpawnObject() && !c.gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
+            {
+                if (GetObject().transform.gameObject.name != "block1(Clone)")
+                {
+                    GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
+                    ClearSpawnObject();
+                }
+            }
+
         }
         //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-        ClearSpawnObject();
+        
     }
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
     {

@@ -52,7 +52,7 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
     {
         //_plant
         
-        Debug.Log(message);
+        //Debug.Log(message);
         var clientId = serverRpcParams.Receive.SenderClientId;
         
         visualDebugger.AddMessage("Recive message form client: "+clientId.ToString());

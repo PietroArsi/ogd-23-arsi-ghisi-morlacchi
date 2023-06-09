@@ -32,25 +32,18 @@ public class FollowTransform : MonoBehaviour
         {
             return;
         }
-        //this is temporary is hardcoded for easy testing 
-        //in this example, we need to check in wich block of the map we need to place the object so the parent can be placed
-        //thi part of the code is not ment to remove the target transform, need to talk to pietro.
-        //anotehr problem to solve is overallping bocse, and when place a signle box no collsion
-        else if (targetTransform.name == "map")
+        else if (targetTransform.gameObject.layer == 7)
         {
             targetTransform.gameObject.GetComponent<SpawnableObjParent>().setspawnObject(null);
-            targetTransform = null;
-            //this need to be modified
-            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+            float height = targetTransform.position.y + transform.localScale.y;
+            //Debug.Log(height);
+            transform.position = new Vector3(transform.position.x,height, transform.position.z);
             transform.rotation = transform.rotation;
             gameObject.GetComponent<BoxCollider>().enabled = true;
 
             gameObject.layer = LayerMask.NameToLayer("Interactable");
 
         }
-        //this need to be changed is going to be removed the first part of the transform
-        //else if (targetTransform.GetComponent<pickableObject>()|| targetTransform.gameObject.GetComponentInParent<pickableObject>())
-        //
         else
         {
             transform.position = targetTransform.position;
