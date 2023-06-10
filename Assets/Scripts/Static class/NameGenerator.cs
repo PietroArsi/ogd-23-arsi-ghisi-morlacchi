@@ -8,26 +8,40 @@ public static class NameGenerator
     private static List<string> words;
     // private static List<string> generatedNames;
 
-    public static string GenerateRandomName(){
+    public static string GenerateRandomName(List<string> blacklist = null){
         LoadNames();
 
-        string word1 = words[Random.Range(0, words.Count)];
-        string word2 = words[Random.Range(0, words.Count)];
-        while(word2 == word1){
-            word2 = words[Random.Range(0, words.Count)];
+        HashSet<string> blacklistSet = null;
+        if (blacklist != null) {
+            blacklistSet = new HashSet<string>(blacklist);
         }
-        string generatedName = $"{word1}-{word2}";
 
-        //CHECK IF GENERATED NAME ALREADY EXISTS ON THE SERVER
+        string result = GenerateName();
+        while(blacklistSet != null && blacklistSet.Contains(result)) {
+            result = GenerateName();
+        }
 
-        return generatedName;
+        return result;
     }
 
     private static void LoadNames(){
         if(!namesLoaded){
             string textFile = Resources.Load<TextAsset>("names").ToString();
-            words = new List<string>(textFile.Split("\n"));
+            //words = new List<string>(textFile.Split("\n"));
+            foreach(string s in textFile.Split("\n")) {
+                words.Add(s.Replace("\r", ""));
+            }
             namesLoaded = true; 
         }
+    }
+
+    private static string GenerateName() {
+        string word1 = words[Random.Range(0, words.Count)];
+        string word2 = words[Random.Range(0, words.Count)];
+        while (word2 == word1) {
+            word2 = words[Random.Range(0, words.Count)];
+        }
+        string generatedName = $"{word1}-{word2}";
+        return generatedName;
     }
 }
