@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class GameManagerStates : NetworkBehaviour
@@ -32,7 +33,7 @@ public class GameManagerStates : NetworkBehaviour
 
     // Game State Messages
     //[SerializeField] private GameObject ReadyPopUp;
-   // [SerializeField] private GameObject WaitingOtherPlayer;
+    //[SerializeField] private GameObject WaitingOtherPlayer;
     //[SerializeField] private GameObject Countdown;
     //[SerializeField] private GameObject Timer;
 
@@ -45,14 +46,14 @@ public class GameManagerStates : NetworkBehaviour
 
     void Start()
     {
-        //ReadyPopUp.SetActive(true);
+        // ReadyPopUp.SetActive(true);
         //WaitingOtherPlayer.SetActive(false);
-
+        ReadyButtonPlayer();
     }
 
     public override void OnNetworkSpawn()
     {
-      //  state.OnValueChanged += State_OnValueChanged;
+        state.OnValueChanged += State_OnValueChanged;
         if (IsServer)
         {
             //NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
@@ -72,21 +73,20 @@ public class GameManagerStates : NetworkBehaviour
             Transform playerTransform = Instantiate(playerPrefab);
             playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
         }
-        state.Value = State.CountdownToStart;
     }
-    
+
     public void ReadyButtonPlayer()
     {
         if (state.Value == State.WaitingOtherPlayers)
         {
             isLocalPlayerReady = true;
             OnLocalPlayerReadyChanged?.Invoke(this, EventArgs.Empty);
-            //ReadyPopUp.SetActive(false);
-            //WaitingOtherPlayer.SetActive(true);
-            //SetPlayerReadyServerRpc();
+            Debug.Log("START WITH THIS");
+          //  ReadyPopUp.SetActive(false);
+           // WaitingOtherPlayer.SetActive(true);
+            SetPlayerReadyServerRpc();
         }
     }
-    /*
     [ServerRpc(RequireOwnership = false)]
     private void SetPlayerReadyServerRpc(ServerRpcParams serverRpcParams = default)
     {
@@ -105,17 +105,16 @@ public class GameManagerStates : NetworkBehaviour
 
         if (allClientsReady)
         {
-            showGameClientRpc();
             Debug.Log("ALL READY");
+            showGameClientRpc();
             state.Value = State.CountdownToStart;
         }
     }
     [ClientRpc]
     private void showGameClientRpc()
     {
-        WaitingOtherPlayer.SetActive(false);
+       Debug.Log("SHOW COUTDONW TO PLAYER");
     }
-    */
     void Update()
     {
         if (!IsHost)
@@ -177,14 +176,15 @@ public class GameManagerStates : NetworkBehaviour
     {
         return isLocalPlayerReady;
     }
-    public float GetGamePlayingTimerNormalized()
+    public string GetGamePlayingTimerNormalized()
     {
-        return 1 - (gamePlayingTimer.Value / maxGamePlayTimer);
+        string minutes = Mathf.Floor(gamePlayingTimer.Value / 60).ToString("00");
+        string seconds = Mathf.Floor(gamePlayingTimer.Value % 60).ToString("00");
+        return minutes + ":" + seconds;
     }
 
     public string GetCurrentScene()
     {
         return state.Value.ToString();
     }
-   
 }

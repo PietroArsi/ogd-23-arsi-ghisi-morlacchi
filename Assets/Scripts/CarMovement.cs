@@ -58,9 +58,10 @@ public class CarMovement : NetworkBehaviour
 
     private void Update() {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-        GetInput();
-
+        if (IsHost)
+        {
+            GetInput();
+        }
         attackCooldown.Advance(Time.deltaTime);
     }
 

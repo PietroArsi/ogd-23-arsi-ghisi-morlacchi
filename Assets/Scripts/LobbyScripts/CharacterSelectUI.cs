@@ -36,7 +36,6 @@ public class CharacterSelectUI : MonoBehaviour
     {
         CatnipLobby.Instance.DeleteLobby();
         SceneLoader.LoadNetwork(SceneLoader.Scene.LevelSelection);
-       // ConnectionManager.Instance.spawnPlayers();
     }
     public void ReturnMenu()
     {
