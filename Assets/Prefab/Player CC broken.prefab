@@ -450,12 +450,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5783803693308687763}
-  - component: {fileID: 5783803693308687761}
   - component: {fileID: 5783803693308687762}
-  - component: {fileID: -6263332634458952506}
-  - component: {fileID: 210512320678051429}
   m_Layer: 6
-  m_Name: Player CC
+  m_Name: Player CC broken
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -478,35 +475,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5783803693308687761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5783803693308687758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd59e5dc8cf12048add830cb28b2d6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  groundDrag: 5
-  jumpForce: 12
-  jumpCooldown: 0.25
-  airMultiplier: 0.4
-  canJump: 0
-  playerAnimator: {fileID: 5783803692576667193}
-  jumpKey: 32
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 128
-  orientation: {fileID: 5783803694257311782}
-  interactionLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  interactionCollider: {fileID: 5783803693882910956}
 --- !u!143 &5783803693308687762
 CharacterController:
   m_ObjectHideFlags: 0
@@ -525,43 +493,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6263332634458952506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5783803693308687758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e30a89eec8f02459503e734d16f943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdPosition: {fileID: 717751592603768968}
-  spawnObject: {fileID: 0}
-  temp: {fileID: 0}
-  collect: 0
-  ground: {fileID: 0}
-  interactionLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  interactionCollider: {fileID: 2570226658538745779}
---- !u!114 &210512320678051429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5783803693308687758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &5783803693476502229
 GameObject:
   m_ObjectHideFlags: 0

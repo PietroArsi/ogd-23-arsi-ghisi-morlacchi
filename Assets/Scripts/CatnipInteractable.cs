@@ -22,13 +22,13 @@ public class CatnipInteractable : ResourceInteractable
             //plantModel.SetActive(true);
             readyToCollect = true;
             // luca addition
-            CatnipPickUpNetwork.Instance.respawnCatnipNetwork(plantModel);
+            //CatnipPickUpNetwork.Instance.respawnCatnipNetwork(plantModel);
         }
     }
 
     public override void Collect() {
         //Debug.Log($"Catnip gathered!");
-        visualDebugger.AddMessage("Catnip gathered");
+        //visualDebugger.AddMessage("Catnip gathered");
 
         //gm.AddCatnip(1);
 
@@ -37,6 +37,6 @@ public class CatnipInteractable : ResourceInteractable
         resourceCooldown.Set(respawnTime);
 
         //luca possible additions
-        CatnipPickUpNetwork.Instance.Adapt(plantModel);
+        //CatnipPickUpNetwork.Instance.Adapt(plantModel);
     }
 }
