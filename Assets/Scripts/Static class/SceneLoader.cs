@@ -10,10 +10,12 @@ public static class SceneLoader
     public enum Scene
     {
         //temporary names
+        Title,
         MainMenu,
         LobbyManagement,
+        JoinLobby,
         CharacterSlectionScreen,
-        SceneFlowLevel
+        NetworkTestLevel,
     }
 
     //this when passing form main menu (is for single player loading screen)

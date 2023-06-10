@@ -64,6 +64,11 @@ public class HostLobbyDisconnection : MonoBehaviour
 
     private void OnDestroy()
     {
-        NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
+        if (NetworkManager.Singleton != null)
+        {
+            Debug.Log("<color=yellow> HostLobbyDisconnet called Destroy function OnClientDisconnetCallback Function</color>");
+            NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
+        }
+
     }
 }

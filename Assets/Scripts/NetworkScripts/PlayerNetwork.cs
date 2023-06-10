@@ -12,12 +12,14 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     public GameObject spawnObject;
     public GameObject temp;
     public bool collect;
-    public GameObject ground;
+    //public GameObject ground;
 
 
     public LayerMask interactionLayer;
     public Transform interactionCollider;
     public static PlayerNetwork LocalIstance { get; private set; }
+
+    [SerializeField] private PlayerVisual playerVisual;
 
     //private bool _carriedObject=false;
     // Start is called before the first frame update
@@ -27,7 +29,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         {
             LocalIstance = this;
             this.transform.position = new Vector3(0, 0.61f, 0);
-            ground = GameObject.Find("map");
+            //ground = GameObject.Find("map");
             // temp = this.gameObject;
         }
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
@@ -39,11 +41,21 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
       
     }
 }
+    public void Start()
+    {
+
+        PlayerData playerdData = ConnectionManager.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerdData.colorId));
+    }
     public void Update()
     {
         if (!IsOwner) return;
         GetInput();
+       // bool notPlacable = Physics.BoxCast(interactionCollider.transform.position, interactionCollider.localScale, Vector3.forward, Quaternion.identity, 1f);
+        //Debug.Log("CAN I PLACE OBJECT" + notPlacable);
     }
+
+    // functionality needed to place/move the picked object
     public Transform getObjectFollowTransform()
     {
         return holdPosition;
@@ -54,7 +66,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         return spawnObject != null;
     }
 
-    public NetworkObject getNetwrokObject()
+    public NetworkObject getNetworkObject()
     {
         return NetworkObject;
     }
@@ -68,51 +80,71 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     {
         spawnObject = obj;
     }
+        public void ClearSpawnObject()
+    {
+        Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
+        spawnObject = null;
+    }
+
     //this need to be updated to check when there is a big block i cannot place it on top of it
     private void GetInput()
     {
+        if (Input.GetButtonDown("Fire1") && !hasSpawnObject())
+            PickUpObject();
+        if (Input.GetKeyDown(KeyCode.Space) && hasSpawnObject())
+            PlaceDownObject();
+    }
 
-
-        collect = Input.GetKeyDown(KeyCode.Space);
-
-        // need to modify here avoid bugs the probelm is when i find another interactable without the spawnableobjectParent; add a layer
-        if (collect && hasSpawnObject())
+    private void PickUpObject()
+    {
+        
+        Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
+        foreach (Collider c in hitColliders)
         {
-            spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-            //spawnObject = null;
-            Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
-            foreach (Collider c in hitColliders)
+
+            if (c.gameObject.GetComponent<pickableObject>())
             {
-
-                if (c.gameObject.GetComponent<SpawnableObjParent>()!=null)
-                {
-                    spawnObject.GetComponent<pickableObject>().setObjectParent(c.GetComponent<SpawnableObjParent>());
-                   
-                }
+                c.gameObject.GetComponent<pickableObject>().currentParent().ClearSpawnObject();
+                c.GetComponent<pickableObject>().setObjectParent(this);
+                Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
-            //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-            spawnObject = null;
+            else if(c.gameObject.GetComponent<GetWall>()) {
 
+                   c.GetComponent<GetWall>().getWall();
+                }
         }
 
     }
-
-    public bool IsListEmpty()
+    private void PlaceDownObject()
     {
-        throw new NotImplementedException();
+        Debug.Log("<color=yellow>PlayerNetwork Leave Object </color>");
+       
+        Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
+        foreach (Collider c in hitColliders)
+        {
+            if (c.name == "Cube" && hasSpawnObject())
+            {
+                GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
+                ClearSpawnObject();
+            }
+            if (c.gameObject.GetComponent<SpawnableObjParent>() != null && hasSpawnObject() && !c.gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
+            {
+                if (GetObject().transform.gameObject.name != "block1(Clone)")
+                {
+                    GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
+                    ClearSpawnObject();
+                }
+            }
+
+        }
+        //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
+        
     }
-
-
-
-
-
-
-
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
     {
       if(clientID == OwnerClientId && hasSpawnObject())
         {
-            spawnObject.GetComponent<pickableObject>().destoryObjec();
+            Destroy(spawnObject);
         }
     }
 

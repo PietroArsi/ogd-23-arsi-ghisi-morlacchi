@@ -10,30 +10,30 @@ public class cleanUpNetwork : MonoBehaviour
     {
         if (NetworkManager.Singleton != null)
         {
-            Debug.Log("NETMAN");
+           // Debug.Log("NETMAN");
             Destroy(NetworkManager.Singleton.gameObject);
         }
         else
         {
-            Debug.Log("NO CLEAN NM");
+            //Debug.Log("NO CLEAN NM");
         }
         if (ConnectionManager.Instance != null)
         {
-            Debug.Log("CONNETMAN");
+            // Debug.Log("CONNETMAN");
             Destroy(ConnectionManager.Instance.gameObject);
         }
         else
         {
-            Debug.Log("NO CLEAN CM");
+            //Debug.Log("NO CLEAN CM");
         }
         if (CatnipLobby.Instance != null)
         {
-            Debug.Log("CleanLobby");
+            //Debug.Log("CleanLobby");
             Destroy(CatnipLobby.Instance.gameObject);
         }
         else
         {
-            Debug.Log("NO CLEAN Lobby");
+            // Debug.Log("NO CLEAN Lobby");
         }
     }
     void Start()

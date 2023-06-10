@@ -16,7 +16,6 @@ using Unity.Networking.Transport.Relay;
 
 /// <summary>
 /// Here are all the functionality of the lobby and the Relay and Authentichation services
-/// 
 /// </summary>
 public class CatnipLobby : MonoBehaviour
 {
@@ -49,6 +48,8 @@ public class CatnipLobby : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         IntitializeUnityAuthentication();
     }
+
+    //Use the anonymous authentication to sign in the player
     private async void IntitializeUnityAuthentication()
     {
         if (UnityServices.State != ServicesInitializationState.Initialized)
@@ -63,12 +64,14 @@ public class CatnipLobby : MonoBehaviour
 
     }
 
-    //allocation for the Relay(the call for the most part will be commented (this is going  to be used when testing game)
+    //allocation for the server Relay
     private async Task<Allocation> CreateAlllocationRelay()
     {
         try
         {
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(ConnectionManager.MAX_NUMBER_PLAYER - 1,region: "europe-central2");
+
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(ConnectionManager.MAX_NUMBER_PLAYER - 1); //region: "europe-central2"
+            Debug.Log("<color=yellow>CatnipLobby Create Allocation</color>");
 
             return allocation;
         }catch(RelayServiceException e){
@@ -94,7 +97,7 @@ public class CatnipLobby : MonoBehaviour
         }
     }
 
-    //return also the allocation for starting the Unity relay Transport for the client
+    //Give the joincode to connet to the Host Relay
     private async Task<JoinAllocation> JoinRelay(string joinCode)
     {
         try
@@ -119,6 +122,7 @@ public class CatnipLobby : MonoBehaviour
 
             });
 
+            /*
            Allocation allocation = await CreateAlllocationRelay();
 
            string relyaJoinCode = await GetRelayJoinCode(allocation);
@@ -131,11 +135,12 @@ public class CatnipLobby : MonoBehaviour
                 }
             });
            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation,"dtls"));
-
-
+           Debug.Log("<color=yellow>CatnipLobby ALLOCATION " + allocation.Region +"</color>");
+            */
+            Debug.Log("<color=yellow>CatnipLobby Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartHost();
             SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
-            Debug.Log("HELLO HOST");
+            Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
         }
         catch(LobbyServiceException e)
         {
@@ -158,23 +163,22 @@ public class CatnipLobby : MonoBehaviour
             {
                 float heartbeatTimerMax = 15f;
                 heartbeatTimer = heartbeatTimerMax;
-                //Debug.Log(joinedLobby.Name);
+                Debug.Log("<color=yellow>CatnipLobby: KeepLobbyAlive</color>");
                 LobbyService.Instance.SendHeartbeatPingAsync(joinedLobby.Id);
             }
         }
     }
     private void HandlePeriodicListLobbies()
     {
-       // Debug.Log(joinedLobby==null);
-        //Debug.Log(AuthenticationService.Instance.IsSignedIn);
         if (joinedLobby == null && AuthenticationService.Instance.IsSignedIn && SceneManager.GetActiveScene().name==SceneLoader.Scene.LobbyManagement.ToString())
         {
+            //Debug.Log("<color=yellow>CatnipLobby See List</color>");
             lobbylistTimer -= Time.deltaTime;
             if (lobbylistTimer <= 0f)
             {
                 float lobbylistTimerMax = 3f;
                 lobbylistTimer = lobbylistTimerMax;
-                //Debug.Log(joinedLobby.Name);
+                
                 ListLobbies();
             }
         }
@@ -192,7 +196,7 @@ public class CatnipLobby : MonoBehaviour
         {
             joinedLobby=await LobbyService.Instance.QuickJoinLobbyAsync();
             ConnectionManager.Instance.StartClient();
-            Debug.Log("HELLO CLIENT");
+           // Debug.Log("HELLO CLIENT");
         }
         catch (LobbyServiceException e)
         {
@@ -209,14 +213,16 @@ public class CatnipLobby : MonoBehaviour
         {
             //when the client join the lobby.
             joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
-
+            /*
             string relayJoinedCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
             JoinAllocation joinAllocation = await JoinRelay(relayJoinedCode);
             Debug.Log("join " + joinAllocation.Region);
             Debug.Log(relayJoinedCode);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
-
+            */
+            Debug.Log("<color=yellow>CatnipLobby: Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartClient();
+            
         }
         catch(LobbyServiceException e)
         {
@@ -235,7 +241,7 @@ public class CatnipLobby : MonoBehaviour
     {
         if (joinedLobby != null) {
             try {
-                Debug.Log("DELETE LOBBY");
+                Debug.Log("<color=yellow>CatnipLobby: Delete Lobby</color>");
                 await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
                 joinedLobby = null;
                 } catch(LobbyServiceException e)
@@ -250,7 +256,7 @@ public class CatnipLobby : MonoBehaviour
     {
         try
         {
-            Debug.Log("Leave LOBBY");
+            Debug.Log("<color=yellow>CatnipLobby: Leave Lobby</color>");
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 
             joinedLobby = null;
@@ -273,11 +279,16 @@ public class CatnipLobby : MonoBehaviour
             }
             };
             QueryResponse queryResponse = await LobbyService.Instance.QueryLobbiesAsync(queryLobbiesOptions);
-            OnLobbyListChanged?.Invoke(this, new OnLobbyListChangedEventArgs
+            Debug.Log("<color=yellow>CatnipLobby Query Response Lobby: "+ queryResponse +"</color>");
+
+           OnLobbyListChanged?.Invoke(this, new OnLobbyListChangedEventArgs
             {
                 lobbyList = queryResponse.Results,
+                
             });
-        }catch(LobbyServiceException e)
+           
+        }
+        catch(LobbyServiceException e)
         {
             Debug.Log(e);
         }

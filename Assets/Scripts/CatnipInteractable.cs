@@ -7,6 +7,7 @@ public class CatnipInteractable : ResourceInteractable
     public GameObject plantModel;
     public float respawnTime;
     bool readyToCollect;
+    public GameObject pickedPlant;
     ActionCooldown resourceCooldown;
     public GameManager gm;
 
@@ -28,8 +29,13 @@ public class CatnipInteractable : ResourceInteractable
 
     public override void Collect() {
         //Debug.Log($"Catnip gathered!");
-        //visualDebugger.AddMessage("Catnip gathered");
 
+        if (PlayerNetwork.LocalIstance != null){
+            visualDebugger.AddMessage("Catnip gathered");
+            if (!PlayerNetwork.LocalIstance.hasSpawnObject()) {
+                pickableObject.spawnObj(pickedPlant, PlayerNetwork.LocalIstance.gameObject);
+            }
+        }
         //gm.AddCatnip(1);
 
         //plantModel.SetActive(false);

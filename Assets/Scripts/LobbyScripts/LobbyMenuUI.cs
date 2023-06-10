@@ -8,66 +8,61 @@ using UnityEngine.UI;
 public class LobbyMenuUI : MonoBehaviour
 {
     // [Header("Movement")]
-    public static LobbyManagementUI LocalInstance { get; private set; }
-    [SerializeField] private Button HostLobby;
-    [SerializeField] private Button ReturnMenu;
+    //public static LobbyManagementUI LocalInstance { get; private set; }
+    [Header("Create Lobby UI")]
+   // [SerializeField] private Button ReturnMenu;
     //[SerializeField] private Button JoinGameButton;
-    [SerializeField] private TextMeshProUGUI playerName;
-    [SerializeField] private Button CreateLobby;
-    [SerializeField] private Button cancleCreation;
-    [SerializeField] private Image createLobbyImage;
+    [SerializeField] private TextMeshProUGUI nameLobby;
+    //[SerializeField] private Button CreateLobby;
+
+    [Header("Join Lobby UI")]
     [SerializeField] private Transform lobbyContainer;
     [SerializeField] private Transform lobbyTemplate;
 
-    [SerializeField] private TMP_InputField nameLobbyInputs;
+    [Header("Main Canvas")]
+    [SerializeField] private GameObject hostCanvas;
+    [SerializeField] private GameObject JoinCanvas;
 
-    public bool isActive = false;
+    [Header("Playergenerator")]
+    [SerializeField] private TextMeshProUGUI playerName;
+
 
     private void Awake()
     {
-        isActive = true;
-        Debug.Log("ADD LISTENERS");
-        HostLobby.onClick.AddListener(() =>
-        {
-            createLobbyImage.gameObject.SetActive(true);
-        });
-        CreateLobby.onClick.AddListener(() =>
-        {
-
-            CatnipLobby.Instance.CreateLobby(nameLobbyInputs.text);
-        });
-        cancleCreation.onClick.AddListener(()=>{
-            createLobbyImage.gameObject.SetActive(false);
-        });
-        ReturnMenu.onClick.AddListener(() =>
-        {
-
-            SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
-        });
-        //}
-
-        // JoinGameButton.onClick.AddListener(() =>
-        //  {
-        //      ConnectionManager.Instance.StartClient();
-        //      CatnipLobby.Instance.QuickJoin();
-        //  });
-
-
-
-        playerName.text = GenerateRandomName();
+        playerName.text = GenerateRandomPlayerName();
+        nameLobby.text = NameGenerator.GenerateRandomName();
 
         lobbyTemplate.gameObject.SetActive(false);
+
+        if (HostOrJoin.returnValueHost())
+        {
+            hostCanvas.SetActive(true);
+            JoinCanvas.SetActive(false);
+
+        }
+        else
+        {
+            hostCanvas.SetActive(false);
+            JoinCanvas.SetActive(true);
+        }
     }
 
     private void Start()
     {
-       playerName.text = "Cat0" + Random.Range(0, 100);
        ConnectionManager.Instance.SetPlayerName(playerName.text);
 
         CatnipLobby.Instance.OnLobbyListChanged += CatnipLobby_OnLobbyListChanged;
         UpdateLobbyList(new List<Lobby>());
     }
 
+    public void CreateLobby()
+    {
+        CatnipLobby.Instance.CreateLobby(nameLobby.text);
+    }
+    public void ReturnMenu()
+    {
+        SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+    }
     private void CatnipLobby_OnLobbyListChanged(object sender, CatnipLobby.OnLobbyListChangedEventArgs e)
     {
         UpdateLobbyList(e.lobbyList);
@@ -96,10 +91,11 @@ public class LobbyMenuUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("<color=yellow> LobbyMenuUI called Destroy function Remove LobbyListChangedEvent</color>");
         CatnipLobby.Instance.OnLobbyListChanged -= CatnipLobby_OnLobbyListChanged;
     }
 
-    private string GenerateRandomName() {
+    private string GenerateRandomPlayerName() {
         
         return "Cat0" + Random.Range(0, 100);
     }
