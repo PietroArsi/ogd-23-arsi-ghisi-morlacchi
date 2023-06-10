@@ -23,7 +23,7 @@ public class CatnipInteractable : ResourceInteractable
             //plantModel.SetActive(true);
             readyToCollect = true;
             // luca addition
-            //CatnipPickUpNetwork.Instance.respawnCatnipNetwork(plantModel);
+            CatnipPickUpNetwork.Instance.respawnCatnipNetwork(plantModel);
         }
     }
 
@@ -32,9 +32,9 @@ public class CatnipInteractable : ResourceInteractable
 
         if (PlayerNetwork.LocalIstance != null){
             visualDebugger.AddMessage("Catnip gathered");
-            if (!PlayerNetwork.LocalIstance.hasSpawnObject()) {
+            //if (!PlayerNetwork.LocalIstance.hasSpawnObject()) {
                 pickableObject.spawnObj(pickedPlant, PlayerNetwork.LocalIstance.gameObject);
-            }
+           // }
         }
         //gm.AddCatnip(1);
 
@@ -43,6 +43,6 @@ public class CatnipInteractable : ResourceInteractable
         resourceCooldown.Set(respawnTime);
 
         //luca possible additions
-        //CatnipPickUpNetwork.Instance.Adapt(plantModel);
+        CatnipPickUpNetwork.Instance.Adapt(plantModel);
     }
 }

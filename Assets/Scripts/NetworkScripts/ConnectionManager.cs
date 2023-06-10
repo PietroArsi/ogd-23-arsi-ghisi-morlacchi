@@ -25,7 +25,7 @@ public class ConnectionManager : NetworkBehaviour
     public const int MAX_NUMBER_PLAYER = 4;
     [SerializeField] private List<Color> playerColorList;
     //need to create when the game start
-    [SerializeField] private Transform playerPrefab;
+    [SerializeField] private Transform carPrefab;
 
     [Header("Spawn Object")]
     //list of object that can spawn during gameplay
@@ -89,26 +89,29 @@ public class ConnectionManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (IsServer) {
-            //NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback; 
+           // NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback; 
         }
     }
 
 
-    //Spawn the players when we are in the game level.
-    public void spawnPlayers()
+    //Spawn the car when we are in the level selection.
+     public void spawnCar()
     {
         if (IsServer)
+        {
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
+        }
     }
-    
-    
-    //Load the player in the game.
+
     private void SceneManager_OnLoadEventCompleted(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+        if (IsServer)
         {
-            Transform playerTransform = Instantiate(playerPrefab);
-            playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+            foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                Transform playerTransform = Instantiate(carPrefab);
+                playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+            }
         }
     }
 

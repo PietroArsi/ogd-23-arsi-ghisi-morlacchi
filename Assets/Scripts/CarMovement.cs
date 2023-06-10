@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class CarMovement : MonoBehaviour
+public class CarMovement : NetworkBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 7f;
@@ -64,7 +65,10 @@ public class CarMovement : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        MovePlayer();
+        if (IsHost)
+        {
+            MovePlayer();
+        }
     }
 
     private void GetInput() {
@@ -91,6 +95,7 @@ public class CarMovement : MonoBehaviour
         else {
             playerAnimator.SetBool("walk", false);
         }
+
     }
 
     private void SpeedControl() {
@@ -117,8 +122,10 @@ public class CarMovement : MonoBehaviour
     private void Attack() {
         string level = transform.GetComponent<LevelSelector>().GetSelectedLevel();
 
+       //LUCA ADDITION LOAD THE GAME SCENE
         if (level != "") {
             Debug.Log($"Selected level: {level}");
+            SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
         }
     }
 }

@@ -30,8 +30,8 @@ public class LobbyMenuUI : MonoBehaviour
     private void Awake()
     {
         playerName.text = GenerateRandomPlayerName();
-        nameLobby.text = NameGenerator.GenerateRandomName();
-
+        // nameLobby.text = NameGenerator.GenerateRandomName();
+        nameLobby.text = "Lobby name";
         lobbyTemplate.gameObject.SetActive(false);
 
         if (HostOrJoin.returnValueHost())
