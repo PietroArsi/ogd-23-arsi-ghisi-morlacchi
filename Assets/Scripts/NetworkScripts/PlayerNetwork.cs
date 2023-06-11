@@ -122,11 +122,11 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders)
         {
-            if (c.name == "Cube" && hasSpawnObject())
-            {
-                GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
-                ClearSpawnObject();
-            }
+            // if (c.name == "Cube" && hasSpawnObject())
+            // {
+            //     GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
+            //     ClearSpawnObject();
+            // }
             if (c.gameObject.GetComponent<SpawnableObjParent>() != null && hasSpawnObject() && !c.gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
             {
                 if (GetObject().transform.gameObject.name != "block1(Clone)")

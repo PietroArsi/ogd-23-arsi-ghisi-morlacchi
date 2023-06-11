@@ -61,7 +61,6 @@ public class PawliceMovement : MonoBehaviour
     }
 
     private void CheckDistance() {
-        Debug.Log(status);
         if (status == PawliceStatus.Steal && target != null && Vector3.Distance(transform.position, target.transform.position) < distanceFromTarget) {
             target.GetComponent<CatnipInteractable>().Collect();
             OnDestinationArrival();
