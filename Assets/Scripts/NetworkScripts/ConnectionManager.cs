@@ -300,7 +300,7 @@ public class ConnectionManager : NetworkBehaviour
     //Functionality to spawn an non player object 
     public void spawnNetworkObject(GameObject currentObj, SpawnableObjParent parent)
     { 
-        spawnObjServerRpc(getSpawnIndex(currentObj),parent.getNetworkObject());
+        spawnObjServerRpc(getSpawnIndex(currentObj),parent.GetNetworkObject());
     }
 
    
@@ -317,7 +317,7 @@ public class ConnectionManager : NetworkBehaviour
         NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
         objNetworkObject.Spawn(true);
 
-        pickableObject objectPicked = currentObj.GetComponent<pickableObject>();
+        PickableObject objectPicked = currentObj.GetComponent<PickableObject>();
         currParent.TryGet(out NetworkObject currentParentObject);
         SpawnableObjParent parent = currentParentObject.GetComponent<SpawnableObjParent>();
         objectPicked.setObjectParent(parent);

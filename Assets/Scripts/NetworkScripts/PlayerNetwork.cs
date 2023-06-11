@@ -56,27 +56,27 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     }
 
     // functionality needed to place/move the picked object
-    public Transform getObjectFollowTransform()
+    public Transform GetObjectFollowTransform()
     {
         return holdPosition;
     }
 
-    public bool hasSpawnObject()
+    public bool HasSpawnObject()
     {
         return spawnObject != null;
     }
 
-    public NetworkObject getNetworkObject()
+    public NetworkObject GetNetworkObject()
     {
         return NetworkObject;
     }
 
-    public pickableObject GetObject()
+    public PickableObject GetObject()
     {
-        return spawnObject.GetComponent<pickableObject>();
+        return spawnObject.GetComponent<PickableObject>();
     }
 
-    public void setspawnObject(GameObject obj)
+    public void SetspawnObject(GameObject obj)
     {
         spawnObject = obj;
     }
@@ -89,69 +89,21 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     //this need to be updated to check when there is a big block i cannot place it on top of it
     private void GetInput()
     {
-        if (Input.GetButtonDown("Fire1") && !hasSpawnObject())
+        if (Input.GetButtonDown("Fire1") && !HasSpawnObject())
         {
             // PickUpObject();
             interactionCollider.GetComponent<PickAndPlace>().PickUpObject(this);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && hasSpawnObject())
+        if (Input.GetKeyDown(KeyCode.Space) && HasSpawnObject())
         {
             //PlaceDownObject();
             interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
         }
     }
-        /*
-    private void PickUpObject()
-    {
-        
-        Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
-        foreach (Collider c in hitColliders)
-        {
 
-            if (c.gameObject.GetComponent<pickableObject>())
-            {
-                c.gameObject.GetComponent<pickableObject>().currentParent().ClearSpawnObject();
-                c.GetComponent<pickableObject>().setObjectParent(this);
-                Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
-            }
-            else if(c.gameObject.GetComponent<GetWall>()) {
-
-                   c.GetComponent<GetWall>().getWall();
-                }
-        }
-
-    }
-
-    private void PlaceDownObject()
-    {
-        Debug.Log("<color=yellow>PlayerNetwork Leave Object </color>");
-       
-        Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
-        foreach (Collider c in hitColliders)
-        {
-            if (c.name == "Cube" && hasSpawnObject())
-            {
-                GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
-                ClearSpawnObject();
-            }
-            if (c.gameObject.GetComponent<SpawnableObjParent>() != null && hasSpawnObject() && !c.gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
-            {
-                Debug.Log(interactionLayer==9);
-                if(interactionLayer != 9 || GetObject().transform.gameObject.name != "block1(Clone)")// if (GetObject().transform.gameObject.name != "block1(Clone)")
-                {
-                    GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
-                    ClearSpawnObject();
-                }
-            }
-
-        }
-        //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-        
-    }
-        */
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
     {
-      if(clientID == OwnerClientId && hasSpawnObject())
+      if(clientID == OwnerClientId && HasSpawnObject())
         {
             Destroy(spawnObject);
         }

@@ -29,7 +29,7 @@ public class GetWall : MonoBehaviour//ResourceInteractable
 
     public void getWall()
     {
-        if (!PlayerNetwork.LocalIstance.hasSpawnObject())
-            pickableObject.spawnObj(block, PlayerNetwork.LocalIstance.gameObject);
+        if (!PlayerNetwork.LocalIstance.HasSpawnObject())
+            PickableObject.spawnObj(block, PlayerNetwork.LocalIstance.gameObject);
     }
 }

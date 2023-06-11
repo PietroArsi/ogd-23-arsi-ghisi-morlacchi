@@ -15,27 +15,27 @@ public class GroundPlacement : NetworkBehaviour,SpawnableObjParent
     {
         return;
     }
-    public NetworkObject getNetworkObject()
+    public NetworkObject GetNetworkObject()
     {
         return NetworkObject;
     }
 
-    public pickableObject GetObject()
+    public PickableObject GetObject()
     {
         throw new System.NotImplementedException();
     }
 
-    public Transform getObjectFollowTransform()
+    public Transform GetObjectFollowTransform()
     {
         return transform;
     }
 
-    public bool hasSpawnObject()
+    public bool HasSpawnObject()
     {
        return false;
     }
 
-    public void setspawnObject(GameObject obj)
+    public void SetspawnObject(GameObject obj)
     {
         return;
     }

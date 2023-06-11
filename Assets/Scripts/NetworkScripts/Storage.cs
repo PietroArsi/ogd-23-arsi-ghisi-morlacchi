@@ -21,23 +21,23 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
     // Start is called before the first frame update
 
 
-    public void deliverProcessCatnip()
+    public void DeliverProcessCatnip()
     {
         string message = "Deliver process catnip";
-        sendMessageServerRpc(message);
+        SendMessageServerRpc(message);
     }
 
-    public NetworkObject getNetworkObject()
+    public NetworkObject GetNetworkObject()
     {
         throw new System.NotImplementedException();
     }
 
-    public pickableObject GetObject()
+    public PickableObject GetObject()
     {
         throw new System.NotImplementedException();
     }
 
-    public Transform getObjectFollowTransform()
+    public Transform GetObjectFollowTransform()
     {
         throw new System.NotImplementedException();
     }
@@ -47,18 +47,18 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
         return priority;
     }
 
-    public bool hasSpawnObject()
+    public bool HasSpawnObject()
     {
         return false;
     }
 
-    public void setspawnObject(GameObject obj)
+    public void SetspawnObject(GameObject obj)
     {
         throw new System.NotImplementedException();
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void sendMessageServerRpc(string message, ServerRpcParams serverRpcParams = default)
+    private void SendMessageServerRpc(string message, ServerRpcParams serverRpcParams = default)
     {
         //_plant
 

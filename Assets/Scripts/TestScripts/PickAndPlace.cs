@@ -24,12 +24,12 @@ public class PickAndPlace : NetworkBehaviour
         Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders)
         {
-            if (c.gameObject.GetComponent<pickableObject>())
+            if (c.gameObject.GetComponent<PickableObject>())
             {
                 c.gameObject.GetComponent<BoxCollider>().enabled = false;
-                c.gameObject.GetComponent<pickableObject>().currentParent().ClearSpawnObject();
+                c.gameObject.GetComponent<PickableObject>().currentParent().ClearSpawnObject();
                 
-                c.GetComponent<pickableObject>().setObjectParent(PlayerNetwork.LocalIstance);
+                c.GetComponent<PickableObject>().setObjectParent(PlayerNetwork.LocalIstance);
                 // Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
             else if (c.gameObject.GetComponent<GetWall>())
@@ -37,7 +37,7 @@ public class PickAndPlace : NetworkBehaviour
 
                 c.GetComponent<GetWall>().getWall();
             }
-            if (c.gameObject.GetComponent<FurnaceCook>() != null && !player.hasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
+            if (c.gameObject.GetComponent<FurnaceCook>() != null && !player.HasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
             {
 
 
@@ -62,7 +62,7 @@ public class PickAndPlace : NetworkBehaviour
         }
         Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, interactionLayer);
         // Sortare hit colliders in base alla priorità fare sorting list 
-        if (hitColliders.Length == 0 || !player.hasSpawnObject())
+        if (hitColliders.Length == 0 || !player.HasSpawnObject())
         {
             return;
         }
@@ -76,7 +76,7 @@ public class PickAndPlace : NetworkBehaviour
         }
         sortedColliders.Sort((a, b) => a.transform.GetComponent<SpawnableObjParent>().GetPriority().CompareTo(b.transform.GetComponent<SpawnableObjParent>().GetPriority()));
         sortedColliders.Reverse();
-        if (sortedColliders[0].gameObject.GetComponent<SpawnableObjParent>() != null && !sortedColliders[0].gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
+        if (sortedColliders[0].gameObject.GetComponent<SpawnableObjParent>() != null && !sortedColliders[0].gameObject.GetComponent<SpawnableObjParent>().HasSpawnObject())
         {
             Collider[] placedObjectColldier = Physics.OverlapSphere(checkGround.transform.position, 2f, interactionLayer);
 
@@ -94,7 +94,7 @@ public class PickAndPlace : NetworkBehaviour
             {
                 Debug.Log("Storage");
                 DestroyHeldObjectServerRpc(player.GetObject().gameObject);
-                sortedColliders[0].gameObject.GetComponent<Storage>().deliverProcessCatnip();
+                sortedColliders[0].gameObject.GetComponent<Storage>().DeliverProcessCatnip();
             }
             else if(sortedColliders[0].name == "Cube" )
             {

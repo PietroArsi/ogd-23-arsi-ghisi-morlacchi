@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 
 //REALLY ROUGH Pickup objects 
-public class pickableObject : NetworkBehaviour
+public class PickableObject : NetworkBehaviour
 {
 
    // [SerializeField]private GameObject pickedObj;
@@ -33,7 +33,7 @@ public class pickableObject : NetworkBehaviour
     {
         // targetTransform.SetTargetTransform(currentParent);
         //problem with picking up object in the test this is going to be updated in the future
-        setObjectParentServerRpc(currentParent.getNetworkObject());
+        setObjectParentServerRpc(currentParent.GetNetworkObject());
       
     }
 
@@ -55,8 +55,8 @@ public class pickableObject : NetworkBehaviour
         currentPickParent = parent;
         visualDebugger.AddMessage("Update parent of the object");
         //visualDebugger.AddMessage("Parent: "+ parent);
-        currentPickParent.setspawnObject(this.gameObject);
-        targetTransform.SetTargetTransform(parent.getObjectFollowTransform());
+        currentPickParent.SetspawnObject(this.gameObject);
+        targetTransform.SetTargetTransform(parent.GetObjectFollowTransform());
     }
 
     public static void spawnObj(GameObject pickObj, GameObject parent)

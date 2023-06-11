@@ -114,8 +114,8 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
             ResetServerRpc();
         }
         
-        if (!PlayerNetwork.LocalIstance.hasSpawnObject())
-            pickableObject.spawnObj(processCatnip, player.gameObject);
+        if (!PlayerNetwork.LocalIstance.HasSpawnObject())
+            PickableObject.spawnObj(processCatnip, player.gameObject);
     }
 
     
@@ -130,27 +130,27 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
         state.Value = FurnaceStates.Empty;
     }
 
-    public pickableObject GetObject()
+    public PickableObject GetObject()
     {
         throw new NotImplementedException();
     }
 
-    public Transform getObjectFollowTransform()
+    public Transform GetObjectFollowTransform()
     {
         throw new NotImplementedException();
     }
 
-    public bool hasSpawnObject()
+    public bool HasSpawnObject()
     {
         return false;
     }
 
-    public NetworkObject getNetworkObject()
+    public NetworkObject GetNetworkObject()
     {
         throw new NotImplementedException();
     }
 
-    public void setspawnObject(GameObject obj)
+    public void SetspawnObject(GameObject obj)
     {
         throw new NotImplementedException();
     }
