@@ -41,7 +41,7 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             //Debug.Log("HELLO THERE");
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = true;
+            Cursor.visible = false;
             player = PlayerNetwork.LocalIstance.gameObject.transform;
             playerObj = PlayerNetwork.LocalIstance.gameObject.transform.Find("PlayerModel CC").transform;
             orientation = PlayerNetwork.LocalIstance.gameObject.transform.Find("Orientation CC").transform;
@@ -64,7 +64,7 @@ public class ThirdPersonCamera : MonoBehaviour
         if (PlayerNetwork.LocalIstance != null)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = true;
+            Cursor.visible = false;
             player = PlayerNetwork.LocalIstance.gameObject.transform;
             playerObj = PlayerNetwork.LocalIstance.gameObject.transform.Find("PlayerModel CC").transform;
             orientation = PlayerNetwork.LocalIstance.gameObject.transform.Find("Orientation CC").transform;
@@ -81,35 +81,45 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Update()
     {
-        if (PlayerNetwork.LocalIstance != null)
+        //LUCA ADDITION WHEN THE GAME IS OVER
+        if (!GameManagerStates.Instance.IsGameOver())
         {
-            //get forward direction player-camera
-            Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-            orientation.forward = viewDir.normalized;
-
-            if (currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown)
+            if (PlayerNetwork.LocalIstance != null)
             {
-                //rotate player
-                float horizontalInput = Input.GetAxis("Horizontal");
-                float verticalInput = Input.GetAxis("Vertical");
-                Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+                //get forward direction player-camera
+                Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+                orientation.forward = viewDir.normalized;
 
-                if (inputDir != Vector3.zero)
+                if (currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown)
                 {
-                    playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                    //rotate player
+                    float horizontalInput = Input.GetAxis("Horizontal");
+                    float verticalInput = Input.GetAxis("Vertical");
+                    Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+                    if (inputDir != Vector3.zero)
+                    {
+                        playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                    }
+                }
+                else if (currentStyle == CameraStyle.Combat)
+                {
+                    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
+                    orientation.forward = dirToCombatLookAt.normalized;
+
+                    playerObj.forward = dirToCombatLookAt.normalized;
                 }
             }
-            else if (currentStyle == CameraStyle.Combat)
+            else
             {
-                Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
-                orientation.forward = dirToCombatLookAt.normalized;
-
-                playerObj.forward = dirToCombatLookAt.normalized;
+                this.enabled = false;
+                PlayerNetwork.OnAnyPlayerSpawned += Player_OnAnySpawned;
             }
-        } else
+        }
+        else
         {
-            this.enabled = false;
-            PlayerNetwork.OnAnyPlayerSpawned += Player_OnAnySpawned;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

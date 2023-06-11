@@ -6,10 +6,16 @@ using UnityEngine;
 
 public class placeObj : NetworkBehaviour,SpawnableObjParent
 {
+    //name placeTable;
     [SerializeField] private GameObject spawnObject;
     [SerializeField] private Transform placement;
+    private int priority;
     public static event EventHandler OnAnyObjectPlacedHere;
 
+    void Start()
+    {
+        priority = 10;
+    }
     public void ClearSpawnObject()
     {
         spawnObject = null;
@@ -33,6 +39,11 @@ public class placeObj : NetworkBehaviour,SpawnableObjParent
             return transform;
     }
 
+    public int GetPriority()
+    {
+        return priority;
+    }
+
     public bool hasSpawnObject()
     {
         return spawnObject != null;
@@ -48,15 +59,5 @@ public class placeObj : NetworkBehaviour,SpawnableObjParent
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }

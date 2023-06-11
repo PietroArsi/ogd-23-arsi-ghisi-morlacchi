@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 
 //REALLY ROUGH Pickup objects 
-public class pickableObject : NetworkBehaviour//,SpawnableObjParent
+public class pickableObject : NetworkBehaviour
 {
 
    // [SerializeField]private GameObject pickedObj;

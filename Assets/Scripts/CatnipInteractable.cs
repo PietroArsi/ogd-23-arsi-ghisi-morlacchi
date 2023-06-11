@@ -30,19 +30,21 @@ public class CatnipInteractable : ResourceInteractable
     public override void Collect() {
         //Debug.Log($"Catnip gathered!");
 
-        if (PlayerNetwork.LocalIstance != null){
+        if (PlayerNetwork.LocalIstance != null && !PlayerNetwork.LocalIstance.hasSpawnObject() && !PlayerNetwork.LocalIstance.hasSpawnObject())
+        {
             visualDebugger.AddMessage("Catnip gathered");
             //if (!PlayerNetwork.LocalIstance.hasSpawnObject()) {
-                pickableObject.spawnObj(pickedPlant, PlayerNetwork.LocalIstance.gameObject);
-           // }
+            pickableObject.spawnObj(pickedPlant, PlayerNetwork.LocalIstance.gameObject);
+            // }
+
+            //gm.AddCatnip(1);
+
+            //plantModel.SetActive(false);
+            readyToCollect = false;
+            resourceCooldown.Set(respawnTime);
+
+            //luca possible additions
+            CatnipPickUpNetwork.Instance.Adapt(plantModel);
         }
-        //gm.AddCatnip(1);
-
-        //plantModel.SetActive(false);
-        readyToCollect = false;
-        resourceCooldown.Set(respawnTime);
-
-        //luca possible additions
-        CatnipPickUpNetwork.Instance.Adapt(plantModel);
     }
 }

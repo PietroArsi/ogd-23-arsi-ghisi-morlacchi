@@ -80,21 +80,27 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     {
         spawnObject = obj;
     }
-        public void ClearSpawnObject()
+    public void ClearSpawnObject()
     {
-        Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
-        spawnObject = null;
+       Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
+       spawnObject = null;
     }
 
     //this need to be updated to check when there is a big block i cannot place it on top of it
     private void GetInput()
     {
         if (Input.GetButtonDown("Fire1") && !hasSpawnObject())
-            PickUpObject();
+        {
+            // PickUpObject();
+            interactionCollider.GetComponent<PickAndPlace>().PickUpObject(this);
+        }
         if (Input.GetKeyDown(KeyCode.Space) && hasSpawnObject())
-            PlaceDownObject();
+        {
+            //PlaceDownObject();
+            interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
+        }
     }
-
+        /*
     private void PickUpObject()
     {
         
@@ -115,6 +121,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         }
 
     }
+
     private void PlaceDownObject()
     {
         Debug.Log("<color=yellow>PlayerNetwork Leave Object </color>");
@@ -129,7 +136,8 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
             }
             if (c.gameObject.GetComponent<SpawnableObjParent>() != null && hasSpawnObject() && !c.gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
             {
-                if (GetObject().transform.gameObject.name != "block1(Clone)")
+                Debug.Log(interactionLayer==9);
+                if(interactionLayer != 9 || GetObject().transform.gameObject.name != "block1(Clone)")// if (GetObject().transform.gameObject.name != "block1(Clone)")
                 {
                     GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
                     ClearSpawnObject();
@@ -140,6 +148,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
         
     }
+        */
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
     {
       if(clientID == OwnerClientId && hasSpawnObject())
@@ -148,4 +157,8 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         }
     }
 
+    public int GetPriority()
+    {
+        throw new NotImplementedException();
+    }
 }

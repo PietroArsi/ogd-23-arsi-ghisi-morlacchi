@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class GroundPlacement : NetworkBehaviour,SpawnableObjParent
 {
+    private int priority;
     //[SerializeField] private List<GameObject> placedObjectList = new List<GameObject>();
-
+    private void Start()
+    {
+        priority = 0;
+    }
     public void ClearSpawnObject()
     {
         return;
@@ -34,5 +38,10 @@ public class GroundPlacement : NetworkBehaviour,SpawnableObjParent
     public void setspawnObject(GameObject obj)
     {
         return;
+    }
+
+    public int GetPriority()
+    {
+        return priority;
     }
 }

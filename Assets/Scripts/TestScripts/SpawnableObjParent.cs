@@ -16,5 +16,6 @@ public interface SpawnableObjParent
     public void setspawnObject(GameObject obj);
     public void ClearSpawnObject();
 
+    public int GetPriority();
     //public bool IsListEmpty();
 }

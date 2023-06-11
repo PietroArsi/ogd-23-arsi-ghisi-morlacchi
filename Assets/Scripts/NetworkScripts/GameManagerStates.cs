@@ -29,7 +29,7 @@ public class GameManagerStates : NetworkBehaviour
     //network variables needed for synch the game states;
     private NetworkVariable<State> state = new NetworkVariable<State>(State.WaitingOtherPlayers);
     private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(3f);
-    private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(0f);
+    private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(300f);
 
     // Game State Messages
     //[SerializeField] private GameObject ReadyPopUp;
@@ -137,7 +137,7 @@ public class GameManagerStates : NetworkBehaviour
                 break;
             case State.GamePlaying:
                 gamePlayingTimer.Value -= Time.deltaTime;
-                Debug.Log(gamePlayingTimer.Value);
+                //Debug.Log(gamePlayingTimer.Value);
                 if (gamePlayingTimer.Value < 0f)
                 {
                     state.Value = State.GameEnd;
@@ -145,7 +145,7 @@ public class GameManagerStates : NetworkBehaviour
                 break;
             case State.GameEnd:
                 {
-                    Debug.Log("GAME OVER");
+                   // Debug.Log("GAME OVER");
                 }
                 break;
         }
@@ -178,9 +178,19 @@ public class GameManagerStates : NetworkBehaviour
     }
     public string GetGamePlayingTimerNormalized()
     {
-        string minutes = Mathf.Floor(gamePlayingTimer.Value / 60).ToString("00");
-        string seconds = Mathf.Floor(gamePlayingTimer.Value % 60).ToString("00");
-        return minutes + ":" + seconds;
+        if (gamePlayingTimer.Value > 0f)
+        {
+           
+
+            string minutes = Mathf.Floor(gamePlayingTimer.Value / 60).ToString("00");
+            string seconds = Mathf.Floor(gamePlayingTimer.Value % 60).ToString("00");
+
+            return minutes + ":" + seconds;
+        }
+        else
+        {
+            return 00 + ":" + 00;
+        }
     }
 
     public string GetCurrentScene()
