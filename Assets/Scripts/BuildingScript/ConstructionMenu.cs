@@ -41,10 +41,12 @@ public class ConstructionMenu : MonoBehaviour
     private void Show()
     {
         constructionScreen.SetActive(true);
+        GameManagerStates.Instance.SetConstructionWindowActive(true);
     }
     private void Hide()
     {
         constructionScreen.SetActive(false);
+        GameManagerStates.Instance.SetConstructionWindowActive(false);
     }
 
     public void CanBuild()

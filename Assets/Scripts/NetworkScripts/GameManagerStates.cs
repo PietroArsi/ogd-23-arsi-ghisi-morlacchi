@@ -11,6 +11,7 @@ public class GameManagerStates : NetworkBehaviour
 {
     public static GameManagerStates Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
+    [SerializeField] private bool isConstructionWindowOpen;
     //varoious GameState;
     private enum State
     {
@@ -48,6 +49,7 @@ public class GameManagerStates : NetworkBehaviour
     {
         // ReadyPopUp.SetActive(true);
         //WaitingOtherPlayer.SetActive(false);
+        isConstructionWindowOpen = false;
         ReadyButtonPlayer();
     }
 
@@ -196,5 +198,17 @@ public class GameManagerStates : NetworkBehaviour
     public string GetCurrentScene()
     {
         return state.Value.ToString();
+    }
+
+    public void SetConstructionWindowActive(bool value)
+    {
+        
+        isConstructionWindowOpen = value;
+        Debug.Log(isConstructionWindowOpen);
+    }
+    public bool GetConstructionWindowActive()
+    {
+        Debug.Log(isConstructionWindowOpen);
+        return isConstructionWindowOpen;
     }
 }
