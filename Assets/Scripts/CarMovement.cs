@@ -14,7 +14,7 @@ public class CarMovement : NetworkBehaviour
     public float jumpCooldown = 0.25f;
     public float airMultiplier = 0.4f;
     public bool canJump = false;
-    bool readyToJump;
+    //bool readyToJump;
 
     public Animator playerAnimator;
 
@@ -46,12 +46,9 @@ public class CarMovement : NetworkBehaviour
     Vector3 moveDirection;
     CharacterController cc;
 
-
-
-
     private void Start() {
         cc = GetComponent<CharacterController>();
-        readyToJump = true;
+        //readyToJump = true;
 
         attackCooldown = new ActionCooldown();
     }

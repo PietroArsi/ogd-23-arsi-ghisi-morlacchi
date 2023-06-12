@@ -15,18 +15,19 @@ public class PawliceMovement : MonoBehaviour
     private PawliceStatus status;
 
     public enum PawliceStatus {
-        Steal, Flee
+        Idle, Steal, Flee
     }
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        status = PawliceStatus.Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (status == PawliceStatus.Idle && Input.GetKeyDown(KeyCode.Space)) {
             CheckTarget();
             navMeshAgent.destination = target.position;
             spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
