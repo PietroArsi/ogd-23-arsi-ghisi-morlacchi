@@ -35,7 +35,7 @@ public class FollowTransform : MonoBehaviour
         else if (targetTransform.gameObject.layer == 7)
         {
             targetTransform.gameObject.GetComponent<SpawnableObjParent>().SetspawnObject(null);
-            float height = targetTransform.position.y + transform.localScale.y;
+            float height = targetTransform.position.y + transform.localScale.y/2;
             //Debug.Log(height);
             transform.position = new Vector3(transform.position.x,height, transform.position.z);
             transform.rotation = transform.rotation;

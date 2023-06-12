@@ -31,8 +31,9 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
             this.transform.position = new Vector3(0, 0.61f, 0);
             //ground = GameObject.Find("map");
             // temp = this.gameObject;
+            OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
         }
-        OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
+        
         if (IsServer)
         {
             NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientDisconnectCallback;

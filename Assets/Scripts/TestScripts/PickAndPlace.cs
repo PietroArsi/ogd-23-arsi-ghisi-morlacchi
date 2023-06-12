@@ -21,6 +21,7 @@ public class PickAndPlace : NetworkBehaviour
 
     public void PickUpObject(PlayerNetwork player)
     {
+        //synch sound pick()
         Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders)
         {
@@ -30,18 +31,21 @@ public class PickAndPlace : NetworkBehaviour
                 c.gameObject.GetComponent<PickableObject>().currentParent().ClearSpawnObject();
                 
                 c.GetComponent<PickableObject>().setObjectParent(PlayerNetwork.LocalIstance);
+                break;
                 // Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
             else if (c.gameObject.GetComponent<GetWall>())
             {
 
                 c.GetComponent<GetWall>().getWall();
+                break;
             }
             if (c.gameObject.GetComponent<FurnaceCook>() != null && !player.HasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
             {
 
 
                 c.gameObject.GetComponent<FurnaceCook>().getProcessCatnip(player);
+                break;
 
             }
         }
@@ -49,6 +53,7 @@ public class PickAndPlace : NetworkBehaviour
     }
     public void PlaceDownObject(PlayerNetwork player)
     {
+        //synch sound placeDown()
         //Debug.Log("<color=yellow>PlayerNetwork Leave Object </color>");
         Collider[] checkCanPlace = Physics.OverlapSphere(checkGround.transform.position, 1f, interactionLayer);
         foreach(Collider collider in checkCanPlace)
@@ -123,6 +128,19 @@ public class PickAndPlace : NetworkBehaviour
     {
         GameObject destoryObject = heldOject;
         Destroy(destoryObject);
+    }
+
+
+    [ServerRpc(RequireOwnership =false)]
+    private void SynchSoundPickAndPlaceServerRpc(NetworkObjectReference sound)
+    {
+        //play sound effect
+        SynchSoundPickAndPlaceClientRpc(sound);
+    }
+    [ClientRpc]
+    private void SynchSoundPickAndPlaceClientRpc(GameObject sound)
+    {
+        //play sound effect here
     }
 }
 

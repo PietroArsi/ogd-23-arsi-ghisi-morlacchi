@@ -299,14 +299,15 @@ public class ConnectionManager : NetworkBehaviour
 
     //Functionality to spawn an non player object 
     public void spawnNetworkObject(GameObject currentObj, SpawnableObjParent parent)
-    { 
-        spawnObjServerRpc(getSpawnIndex(currentObj),parent.GetNetworkObject());
+    {
+        //Debug.Log(currentObj);
+        SpawnObjServerRpc(GetSpawnIndex(currentObj),parent.GetNetworkObject());
     }
 
    
     // spawn the object in the server.
     [ServerRpc(RequireOwnership = false)]
-    private void spawnObjServerRpc(int current, NetworkObjectReference currParent, ServerRpcParams serverRpcParams = default)
+    private void SpawnObjServerRpc(int current, NetworkObjectReference currParent, ServerRpcParams serverRpcParams = default)
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
         GameObject currentObj = GetSpawnFromId(current);
@@ -320,16 +321,19 @@ public class ConnectionManager : NetworkBehaviour
         PickableObject objectPicked = currentObj.GetComponent<PickableObject>();
         currParent.TryGet(out NetworkObject currentParentObject);
         SpawnableObjParent parent = currentParentObject.GetComponent<SpawnableObjParent>();
+        Debug.Log(currentParentObject.GetComponent<SpawnableObjParent>()==null);
         objectPicked.setObjectParent(parent);
     }
 
     //to solve the problem of spawning objects
-    private int getSpawnIndex(GameObject current) 
+    private int GetSpawnIndex(GameObject current) 
     {
+        Debug.Log("NAME OBJECT "+current.name);
         return  spawnableObj.IndexOf(current);
     }
     public GameObject GetSpawnFromId(int id)
     {
+        Debug.Log(id);
         return spawnableObj[id];
     }
 
