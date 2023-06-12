@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSlectionScreen.unity
     guid: ffbecf8836a4a564c8fc28e52a810f9d
   - enabled: 1
+    path: Assets/Scenes/LevelSelection.unity
+    guid: fe4e6fb1f990f1044bf559e40d4afcc9
+  - enabled: 1
     path: Assets/Scenes/NetworkTestLevel.unity
     guid: b42dcbb6bd7dc7442803a7c3c319d25c
   - enabled: 1

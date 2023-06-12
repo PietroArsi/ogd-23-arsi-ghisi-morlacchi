@@ -15,6 +15,7 @@ public static class SceneLoader
         LobbyManagement,
         JoinLobby,
         CharacterSlectionScreen,
+        LevelSelection,
         NetworkTestLevel,
     }
 

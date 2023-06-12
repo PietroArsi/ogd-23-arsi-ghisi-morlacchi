@@ -9,12 +9,13 @@ using Unity.Netcode;
 /// </summary>
 public interface SpawnableObjParent
 {
-    public pickableObject GetObject();
-    public Transform getObjectFollowTransform();
-    public bool hasSpawnObject();
-    public NetworkObject getNetworkObject();
-    public void setspawnObject(GameObject obj);
+    public PickableObject GetObject();
+    public Transform GetObjectFollowTransform();
+    public bool HasSpawnObject();
+    public NetworkObject GetNetworkObject();
+    public void SetspawnObject(GameObject obj);
     public void ClearSpawnObject();
 
+    public int GetPriority();
     //public bool IsListEmpty();
 }

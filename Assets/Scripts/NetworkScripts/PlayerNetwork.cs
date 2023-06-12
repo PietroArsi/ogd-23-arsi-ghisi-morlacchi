@@ -36,9 +36,6 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         if (IsServer)
         {
             NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientDisconnectCallback;
-
-
-      
     }
 }
     public void Start()
@@ -56,31 +53,31 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     }
 
     // functionality needed to place/move the picked object
-    public Transform getObjectFollowTransform()
+    public Transform GetObjectFollowTransform()
     {
         return holdPosition;
     }
 
-    public bool hasSpawnObject()
+    public bool HasSpawnObject()
     {
         return spawnObject != null;
     }
 
-    public NetworkObject getNetworkObject()
+    public NetworkObject GetNetworkObject()
     {
         return NetworkObject;
     }
 
-    public pickableObject GetObject()
+    public PickableObject GetObject()
     {
-        return spawnObject.GetComponent<pickableObject>();
+        return spawnObject.GetComponent<PickableObject>();
     }
 
-    public void setspawnObject(GameObject obj)
+    public void SetspawnObject(GameObject obj)
     {
         spawnObject = obj;
     }
-        public void ClearSpawnObject()
+    public void ClearSpawnObject()
     {
         Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
         spawnObject = null;
@@ -89,63 +86,28 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     //this need to be updated to check when there is a big block i cannot place it on top of it
     private void GetInput()
     {
-        if (Input.GetButtonDown("Fire1") && !hasSpawnObject())
-            PickUpObject();
-        if (Input.GetKeyDown(KeyCode.Space) && hasSpawnObject())
-            PlaceDownObject();
-    }
-
-    private void PickUpObject()
-    {
-        
-        Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
-        foreach (Collider c in hitColliders)
+        if (Input.GetButtonDown("Fire1") && !HasSpawnObject())
         {
-
-            if (c.gameObject.GetComponent<pickableObject>())
-            {
-                c.gameObject.GetComponent<pickableObject>().currentParent().ClearSpawnObject();
-                c.GetComponent<pickableObject>().setObjectParent(this);
-                Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
-            }
-            else if(c.gameObject.GetComponent<GetWall>()) {
-
-                   c.GetComponent<GetWall>().getWall();
-                }
+            // PickUpObject();
+            interactionCollider.GetComponent<PickAndPlace>().PickUpObject(this);
         }
-
-    }
-    private void PlaceDownObject()
-    {
-        Debug.Log("<color=yellow>PlayerNetwork Leave Object </color>");
-       
-        Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
-        foreach (Collider c in hitColliders)
+        if (Input.GetKeyDown(KeyCode.Space) && HasSpawnObject())
         {
-            // if (c.name == "Cube" && hasSpawnObject())
-            // {
-            //     GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
-            //     ClearSpawnObject();
-            // }
-            if (c.gameObject.GetComponent<SpawnableObjParent>() != null && hasSpawnObject() && !c.gameObject.GetComponent<SpawnableObjParent>().hasSpawnObject())
-            {
-                if (GetObject().transform.gameObject.name != "block1(Clone)")
-                {
-                    GetObject().setObjectParent(c.GetComponent<SpawnableObjParent>());
-                    ClearSpawnObject();
-                }
-            }
-
+            //PlaceDownObject();
+            interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
         }
-        //spawnObject.GetComponent<pickableObject>().setObjectParent(ground.GetComponent<SpawnableObjParent>());
-        
     }
+
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
     {
-      if(clientID == OwnerClientId && hasSpawnObject())
+    if(clientID == OwnerClientId && HasSpawnObject())
         {
             Destroy(spawnObject);
         }
     }
 
+    public int GetPriority()
+    {
+        throw new NotImplementedException();
+    }
 }

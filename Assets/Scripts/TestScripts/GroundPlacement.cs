@@ -5,34 +5,43 @@ using UnityEngine;
 
 public class GroundPlacement : NetworkBehaviour,SpawnableObjParent
 {
+    private int priority;
     //[SerializeField] private List<GameObject> placedObjectList = new List<GameObject>();
-
+    private void Start()
+    {
+        priority = 0;
+    }
     public void ClearSpawnObject()
     {
         return;
     }
-    public NetworkObject getNetworkObject()
+    public NetworkObject GetNetworkObject()
     {
         return NetworkObject;
     }
 
-    public pickableObject GetObject()
+    public PickableObject GetObject()
     {
         throw new System.NotImplementedException();
     }
 
-    public Transform getObjectFollowTransform()
+    public Transform GetObjectFollowTransform()
     {
         return transform;
     }
 
-    public bool hasSpawnObject()
+    public bool HasSpawnObject()
     {
        return false;
     }
 
-    public void setspawnObject(GameObject obj)
+    public void SetspawnObject(GameObject obj)
     {
         return;
+    }
+
+    public int GetPriority()
+    {
+        return priority;
     }
 }

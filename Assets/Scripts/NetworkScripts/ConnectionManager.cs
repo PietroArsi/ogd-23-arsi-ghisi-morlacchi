@@ -25,7 +25,7 @@ public class ConnectionManager : NetworkBehaviour
     public const int MAX_NUMBER_PLAYER = 4;
     [SerializeField] private List<Color> playerColorList;
     //need to create when the game start
-    [SerializeField] private Transform playerPrefab;
+    //[SerializeField] private Transform carPrefab;
 
     [Header("Spawn Object")]
     //list of object that can spawn during gameplay
@@ -85,31 +85,6 @@ public class ConnectionManager : NetworkBehaviour
     public void ChangePlayerColor(int colorId)
     {
         ChangePlayerColorServerRpc(colorId);
-    }
-    public override void OnNetworkSpawn()
-    {
-        if (IsServer) {
-            //NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback; 
-        }
-    }
-
-
-    //Spawn the players when we are in the game level.
-    public void spawnPlayers()
-    {
-        if (IsServer)
-            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
-    }
-    
-    
-    //Load the player in the game.
-    private void SceneManager_OnLoadEventCompleted(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
-    {
-        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
-        {
-            Transform playerTransform = Instantiate(playerPrefab);
-            playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
-        }
     }
 
     public void StartHost()
@@ -325,7 +300,7 @@ public class ConnectionManager : NetworkBehaviour
     //Functionality to spawn an non player object 
     public void spawnNetworkObject(GameObject currentObj, SpawnableObjParent parent)
     { 
-        spawnObjServerRpc(getSpawnIndex(currentObj),parent.getNetworkObject());
+        spawnObjServerRpc(getSpawnIndex(currentObj),parent.GetNetworkObject());
     }
 
    
@@ -342,7 +317,7 @@ public class ConnectionManager : NetworkBehaviour
         NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
         objNetworkObject.Spawn(true);
 
-        pickableObject objectPicked = currentObj.GetComponent<pickableObject>();
+        PickableObject objectPicked = currentObj.GetComponent<PickableObject>();
         currParent.TryGet(out NetworkObject currentParentObject);
         SpawnableObjParent parent = currentParentObject.GetComponent<SpawnableObjParent>();
         objectPicked.setObjectParent(parent);
