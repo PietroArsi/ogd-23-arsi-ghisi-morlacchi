@@ -138,7 +138,7 @@ public class PickAndPlace : NetworkBehaviour
         SynchSoundPickAndPlaceClientRpc(sound);
     }
     [ClientRpc]
-    private void SynchSoundPickAndPlaceClientRpc(GameObject sound)
+    private void SynchSoundPickAndPlaceClientRpc(NetworkObjectReference sound)
     {
         //play sound effect here
     }
