@@ -224,4 +224,9 @@ public class GameManagerStates : NetworkBehaviour
     {
         return false;
     }
+
+    public bool CanMoveCamera()
+    {
+        return IsGamePlaying() && !GetConstructionWindowActive();
+    }
 }

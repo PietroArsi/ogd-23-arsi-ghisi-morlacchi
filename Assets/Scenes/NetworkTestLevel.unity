@@ -6065,7 +6065,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 7159
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -12103,7 +12103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5783803693308687763, guid: e5fd7ae8929d07f438615ce89edb37cf, type: 3}
   isConstructionWindowOpen: 0
-  maxGamePlayTimer: 300
+  maxGamePlayTimer: 10000
 --- !u!1 &1635338398
 GameObject:
   m_ObjectHideFlags: 0

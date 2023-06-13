@@ -25,7 +25,9 @@ public static class NameGenerator
     }
 
     private static void LoadNames(){
-        if(!namesLoaded){
+        if (!namesLoaded){
+
+            words = new List<string>();
             string textFile = Resources.Load<TextAsset>("names").ToString();
             //words = new List<string>(textFile.Split("\n"));
             foreach(string s in textFile.Split("\n")) {

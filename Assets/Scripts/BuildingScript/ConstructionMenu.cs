@@ -6,15 +6,9 @@ public class ConstructionMenu : MonoBehaviour
 {
     [SerializeField] private GameObject constructionScreen;
     
-    private void Awake()
-    {
-        
-    }
     private void Start()
     {
         Hide();
-
-       
     }
 
     private void GameManagerStates_OnStateChanged(object sender, System.EventArgs e)
@@ -24,21 +18,21 @@ public class ConstructionMenu : MonoBehaviour
 
     private void Update()
     {
-        GetInput();
+        //GetInput();
     }
 
-    private void GetInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) && !constructionScreen.activeSelf && !PlayerNetwork.LocalIstance.HasSpawnObject())
-        {
-            Show();
-        }
-        else if(Input.GetKeyDown(KeyCode.Q) && constructionScreen.activeSelf)
-        {
-            Hide();
-        }
-    }
-    private void Show()
+    //private void GetInput()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Q) && !constructionScreen.activeSelf && !PlayerNetwork.LocalIstance.HasSpawnObject())
+    //    {
+    //        Show();
+    //    }
+    //    else if(Input.GetKeyDown(KeyCode.Q) && constructionScreen.activeSelf)
+    //    {
+    //        Hide();
+    //    }
+    //}
+    public void Show()
     {
         constructionScreen.SetActive(true);
         GameManagerStates.Instance.SetConstructionWindowActive(true);
@@ -47,5 +41,10 @@ public class ConstructionMenu : MonoBehaviour
     {
         constructionScreen.SetActive(false);
         GameManagerStates.Instance.SetConstructionWindowActive(false);
+    }
+
+    public GameObject GetConstructionScreen()
+    {
+        return constructionScreen;
     }
 }

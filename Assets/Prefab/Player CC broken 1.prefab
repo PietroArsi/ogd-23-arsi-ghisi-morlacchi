@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 293607186614415464}
   - component: {fileID: 6015694421813146391}
   - component: {fileID: 6004280543398016064}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: colliderPlacement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1312,7 +1312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8366164980531024722}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.18, z: 1.19}
+  m_LocalPosition: {x: 0.00000011920929, y: -0.32, z: 0.69000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -46,7 +46,7 @@ public class PlayerMovementCC : NetworkBehaviour
     Vector3 moveDirection;
     CharacterController cc;
 
-
+    private ConstructionMenu constructionMenu;
 
    
     private void Start() {
@@ -54,16 +54,15 @@ public class PlayerMovementCC : NetworkBehaviour
         readyToJump = true;
 
         attackCooldown = new ActionCooldown();
+
+        constructionMenu = GameObject.Find("Canvas").GetComponent<ConstructionMenu>();
     }
 
     private void Update() {
         if (!IsOwner) return;
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        if (!GameManagerStates.Instance.GetConstructionWindowActive())
-        {
-            GetInput();
-        }
+        GetInput();
         //SpeedControl();
 
         attackCooldown.Advance(Time.deltaTime);
@@ -71,32 +70,42 @@ public class PlayerMovementCC : NetworkBehaviour
 
     private void FixedUpdate() {
         if (!IsOwner) return;
-
-        Debug.Log(GameManagerStates.Instance.IsGamePlaying());
-        if (GameManagerStates.Instance.IsGamePlaying())
-        {
-            if (!GameManagerStates.Instance.GetConstructionWindowActive())
-            {
-                MovePlayer();
-            }
-        }
+        MovePlayer();
     }
 
     private void GetInput() {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        //if (canJump && Input.GetKey(jumpKey) && readyToJump && grounded) {
+        //    readyToJump = false;
+        //    Jump();
+        //    Invoke(nameof(ResetJump), jumpCooldown);
+        //}
 
-        attack = Input.GetButtonDown("Fire1");
+        if (!GameManagerStates.Instance.CanMoveCamera())
+        {
+            horizontalInput = 0;
+            verticalInput = 0;
+            attack = false;
+        }
+        else
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (canJump && Input.GetKey(jumpKey) && readyToJump && grounded) {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
+            attack = Input.GetButtonDown("Fire1");
         }
 
         if (attack && attackCooldown.Check()) {
             attackCooldown.Set(0.5f);
             Attack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && !constructionMenu.GetConstructionScreen().activeSelf && !PlayerNetwork.LocalIstance.HasSpawnObject())
+        {
+            constructionMenu.Show();
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && constructionMenu.GetConstructionScreen().activeSelf)
+        {
+            constructionMenu.Hide();
         }
     }
 

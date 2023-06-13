@@ -24,8 +24,8 @@ public class ConstructionEntry : NetworkBehaviour
     }
 
     public void Build() {
-        Debug.Log("CLICK");
-        if (gameManager != null && gameManager.GetCatnip() > cost) //AND amount!=0
+        //Debug.Log("CLICK");
+        if (gameManager != null && gameManager.GetCatnip() >= cost) //AND amount!=0
         {
             //amount--;
             
@@ -39,7 +39,7 @@ public class ConstructionEntry : NetworkBehaviour
     }
 
     private void SpawnBlock() {
-        Debug.Log("CALL THIS SPAWN");
+       // Debug.Log("CALL THIS SPAWN");
         //Debug.Log($"Build {contructionName}");
        
         PickableObject.spawnObj(constructionType, PlayerNetwork.LocalIstance.gameObject);
