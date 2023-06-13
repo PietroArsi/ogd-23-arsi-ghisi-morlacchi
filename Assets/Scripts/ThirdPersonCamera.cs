@@ -70,12 +70,12 @@ public class ThirdPersonCamera : MonoBehaviour
             orientation = PlayerNetwork.LocalIstance.gameObject.transform.Find("Orientation CC").transform;
            // orientation = playerObj.Find("Orientation CC");
 
-            cinemachineFreeLook = this.gameObject.GetComponent<CinemachineFreeLook>();
+            //cinemachineFreeLook = this.gameObject.GetComponent<CinemachineFreeLook>();
             cinemachineFreeLook.Follow = PlayerNetwork.LocalIstance.gameObject.transform;
             cinemachineFreeLook.LookAt = PlayerNetwork.LocalIstance.gameObject.transform;
 
 
-            this.enabled = true;
+            //this.enabled = true;
         }
     }
 
@@ -84,17 +84,26 @@ public class ThirdPersonCamera : MonoBehaviour
         //LUCA ADDITION WHEN THE GAME IS OVER
         if (!GameManagerStates.Instance.IsGameOver())
         {
+           // Debug.Log("IS PLAYER THERE? " + PlayerNetwork.LocalIstance != null);
             if (PlayerNetwork.LocalIstance != null)
             {
+                player = PlayerNetwork.LocalIstance.gameObject.transform;
+                playerObj = PlayerNetwork.LocalIstance.gameObject.transform.Find("PlayerModel CC").transform;
+                orientation = PlayerNetwork.LocalIstance.gameObject.transform.Find("Orientation CC").transform;
                 //get forward direction player-camera
                 Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
                 orientation.forward = viewDir.normalized;
 
                 if (currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown)
                 {
-                    //rotate player
-                    float horizontalInput = Input.GetAxis("Horizontal");
-                    float verticalInput = Input.GetAxis("Vertical");
+                    float horizontalInput = 0f;
+                    float verticalInput = 0f;
+                    if (GameManagerStates.Instance.CanMoveCamera())
+                    {
+                        //rotate player
+                        horizontalInput = Input.GetAxis("Horizontal");
+                        verticalInput = Input.GetAxis("Vertical");
+                    }
                     Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
                     if (inputDir != Vector3.zero)
@@ -109,15 +118,30 @@ public class ThirdPersonCamera : MonoBehaviour
 
                     playerObj.forward = dirToCombatLookAt.normalized;
                 }
+
+                // Luca Addition when the Construction Menu is Open
+                if (GameManagerStates.Instance.GetConstructionWindowActive())
+                {
+                    //Debug.Log("OPEN CONSTRUCTION");
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    //Debug.Log("CLOSE CONSTRUCTION");
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             }
             else
             {
-                this.enabled = false;
+                //this.enabled = false;
                 PlayerNetwork.OnAnyPlayerSpawned += Player_OnAnySpawned;
             }
         }
         else
         {
+            Debug.Log("UNLOCK PLEASE");
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

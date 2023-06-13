@@ -10,8 +10,8 @@ public class TimerGame : MonoBehaviour
 
     private void Update()
     {
-        countDown.text="CountDown: " + GameManagerStates.Instance.GetCountdownToStartTimer().ToString();
-        if (GameManagerStates.Instance.GetCountdownToStartTimer() <= 0)
+        countDown.text="CountDown: " + GameManagerStates.Instance.GetCountdownToStartTimer();
+        if (int.Parse(GameManagerStates.Instance.GetCountdownToStartTimer()) <= 0)
         {
             countDown.gameObject.SetActive(false);
         }

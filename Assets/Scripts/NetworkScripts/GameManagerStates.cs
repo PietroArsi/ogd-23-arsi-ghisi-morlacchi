@@ -29,7 +29,7 @@ public class GameManagerStates : NetworkBehaviour
 
     //network variables needed for synch the game states;
     private NetworkVariable<State> state = new NetworkVariable<State>(State.WaitingOtherPlayers);
-    private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(3f);
+    private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(4f);
     private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(300f);
 
     // Game State Messages
@@ -130,7 +130,7 @@ public class GameManagerStates : NetworkBehaviour
             case State.CountdownToStart:
                 countdownToStartTimer.Value -= Time.deltaTime;
                 Debug.Log(countdownToStartTimer.Value);
-                if (countdownToStartTimer.Value < 0f)
+                if (countdownToStartTimer.Value < 1f)
                 {
                     Debug.Log("START GAM£");
                     state.Value = State.GamePlaying;
@@ -160,9 +160,17 @@ public class GameManagerStates : NetworkBehaviour
     {
         return state.Value == State.CountdownToStart;
     }
-    public float GetCountdownToStartTimer()
+    public string GetCountdownToStartTimer()
     {
-        return countdownToStartTimer.Value;
+        if (countdownToStartTimer.Value > 0)
+        {
+            string seconds = Mathf.Floor(countdownToStartTimer.Value % 60).ToString("0");
+            return seconds;
+        }
+        else
+        {
+            return "0";
+        }
     }
     public bool IsGameOver()
     {
@@ -204,11 +212,21 @@ public class GameManagerStates : NetworkBehaviour
     {
         
         isConstructionWindowOpen = value;
-        Debug.Log(isConstructionWindowOpen);
+        //Debug.Log(isConstructionWindowOpen);
     }
     public bool GetConstructionWindowActive()
     {
-        Debug.Log(isConstructionWindowOpen);
+        //Debug.Log(isConstructionWindowOpen);
         return isConstructionWindowOpen;
+    }
+
+    public bool CloseConstructionWindow()
+    {
+        return false;
+    }
+
+    public bool CanMoveCamera()
+    {
+        return IsGamePlaying() && !GetConstructionWindowActive();
     }
 }
