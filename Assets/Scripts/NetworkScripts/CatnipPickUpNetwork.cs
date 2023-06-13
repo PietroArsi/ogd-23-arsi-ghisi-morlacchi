@@ -55,7 +55,7 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
         //Debug.Log(message);
         var clientId = serverRpcParams.Receive.SenderClientId;
         
-        visualDebugger.AddMessage("Recive message form client: "+clientId.ToString());
+        //visualDebugger.AddMessage("Recive message form client: "+clientId.ToString());
         UpdateScoreClientRpc("To all clients", catnip);
     }
 
@@ -72,7 +72,7 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
         foreach (GameObject plant in _catnipedRemovedList)
             if (_currentplant == plant)
                 plant.SetActive(false);
-        visualDebugger.AddMessage(message);
+       // visualDebugger.AddMessage(message);
 
     }
     [ServerRpc(RequireOwnership = false)]
@@ -80,7 +80,7 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
     {
 
         var clientId = serverRpcParams.Receive.SenderClientId;
-        visualDebugger.AddMessage("Recive message form client: " + clientId.ToString());
+       // visualDebugger.AddMessage("Recive message form client: " + clientId.ToString());
         spawnCatnipedToAllClientRpc(catnip);
     }
 
@@ -93,7 +93,7 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
                 el.SetActive(true);
         _catnipedRemovedList.Remove(_currentplant);
 
-       visualDebugger.AddMessage("Spawn Catnip for other clients");
+      // visualDebugger.AddMessage("Spawn Catnip for other clients");
     }
 
 }

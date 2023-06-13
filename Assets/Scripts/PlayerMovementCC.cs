@@ -60,8 +60,10 @@ public class PlayerMovementCC : NetworkBehaviour
         if (!IsOwner) return;
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-        GetInput();
+        if (!GameManagerStates.Instance.GetConstructionWindowActive())
+        {
+            GetInput();
+        }
         //SpeedControl();
 
         attackCooldown.Advance(Time.deltaTime);
@@ -69,7 +71,15 @@ public class PlayerMovementCC : NetworkBehaviour
 
     private void FixedUpdate() {
         if (!IsOwner) return;
-        MovePlayer();
+
+        Debug.Log(GameManagerStates.Instance.IsGamePlaying());
+        if (GameManagerStates.Instance.IsGamePlaying())
+        {
+            if (!GameManagerStates.Instance.GetConstructionWindowActive())
+            {
+                MovePlayer();
+            }
+        }
     }
 
     private void GetInput() {

@@ -321,19 +321,19 @@ public class ConnectionManager : NetworkBehaviour
         PickableObject objectPicked = currentObj.GetComponent<PickableObject>();
         currParent.TryGet(out NetworkObject currentParentObject);
         SpawnableObjParent parent = currentParentObject.GetComponent<SpawnableObjParent>();
-        Debug.Log(currentParentObject.GetComponent<SpawnableObjParent>()==null);
+        //Debug.Log(currentParentObject.GetComponent<SpawnableObjParent>()==null);
         objectPicked.setObjectParent(parent);
     }
 
     //to solve the problem of spawning objects
     private int GetSpawnIndex(GameObject current) 
     {
-        Debug.Log("NAME OBJECT "+current.name);
+        //Debug.Log("NAME OBJECT "+current.name);
         return  spawnableObj.IndexOf(current);
     }
     public GameObject GetSpawnFromId(int id)
     {
-        Debug.Log(id);
+        //Debug.Log(id);
         return spawnableObj[id];
     }
 

@@ -3888,7 +3888,7 @@ RectTransform:
   - {fileID: 848717825}
   - {fileID: 1095225237}
   m_Father: {fileID: 741391446}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4239,7 +4239,7 @@ RectTransform:
   - {fileID: 1075828790}
   - {fileID: 939961767}
   m_Father: {fileID: 741391446}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4422,7 +4422,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 722142515}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ConstructionEntry, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &722142518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4435,9 +4447,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672ae5aa34b9cd445a9ddfa310a269b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contructionName: wall
+  contructionName: Wall
   cost: 5
+  gameManager: {fileID: 0}
   costText: {fileID: 60388134}
+  constructionType: {fileID: 4214819476982542002, guid: 5ca1ede7a31b3424c98376f74a563986, type: 3}
+  construction: {fileID: 741391451}
 --- !u!1 &741391442
 GameObject:
   m_ObjectHideFlags: 0
@@ -4544,8 +4559,8 @@ RectTransform:
   - {fileID: 1691145659}
   - {fileID: 1813173786}
   - {fileID: 1447805570}
-  - {fileID: 707898767}
   - {fileID: 600827927}
+  - {fileID: 707898767}
   - {fileID: 1805969939}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -7428,7 +7443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 828, y: -41.3}
+  m_AnchoredPosition: {x: 444, y: -41.3}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1191061196
@@ -15122,7 +15137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1707, y: -41.3}
+  m_AnchoredPosition: {x: 849, y: -41.3}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1963169625

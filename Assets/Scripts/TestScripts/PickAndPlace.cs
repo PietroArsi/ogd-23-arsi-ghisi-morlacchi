@@ -27,24 +27,25 @@ public class PickAndPlace : NetworkBehaviour
         {
             if (c.gameObject.GetComponent<PickableObject>())
             {
-                c.gameObject.GetComponent<BoxCollider>().enabled = false;
+                Debug.Log("Remove Collider");
+                RemoveColliderServerRpc(c.gameObject);
                 c.gameObject.GetComponent<PickableObject>().currentParent().ClearSpawnObject();
                 
                 c.GetComponent<PickableObject>().setObjectParent(PlayerNetwork.LocalIstance);
                 break;
                 // Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
-            else if (c.gameObject.GetComponent<GetWall>())
+           // else if (c.gameObject.GetComponent<GetWall>())
+            //{
+
+            //    c.GetComponent<GetWall>().getWall();
+            //    break;
+            //}
+            if (c.gameObject.GetComponent<FurnaceCook>() != null && !PlayerNetwork.LocalIstance.HasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
             {
 
-                c.GetComponent<GetWall>().getWall();
-                break;
-            }
-            if (c.gameObject.GetComponent<FurnaceCook>() != null && !player.HasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
-            {
 
-
-                c.gameObject.GetComponent<FurnaceCook>().getProcessCatnip(player);
+                c.gameObject.GetComponent<FurnaceCook>().getProcessCatnip(PlayerNetwork.LocalIstance);
                 break;
 
             }
@@ -67,7 +68,7 @@ public class PickAndPlace : NetworkBehaviour
         }
         Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, interactionLayer);
         // Sortare hit colliders in base alla priorità fare sorting list 
-        if (hitColliders.Length == 0 || !player.HasSpawnObject())
+        if (hitColliders.Length == 0 || !PlayerNetwork.LocalIstance.HasSpawnObject())
         {
             return;
         }
@@ -85,34 +86,34 @@ public class PickAndPlace : NetworkBehaviour
         {
             Collider[] placedObjectColldier = Physics.OverlapSphere(checkGround.transform.position, 2f, interactionLayer);
 
-            Debug.Log(sortedColliders[0].name);
+            //Debug.Log(sortedColliders[0].name);
             
             if (sortedColliders[0].name== "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
-                && player.GetObject().gameObject.tag == "Unprocessed")
+                && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Unprocessed")
             {
-                Debug.Log("FURNACE");
-                DestroyHeldObjectServerRpc(player.GetObject().gameObject);
+              //  Debug.Log("FURNACE");
+                DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<FurnaceCook>().StartToCoock();
                
             }
-            else if (sortedColliders[0].name == "Storage" && player.GetObject().gameObject.tag == "Processed")
+            else if (sortedColliders[0].name == "Storage" && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Processed")
             {
-                Debug.Log("Storage");
-                DestroyHeldObjectServerRpc(player.GetObject().gameObject);
+               // Debug.Log("Storage");
+                DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<Storage>().DeliverProcessCatnip();
             }
             else if(sortedColliders[0].name == "Cube" )
             {
-                Debug.Log("Ground");
-                player.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
-                player.ClearSpawnObject();
+                //Debug.Log("Ground");
+                PlayerNetwork.LocalIstance.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
+                PlayerNetwork.LocalIstance.ClearSpawnObject();
             }
             else if (sortedColliders[0].name.Contains("place"))
             {
-                Debug.Log("Table");
-                player.spawnObject.GetComponent<BoxCollider>().enabled = true;
-                player.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
-                player.ClearSpawnObject();
+               // Debug.Log("Table");
+                PlayerNetwork.LocalIstance.spawnObject.GetComponent<BoxCollider>().enabled = true;
+                PlayerNetwork.LocalIstance.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
+                PlayerNetwork.LocalIstance.ClearSpawnObject();
             }
             else
             {
@@ -141,6 +142,20 @@ public class PickAndPlace : NetworkBehaviour
     private void SynchSoundPickAndPlaceClientRpc(NetworkObjectReference sound)
     {
         //play sound effect here
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveColliderServerRpc(NetworkObjectReference picked)
+    {
+        GameObject newPick = picked;
+        RemoveColliderClientRpc(newPick);
+    }
+
+    [ClientRpc]
+    private void RemoveColliderClientRpc(NetworkObjectReference c)
+    {
+        visualDebugger.AddMessage("REMOVE COLLIDER FOR THIS OBJECT PLEASE");
+        GameObject PickedUp = c;
+        PickedUp.GetComponent<BoxCollider>().enabled = false;
     }
 }
 

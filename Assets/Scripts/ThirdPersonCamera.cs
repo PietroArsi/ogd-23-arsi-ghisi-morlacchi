@@ -113,6 +113,20 @@ public class ThirdPersonCamera : MonoBehaviour
 
                     playerObj.forward = dirToCombatLookAt.normalized;
                 }
+
+                // Luca Addition when the Construction Menu is Open
+                if (GameManagerStates.Instance.GetConstructionWindowActive())
+                {
+                    //Debug.Log("OPEN CONSTRUCTION");
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    //Debug.Log("CLOSE CONSTRUCTION");
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             }
             else
             {
@@ -122,6 +136,7 @@ public class ThirdPersonCamera : MonoBehaviour
         }
         else
         {
+            Debug.Log("UNLOCK PLEASE");
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
