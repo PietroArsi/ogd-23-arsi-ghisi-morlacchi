@@ -53,8 +53,18 @@ public class LobbyMenuUI : MonoBehaviour
 
         CatnipLobby.Instance.OnLobbyListChanged += CatnipLobby_OnLobbyListChanged;
         UpdateLobbyList(new List<Lobby>());
+        if (hostCanvas.activeSelf)
+        {
+            StartCoroutine(WaitToCall());
+        }
     }
+    private IEnumerator WaitToCall()
+    {
+        yield return new WaitForSeconds(1f);
+        CreateLobby();
 
+
+    }
     public void CreateLobby()
     {
         CatnipLobby.Instance.CreateLobby(nameLobby.text);

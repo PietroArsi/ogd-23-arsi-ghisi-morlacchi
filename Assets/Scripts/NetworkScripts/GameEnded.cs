@@ -22,6 +22,10 @@ public class GameEnded : MonoBehaviour
             NetworkManager.Singleton.Shutdown();
             SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
         });
+        foreach(Image crunch in crunchies)
+        {
+            crunch.enabled = false;
+        }
     }
     private void Start()
     {
@@ -50,25 +54,26 @@ public class GameEnded : MonoBehaviour
         GameEndedScreen.SetActive(true);
         int numberCatnip= _gm.GetCatnip();
         score = numberCatnip * 10;
-        totalScore.text = "Scroe: " + score;
-        for(int index=0; index < crunchies.Count ;index++)
-        {
-            Debug.Log(index);
-            if (score > 50)
+        totalScore.text = "Score: " + score;
+       
+            if (score >= 50  && score < 100)
             {
-                Debug.Log(crunchies[index]);
-                crunchies[index].enabled = true;
+                Debug.Log(crunchies[0]);
+                crunchies[0].enabled = true;
             }
-            else if (score < 100)
+            else if (score > 100 && score < 200)
             {
-                crunchies[index].enabled = true;
+                crunchies[0].enabled = true;
+                crunchies[1].enabled = true;
             }
-            else if (score > 150)
+            else if (score >= 200)
             {
-                crunchies[index].enabled=true;
-                break;
+                crunchies[0].enabled = true;
+                crunchies[1].enabled = true;
+                crunchies[2].enabled=true;
+         
             }
-        }
+        
     }
     private void Hide()
     {

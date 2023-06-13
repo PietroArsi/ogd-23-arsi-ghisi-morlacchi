@@ -21,7 +21,9 @@ public class CatnipInteractable : ResourceInteractable
 
         if (!readyToCollect && resourceCooldown.Check()) {
             //plantModel.SetActive(true);
+
             readyToCollect = true;
+            gameObject.layer = LayerMask.NameToLayer("Interactable");
             // luca addition
             CatnipPickUpNetwork.Instance.respawnCatnipNetwork(plantModel);
         }
@@ -41,6 +43,7 @@ public class CatnipInteractable : ResourceInteractable
 
             //plantModel.SetActive(false);
             readyToCollect = false;
+            gameObject.layer= LayerMask.NameToLayer("Default");
             resourceCooldown.Set(respawnTime);
 
             //luca possible additions
