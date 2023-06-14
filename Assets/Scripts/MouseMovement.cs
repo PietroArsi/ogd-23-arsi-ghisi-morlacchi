@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
-public class MouseMovement : MonoBehaviour
+public class MouseMovement : NetworkBehaviour
 {
     //public Transform spawn;
     private List<Vector3> path;
@@ -54,35 +55,90 @@ public class MouseMovement : MonoBehaviour
     }
 
     public void Spawn() {
-        status = MouseStatus.Move;
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.SetDestination(path[0]);
-        memory = new Dictionary<Vector3, int>();
-        memory.Add(path[0], 1);
+        if (ConnectionManager.Instance != null)
+        {
+            if (!IsHost) return;
+            status = MouseStatus.Move;
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent.SetDestination(path[0]);
+            memory = new Dictionary<Vector3, int>();
+            memory.Add(path[0], 1);
+        }
+        else
+        {
+            status = MouseStatus.Move;
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent.SetDestination(path[0]);
+            memory = new Dictionary<Vector3, int>();
+            memory.Add(path[0], 1);
+        }
     }
 
     private void ContinuePath() {
-        if (status == MouseStatus.Move) {
-            Vector3 current = path[0];
-            path.RemoveAt(0);
-            path.Add(current);
+        if (ConnectionManager.Instance != null)
+        {
+            if (!IsHost) return;
+            if (status == MouseStatus.Move)
+            {
+                Vector3 current = path[0];
+                path.RemoveAt(0);
+                path.Add(current);
 
-            if (memory.ContainsKey(path[0])) {
-                if (memory[path[0]] >= repeatCount) {
-                    status = MouseStatus.Flee;
-                    navMeshAgent.SetDestination(escape);
+                if (memory.ContainsKey(path[0]))
+                {
+                    if (memory[path[0]] >= repeatCount)
+                    {
+                        status = MouseStatus.Flee;
+                        navMeshAgent.SetDestination(escape);
+                    }
+                    else
+                    {
+                        memory[path[0]] += 1;
+                        navMeshAgent.SetDestination(path[0]);
+                    }
                 }
-                else {
-                    memory[path[0]] += 1;
+                else
+                {
+                    memory.Add(path[0], 1);
                     navMeshAgent.SetDestination(path[0]);
                 }
-            } 
-            else {
-                memory.Add(path[0], 1);
-                navMeshAgent.SetDestination(path[0]);
             }
-        } else if (status == MouseStatus.Flee) {
-            Destroy(gameObject);
+            else if (status == MouseStatus.Flee)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            if (status == MouseStatus.Move)
+            {
+                Vector3 current = path[0];
+                path.RemoveAt(0);
+                path.Add(current);
+
+                if (memory.ContainsKey(path[0]))
+                {
+                    if (memory[path[0]] >= repeatCount)
+                    {
+                        status = MouseStatus.Flee;
+                        navMeshAgent.SetDestination(escape);
+                    }
+                    else
+                    {
+                        memory[path[0]] += 1;
+                        navMeshAgent.SetDestination(path[0]);
+                    }
+                }
+                else
+                {
+                    memory.Add(path[0], 1);
+                    navMeshAgent.SetDestination(path[0]);
+                }
+            }
+            else if (status == MouseStatus.Flee)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

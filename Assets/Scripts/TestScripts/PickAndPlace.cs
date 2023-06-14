@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,6 +8,9 @@ public class PickAndPlace : NetworkBehaviour
 {
     public LayerMask interactionLayer;
     public SphereCollider checkGround;
+
+    public event EventHandler OnPlaceObject;
+    public event EventHandler OnPickUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,16 +26,19 @@ public class PickAndPlace : NetworkBehaviour
     public void PickUpObject(PlayerNetwork player)
     {
         //synch sound pick()
+        if (GameManagerStates.Instance.GetConstructionWindowActive()) return;
         Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders)
         {
             if (c.gameObject.GetComponent<PickableObject>())
             {
+                
                 Debug.Log("Remove Collider");
                 RemoveColliderServerRpc(c.gameObject);
                 c.gameObject.GetComponent<PickableObject>().currentParent().ClearSpawnObject();
                 
                 c.GetComponent<PickableObject>().setObjectParent(PlayerNetwork.LocalIstance);
+                OnPickUp?.Invoke(this, EventArgs.Empty);
                 break;
                 // Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
@@ -105,6 +112,7 @@ public class PickAndPlace : NetworkBehaviour
             else if(sortedColliders[0].name == "Cube" )
             {
                 //Debug.Log("Ground");
+                OnPlaceObject?.Invoke(this, EventArgs.Empty);
                 PlayerNetwork.LocalIstance.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
                 PlayerNetwork.LocalIstance.ClearSpawnObject();
             }

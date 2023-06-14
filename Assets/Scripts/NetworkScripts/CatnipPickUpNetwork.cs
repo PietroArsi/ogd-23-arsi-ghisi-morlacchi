@@ -40,6 +40,10 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
         sendMessageServerRpc("Send info to ServerRpc", catnip);
 
     }
+    public void StolenCatnip(GameObject catnip)
+    {
+        StolenCatnipServerRpc("THIS WAS STOLEN", catnip);
+    }
     public void respawnCatnipNetwork(GameObject catnip)
     {
         //_catnipedRemovedList.Add(catnip);
@@ -73,6 +77,38 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
             if (_currentplant == plant)
                 plant.SetActive(false);
        // visualDebugger.AddMessage(message);
+
+    }
+
+
+    // when the enemy get it
+    // RPC functionality
+    [ServerRpc(RequireOwnership = false)]
+    public void StolenCatnipServerRpc(string message, NetworkObjectReference catnip, ServerRpcParams serverRpcParams = default)
+    {
+        //_plant
+
+        //Debug.Log(message);
+        var clientId = serverRpcParams.Receive.SenderClientId;
+
+        //visualDebugger.AddMessage("Recive message form client: "+clientId.ToString());
+        HideCatnipStolenClientRpc("StolenCatnipServerRpc", catnip);
+    }
+
+
+    // add for visual queue in the case of the catinip when collected. to   modify for multpile obj
+    [ClientRpc]
+    private void HideCatnipStolenClientRpc(string message, NetworkObjectReference catnip)
+    {
+        //ask if only needed only to have a reference 
+        
+        GameObject _currentplant = catnip;
+        _catnipedRemovedList.Add(catnip);
+
+        foreach (GameObject plant in _catnipedRemovedList)
+            if (_currentplant == plant)
+                plant.SetActive(false);
+        // visualDebugger.AddMessage(message);
 
     }
     [ServerRpc(RequireOwnership = false)]

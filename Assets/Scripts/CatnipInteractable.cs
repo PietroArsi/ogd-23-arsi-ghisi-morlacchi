@@ -50,4 +50,25 @@ public class CatnipInteractable : ResourceInteractable
             CatnipPickUpNetwork.Instance.Adapt(plantModel);
         }
     }
+
+    public  void CollectEnemy(GameObject currentEnemy)
+    {
+        if (currentEnemy != null && !currentEnemy.GetComponent<EnemyHoldCatnip>().HasSpawnObject())
+        {
+            visualDebugger.AddMessage("Enemy Steal");
+            //if (!PlayerNetwork.LocalIstance.hasSpawnObject()) {
+            PickableObject.spawnObj(pickedPlant, currentEnemy);
+            // }
+
+            //gm.AddCatnip(1);
+
+            //plantModel.SetActive(false);
+            readyToCollect = false;
+            gameObject.layer = LayerMask.NameToLayer("Default");
+            resourceCooldown.Set(respawnTime);
+
+            //luca possible additions
+            CatnipPickUpNetwork.Instance.StolenCatnip(plantModel);
+        }
+    }
 }

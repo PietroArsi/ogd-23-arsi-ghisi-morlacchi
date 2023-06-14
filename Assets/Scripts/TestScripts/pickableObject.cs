@@ -16,7 +16,7 @@ public class PickableObject : NetworkBehaviour
     //[SerializeField] private List<Transform> placementLocation = new List<Transform>();
     //private GameObject attachedObj;
 
-    public bool isPlaced = false;
+    
     // do we set a parent here for the game object?
     private void Awake()
     {

@@ -46,6 +46,52 @@ public class NetworkNavMeshAgent : NetworkBehaviour
 
     private void Update()
     {
+        if (m_Agent.destination != m_LastDestination)
+        {
+            m_LastDestination = m_Agent.destination;
+            if (!EnableProximity)
+            {
+                visualDebugger.AddMessage("NetworkNavMeshAgent: CLIENT RPC");
+                OnNavMeshStateUpdateClientRpc(m_Agent.destination, m_Agent.velocity, transform.position);
+            }
+            else
+            {
+                var proximityClients = new List<ulong>();
+                foreach (KeyValuePair<ulong, NetworkClient> client in NetworkManager.Singleton.ConnectedClients)
+                {
+                    if (client.Value.PlayerObject == null || Vector3.Distance(client.Value.PlayerObject.transform.position, transform.position) <= ProximityRange)
+                    {
+                        proximityClients.Add(client.Key);
+                    }
+                }
+                Debug.Log("CALL CLIENT RPC");
+                OnNavMeshStateUpdateClientRpc(m_Agent.destination, m_Agent.velocity, transform.position, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = proximityClients.ToArray() } });
+            }
+        }
+
+        if (NetworkManager.Singleton.ServerTime.FixedDeltaTime - m_LastCorrectionTime >= CorrectionDelay)
+        {
+            if (!EnableProximity)
+            {
+                visualDebugger.AddMessage("NetworkNavMeshAgent: CLIENT RPC");
+                OnNavMeshCorrectionUpdateClientRpc(m_Agent.velocity, transform.position);
+            }
+            else
+            {
+                var proximityClients = new List<ulong>();
+                foreach (KeyValuePair<ulong, NetworkClient> client in NetworkManager.Singleton.ConnectedClients)
+                {
+                    if (client.Value.PlayerObject == null || Vector3.Distance(client.Value.PlayerObject.transform.position, transform.position) <= ProximityRange)
+                    {
+                        proximityClients.Add(client.Key);
+                    }
+                }
+                visualDebugger.AddMessage("NetworkNavMeshAgent: CLIENT RPC");
+                OnNavMeshCorrectionUpdateClientRpc(m_Agent.velocity, transform.position, new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = proximityClients.ToArray() } });
+            }
+
+            m_LastCorrectionTime = NetworkManager.Singleton.ServerTime.FixedDeltaTime;
+        }
     }
 
     public IEnumerator CheckNavMeshAgent()
