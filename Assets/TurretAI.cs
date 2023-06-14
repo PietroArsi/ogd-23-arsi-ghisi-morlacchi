@@ -76,19 +76,19 @@ public class TurretAI : MonoBehaviour
         }
     }
 
-    private void PlayAlarm() {
+    public void PlayAlarm() {
         audioSource.clip = alarm;
         audioSource.loop = true;
         audioSource.Play();
     }
 
-    private void PlayPowerOn() {
+    public void PlayPowerOn() {
         audioSource.clip = powerOn;
         audioSource.loop = false;
         audioSource.Play();
     }
 
-    private void PlayPowerOff() {
+    public void PlayPowerOff() {
         audioSource.clip = powerOff;
         audioSource.loop = false;
         audioSource.Play();
