@@ -7,6 +7,8 @@ TagManager:
   - 'Building '
   - Processed
   - Unprocessed
+  - Music
+  - UI Sounds
   layers:
   - Default
   - TransparentFX

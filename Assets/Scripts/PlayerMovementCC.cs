@@ -48,6 +48,12 @@ public class PlayerMovementCC : NetworkBehaviour
 
     private ConstructionMenu constructionMenu;
 
+    private AudioSource stepAudioSource;
+    private AudioSource attackAudioSource;
+    private AudioSource miaoAudioSource;
+
+    public AudioClip attackSound;
+    public List<AudioClip> meows;
    
     private void Start() {
         cc = GetComponent<CharacterController>();
