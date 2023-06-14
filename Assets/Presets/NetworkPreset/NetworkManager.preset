@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NetworkManager
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: RunInBackground
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: LogLevel
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.ProtocolVersion
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkTransport
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.PlayerPrefab
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[0].Override
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[0].Prefab
+    value: 
+    objectReference: {fileID: 4214819476982542002, guid: 5ca1ede7a31b3424c98376f74a563986, type: 3}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[0].SourcePrefabToOverride
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[0].SourceHashToOverride
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[0].OverridingTargetPrefab
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[1].Override
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[1].Prefab
+    value: 
+    objectReference: {fileID: 5783803693308687758, guid: e5fd7ae8929d07f438615ce89edb37cf, type: 3}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[1].SourcePrefabToOverride
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[1].SourceHashToOverride
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[1].OverridingTargetPrefab
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[2].Override
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[2].Prefab
+    value: 
+    objectReference: {fileID: 2307626590562149801, guid: d49a6015cb341ea43bd02027d50ca059, type: 3}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[2].SourcePrefabToOverride
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[2].SourceHashToOverride
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[2].OverridingTargetPrefab
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[3].Override
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[3].Prefab
+    value: 
+    objectReference: {fileID: 4751615697786668840, guid: 6edbbc9bbca2d89418f40325f4ac950c, type: 3}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[3].SourcePrefabToOverride
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[3].SourceHashToOverride
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkPrefabs.Array.data[3].OverridingTargetPrefab
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.TickRate
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.ClientConnectionBufferTimeout
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.ConnectionApproval
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.ConnectionData.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.EnableTimeResync
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.TimeResyncInterval
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.EnsureNetworkVariableLengthSafety
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.EnableSceneManagement
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.ForceSamePrefabs
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.RecycleNetworkIds
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.NetworkIdRecycleDelay
+    value: 120
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.RpcHashSize
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.LoadSceneTimeOut
+    value: 120
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.SpawnTimeout
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: NetworkConfig.EnableNetworkLogs
+    value: 1
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []
