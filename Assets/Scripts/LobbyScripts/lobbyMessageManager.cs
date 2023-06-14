@@ -11,6 +11,7 @@ public class lobbyMessageManager : MonoBehaviour
     [SerializeField] private Image messagesWarnigns;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Button close;
+    [SerializeField] private GameObject hostScreen;
 
     private void Awake()
     {
@@ -24,7 +25,19 @@ public class lobbyMessageManager : MonoBehaviour
         CatnipLobby.Instance.OnCreateLobbyFailed += CatnipLobby_OnCreateLobbyFailed;
         CatnipLobby.Instance.OnJoinStarted += CatnipLobby_OnJoinStarted;
         CatnipLobby.Instance.OnJoinFailed += CatnipLobby_OnJoinFailed;
-        Hide();
+        if (hostScreen.activeSelf)
+        {
+            ShowMessage("Loading...");
+            close.onClick.AddListener(() => {
+
+                SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+
+            });
+        }
+        else {
+            Hide();
+            close.onClick.AddListener(Hide);
+        }
     }
 
     private void CatnipLobby_OnJoinFailed(object sender, EventArgs e)
