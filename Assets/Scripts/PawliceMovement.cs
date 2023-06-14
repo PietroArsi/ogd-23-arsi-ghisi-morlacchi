@@ -27,7 +27,7 @@ public class PawliceMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (status == PawliceStatus.Idle && Input.GetKeyDown(KeyCode.Space)) {
+        if (status == PawliceStatus.Idle) {
             CheckTarget();
             navMeshAgent.destination = target.position;
             spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
@@ -37,6 +37,7 @@ public class PawliceMovement : MonoBehaviour
     }
 
     private void CheckTarget() {
+        //bisogna fare il check sulla catnip prendibile, non su tutte!!!
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100, catnipLayer);
 
         if (hitColliders.Length > 0) {
@@ -74,7 +75,7 @@ public class PawliceMovement : MonoBehaviour
         target = spawnedMarker.transform;
         navMeshAgent.destination = target.position;
         status = PawliceStatus.Flee;
-        Debug.Log("Arrived at destination");
+        //Debug.Log("Arrived at destination");
     }
 
     private void OnSpawnReturn() {

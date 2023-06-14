@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3268334080119537284}
   - component: {fileID: 6031114809194907411}
   - component: {fileID: 1090060146837832531}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ SphereCollider:
   m_GameObject: {fileID: 2555238178594080414}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

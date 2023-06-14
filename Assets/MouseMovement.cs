@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class MouseMovement : MonoBehaviour
 {
-    public Transform spawn;
-    public List<Transform> path;
-    public Transform escape;
+    //public Transform spawn;
+    private List<Vector3> path;
+    private Vector3 escape;
     public int repeatCount = -1;
     private NavMeshAgent navMeshAgent;
     private Dictionary<Vector3, int> memory;
@@ -19,10 +19,11 @@ public class MouseMovement : MonoBehaviour
 
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        transform.position = spawn.position;
-        status = MouseStatus.Hidden;
-        memory = new Dictionary<Vector3, int>();
+        //navMeshAgent = GetComponent<NavMeshAgent>();
+        //transform.position = spawn.position;
+        //status = MouseStatus.Hidden;
+        //memory = new Dictionary<Vector3, int>();
+        //path = new List<Vector3>();
 
         //if (repeatCount < 1) {
         //    repeatCount = 1;
@@ -31,40 +32,54 @@ public class MouseMovement : MonoBehaviour
 
     void Update()
     {
-        if (status == MouseStatus.Hidden) {
-            Spawn();
-        }
+        //if (status == MouseStatus.Hidden) {
+        //    Spawn();
+        //}
 
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) {
             ContinuePath();
         }
     }
 
+    public void SetPath(List<Transform> mousePath) {
+        //path = mousePath;
+        path = new List<Vector3>();
+        foreach (Transform t in mousePath) {
+            path.Add(t.position);
+        }
+    }
+
+    public void SetEscape(Vector3 escapePosition) {
+        escape = escapePosition;
+    }
+
     public void Spawn() {
         status = MouseStatus.Move;
-        navMeshAgent.SetDestination(path[0].position);
-        memory.Add(path[0].position, 1);
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.SetDestination(path[0]);
+        memory = new Dictionary<Vector3, int>();
+        memory.Add(path[0], 1);
     }
 
     private void ContinuePath() {
         if (status == MouseStatus.Move) {
-            Transform current = path[0];
+            Vector3 current = path[0];
             path.RemoveAt(0);
             path.Add(current);
 
-            if (memory.ContainsKey(path[0].position)) {
-                if (memory[path[0].position] >= repeatCount) {
+            if (memory.ContainsKey(path[0])) {
+                if (memory[path[0]] >= repeatCount) {
                     status = MouseStatus.Flee;
-                    navMeshAgent.SetDestination(escape.position);
+                    navMeshAgent.SetDestination(escape);
                 }
                 else {
-                    memory[path[0].position] += 1;
-                    navMeshAgent.SetDestination(path[0].position);
+                    memory[path[0]] += 1;
+                    navMeshAgent.SetDestination(path[0]);
                 }
             } 
             else {
-                memory.Add(path[0].position, 1);
-                navMeshAgent.SetDestination(path[0].position);
+                memory.Add(path[0], 1);
+                navMeshAgent.SetDestination(path[0]);
             }
         } else if (status == MouseStatus.Flee) {
             Destroy(gameObject);
