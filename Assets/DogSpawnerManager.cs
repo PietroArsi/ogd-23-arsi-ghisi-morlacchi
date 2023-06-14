@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class DogSpawnerManager : MonoBehaviour
+public class DogSpawnerManager : NetworkBehaviour
 {
     public float spawnInterval = 30f;
     private ActionCooldown spawnTimer;
@@ -17,24 +18,51 @@ public class DogSpawnerManager : MonoBehaviour
 
     void Start()
     {
+        //LucaAddition
+        if (!IsHost) return;
+
         spawnTimer = new ActionCooldown();
         spawnTimer.Set(spawnInterval);
     }
 
     void Update()
     {
-        if (spawnTimer.Check()) {
-            SpawnEnemy();
-            spawnTimer.Set(spawnInterval);
-        }
+        if (ConnectionManager.Instance != null)
+        {
+            if (!IsHost) return;
+            if (spawnTimer.Check() && GameManagerStates.Instance.IsGamePlaying())
+            {
+                SpawnEnemy();
+                spawnTimer.Set(spawnInterval);
+            }
 
-        spawnTimer.Advance(Time.deltaTime);
+            spawnTimer.Advance(Time.deltaTime);
+        }
+        else
+        {
+            if (spawnTimer.Check() && GameManagerStates.Instance.IsGamePlaying())
+            {
+                SpawnEnemy();
+                spawnTimer.Set(spawnInterval);
+            }
+
+            spawnTimer.Advance(Time.deltaTime);
+        }
     }
 
     private void SpawnEnemy() {
         if (spawnPositions.Count > 0) {
             Vector3 spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Count)].position;
-            Instantiate(enemy, spawnPosition, Quaternion.identity);
+            
+            if (ConnectionManager.Instance != null)
+            {
+                ConnectionManager.Instance.SpawnEnemyDog(spawnPosition, enemy);
+            }
+            else
+            {
+                Instantiate(enemy, spawnPosition, Quaternion.identity);
+            }
+
         } else {
             Debug.Log("No spawn positions");
         }

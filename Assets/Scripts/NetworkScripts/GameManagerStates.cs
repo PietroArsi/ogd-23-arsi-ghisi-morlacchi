@@ -129,7 +129,7 @@ public class GameManagerStates : NetworkBehaviour
                 break;
             case State.CountdownToStart:
                 countdownToStartTimer.Value -= Time.deltaTime;
-                Debug.Log(countdownToStartTimer.Value);
+                //Debug.Log(countdownToStartTimer.Value);
                 if (countdownToStartTimer.Value < 1f)
                 {
                     Debug.Log("START GAM£");

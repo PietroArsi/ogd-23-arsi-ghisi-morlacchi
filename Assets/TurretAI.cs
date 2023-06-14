@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class TurretAI : MonoBehaviour
+public class TurretAI : NetworkBehaviour
 {
     public float radius = 5f;
     public LayerMask detectionLayer;
@@ -25,12 +26,29 @@ public class TurretAI : MonoBehaviour
     {
         //GameObject.Find("PlayerCC");
         status = TurretStatus.Idle;
+        //LUCA ADDITON
         audioSource = GetComponent<AudioSource>();
-        PlayPowerOn();
+        if (ConnectionManager.Instance == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            PlayPowerOn();
+        }
+
+        PlayerNetwork.LocalIstance.interactionCollider.GetComponent<PickAndPlace>().OnPlaceObject += TurretAI_OnPlaceObject; 
+       
+    }
+
+    private void TurretAI_OnPlaceObject(object sender, System.EventArgs e)
+    {
+        Debug.Log("FIRE EVENT SOUND");
+        PlayerNetwork.LocalIstance.interactionCollider.GetComponent<PickAndPlace>().OnPlaceObject -= TurretAI_OnPlaceObject;
+        PlayPowerOnClientRpc();
+       
     }
 
     void Update()
     {
+
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, detectionLayer);
         if (hitColliders.Length < 0){
             return;
@@ -50,24 +68,60 @@ public class TurretAI : MonoBehaviour
             //    //player.GetComponent<PlayerSoundManager>().PlaySound();
             //}
             //Debug.Log("Enemy detected");
-            PlayAlarm();
-            status = TurretStatus.Active;
-            StartCoroutine(DieLater(10));
+
+            //LUCA ADDITION NETWORK 
+            if (ConnectionManager.Instance != null)
+            {
+                if (IsHost && gameObject.GetComponent<FollowTransform>().GetTargetTransform().gameObject.layer== 7)
+                {
+                   
+                    audioSource = GetComponent<AudioSource>();
+                    AlarmPlayClientRpc();
+                    status = TurretStatus.Active;
+                    StartCoroutine(DieLater(10));
+                }
+            }
+            else
+            {
+                PlayAlarm();
+                status = TurretStatus.Active;
+                StartCoroutine(DieLater(10));
+            }
         }
     }
 
     IEnumerator DieLater(float time)
     {
         yield return new WaitForSeconds(time);
-
-        PlayPowerOff();
-        StartCoroutine(SoundAndDie());
+        if (ConnectionManager.Instance != null)
+        {
+            if (IsHost)
+            {
+                AlarmOffClientRpc();
+                StartCoroutine(SoundAndDie());
+            }
+        }
+        else
+        {
+            PlayPowerOff();
+            StartCoroutine(SoundAndDie());
+        }
+       
     }
 
     IEnumerator SoundAndDie() {
         yield return new WaitForSeconds(powerOff.length);
-
-        Destroy(gameObject);
+        if (ConnectionManager.Instance != null)
+        {
+            if (IsHost)
+            {
+                DestoryAlarmClientRpc();
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmos() {
@@ -92,5 +146,28 @@ public class TurretAI : MonoBehaviour
         audioSource.clip = powerOff;
         audioSource.loop = false;
         audioSource.Play();
+    }
+
+    //synch Play sOund for all players
+    [ClientRpc]
+    private void AlarmPlayClientRpc()
+    {
+        PlayAlarm();
+    }
+    [ClientRpc]
+    private void AlarmOffClientRpc()
+    {
+        PlayPowerOff();
+    }
+    [ClientRpc]
+    private void DestoryAlarmClientRpc()
+    {
+       
+        Destroy(gameObject);
+    }
+    [ClientRpc]
+    private void PlayPowerOnClientRpc()
+    {
+        PlayPowerOn();
     }
 }

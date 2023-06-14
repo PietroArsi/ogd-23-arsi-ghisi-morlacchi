@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
-public class PawliceMovement : MonoBehaviour
+public class PawliceMovement : NetworkBehaviour
 {
     private Transform target;
     public LayerMask catnipLayer;
@@ -20,20 +21,45 @@ public class PawliceMovement : MonoBehaviour
 
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        status = PawliceStatus.Idle;
+        if (ConnectionManager.Instance != null)
+        {
+            if (!IsHost) return;
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            status = PawliceStatus.Idle;
+        }
+        else
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            status = PawliceStatus.Idle;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (status == PawliceStatus.Idle) {
-            CheckTarget();
-            navMeshAgent.destination = target.position;
-            spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
+        if (ConnectionManager.Instance != null)
+        {
+            if (!IsHost) return;
+            if (status == PawliceStatus.Idle)
+            {
+                CheckTarget();
+                navMeshAgent.destination = target.position;
+                spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
+            }
+
+            CheckDistance();
+        }
+        else {
+            if (status == PawliceStatus.Idle)
+            {
+                CheckTarget();
+                navMeshAgent.destination = target.position;
+                spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
+            }
+
+            CheckDistance();
         }
 
-        CheckDistance();
     }
 
     private void CheckTarget() {
@@ -64,7 +90,14 @@ public class PawliceMovement : MonoBehaviour
 
     private void CheckDistance() {
         if (status == PawliceStatus.Steal && target != null && Vector3.Distance(transform.position, target.transform.position) < distanceFromTarget) {
-            target.GetComponent<CatnipInteractable>().Collect();
+            if (ConnectionManager.Instance != null)
+            {
+                target.GetComponent<CatnipInteractable>().CollectEnemy(gameObject);
+            }
+            else
+            {
+                Debug.Log("GOT CATNIP");
+            }
             OnDestinationArrival();
         } else if (status == PawliceStatus.Flee && target != null && Vector3.Distance(transform.position, target.transform.position) < distanceFromTarget) {
             OnSpawnReturn();
@@ -80,6 +113,26 @@ public class PawliceMovement : MonoBehaviour
 
     private void OnSpawnReturn() {
         Debug.Log("Catnip stolen successfully");
+        //addtion to destroy catnip Luca
+       // gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
+        if (ConnectionManager.Instance != null)
+        {
+            gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
+            if (IsHost)
+            {
+                DestoryEnemyClientRpc();
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // ServerRpc Luca to destroy enemy
+    [ClientRpc]
+    private void DestoryEnemyClientRpc()
+    {
         Destroy(gameObject);
     }
 }

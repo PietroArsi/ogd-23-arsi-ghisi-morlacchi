@@ -30,6 +30,7 @@ public class ConnectionManager : NetworkBehaviour
     [Header("Spawn Object")]
     //list of object that can spawn during gameplay
     [SerializeField] List<GameObject> spawnableObj;
+    private GameObject mouseObj;
     
    
    
@@ -304,7 +305,15 @@ public class ConnectionManager : NetworkBehaviour
         SpawnObjServerRpc(GetSpawnIndex(currentObj),parent.GetNetworkObject());
     }
 
-   
+    public void SpawnEnemyDog(Vector3 spawnPosition,GameObject enemy)
+    {
+        SpawnEnemyDogServerRpc(GetSpawnIndex(enemy), spawnPosition);
+    }
+    public void SpawnEnemyMouse(Vector3 spawnPosition, GameObject enemy)
+    {
+        SpawnEnemyMouseServerRpc(GetSpawnIndex(enemy), spawnPosition);
+    }
+
     // spawn the object in the server.
     [ServerRpc(RequireOwnership = false)]
     private void SpawnObjServerRpc(int current, NetworkObjectReference currParent, ServerRpcParams serverRpcParams = default)
@@ -324,6 +333,31 @@ public class ConnectionManager : NetworkBehaviour
         //Debug.Log(currentParentObject.GetComponent<SpawnableObjParent>()==null);
         objectPicked.setObjectParent(parent);
     }
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnEnemyDogServerRpc(int current,Vector3 spawnPosition, ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        GameObject currentObj = GetSpawnFromId(current);
+        visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
+
+
+        currentObj = Instantiate(currentObj, spawnPosition, Quaternion.identity);
+        NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
+        objNetworkObject.Spawn(true);
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnEnemyMouseServerRpc(int current, Vector3 spawnPosition, ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        GameObject currentObj = GetSpawnFromId(current);
+        visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
+
+
+        currentObj = Instantiate(currentObj, spawnPosition, Quaternion.identity);
+        NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
+        objNetworkObject.Spawn(true);
+        SetMouseObject(currentObj);
+    }
 
     //to solve the problem of spawning objects
     private int GetSpawnIndex(GameObject current) 
@@ -337,6 +371,14 @@ public class ConnectionManager : NetworkBehaviour
         return spawnableObj[id];
     }
 
+    private void SetMouseObject(GameObject mouse)
+    {
+        mouseObj = mouse;
+    }
+    public GameObject GetMouseObject()
+    {
+        return mouseObj;
+    }
     //------------------------- HANDLE THE SPAWNABLE OBJECTS
 
 
