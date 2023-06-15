@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: -5825609257432358110}
   - component: {fileID: -1226304725366227375}
   - component: {fileID: 8960653402106675988}
-  - component: {fileID: 1287325222284727377}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: CropPickUp
   m_TagString: Unprocessed
   m_Icon: {fileID: 0}
@@ -67,7 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
   placebleObject: {fileID: 0}
-  isPlaced: 0
 --- !u!114 &-1226304725366227375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,18 +92,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1287325222284727377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2307626590562149801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519b48e0a8a06c0499dec56a70bb031b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8496040394161672491
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,12 +68,12 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
         DestroyHeldObjectServerRpc(GetObject().gameObject);
     }
     [ServerRpc]
-    private void DestroyHeldObjectServerRpc(NetworkObjectReference heldOject)
-    {
+    private void DestroyHeldObjectServerRpc(NetworkObjectReference heldOject) {
         GameObject destoryObject = heldOject;
-        Destroy(destoryObject);
+        if (destoryObject != null) {
+            Destroy(destoryObject);
+        }
     }
-
 
     [ServerRpc(RequireOwnership =false)]
     private void DestoryEnemyServerRpc()
@@ -83,6 +83,4 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
         Destroy(spawnedPlace);
         Destroy(gameObject);
     }
-
-    
 }

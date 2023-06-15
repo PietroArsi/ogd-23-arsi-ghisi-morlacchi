@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 293607186614415464}
   - component: {fileID: 6015694421813146391}
   - component: {fileID: 6004280543398016064}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: colliderPlacement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 5621488697728515315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.111, z: 1.13}
-  m_LocalScale: {x: 0.5, y: 4, z: 0.5}
+  m_LocalScale: {x: 2, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5783803694250134591}
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 2432
   checkGround: {fileID: 5987651425426459334}
 --- !u!1 &5783803692794993127
 GameObject:
@@ -694,7 +694,7 @@ GameObject:
   - component: {fileID: 210512320678051429}
   - component: {fileID: 5783803693308687761}
   m_Layer: 6
-  m_Name: Player CC broken
+  m_Name: Player CC
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,6 +751,11 @@ MonoBehaviour:
   spawnObject: {fileID: 0}
   temp: {fileID: 0}
   collect: 0
+  spawnPositionList:
+  - {x: -10, y: 0.61, z: -17}
+  - {x: -10, y: 0.61, z: -4}
+  - {x: 8, y: 0.61, z: 17}
+  - {x: 0, y: 0.61, z: 0}
   interactionLayer:
     serializedVersion: 2
     m_Bits: 896
@@ -801,8 +806,10 @@ MonoBehaviour:
   orientation: {fileID: 5783803694257311782}
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 10496
   interactionCollider: {fileID: 5783803693882910956}
+  attackSound: {fileID: 0}
+  meows: []
 --- !u!1 &5783803693476502229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,7 +1319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8366164980531024722}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.18, z: 1.19}
+  m_LocalPosition: {x: 0.00000011920929, y: -0.32, z: 0.69000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1412,7 +1419,7 @@ SphereCollider:
   m_GameObject: {fileID: 9090534830026808271}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

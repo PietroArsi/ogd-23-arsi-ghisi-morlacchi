@@ -80,7 +80,11 @@ public class PawliceMovement : NetworkBehaviour
             }
 
             status = PawliceStatus.Steal;
-            target = closestCatnip.parent;
+            if (closestCatnip.parent != null) {
+                target = closestCatnip.parent;
+            } else {
+                target = closestCatnip;
+            }
         }
         else {
             Debug.Log("No catnip found, destroying");
@@ -92,7 +96,11 @@ public class PawliceMovement : NetworkBehaviour
         if (status == PawliceStatus.Steal && target != null && Vector3.Distance(transform.position, target.transform.position) < distanceFromTarget) {
             if (ConnectionManager.Instance != null)
             {
-                target.GetComponent<CatnipInteractable>().CollectEnemy(gameObject);
+                if (target.GetComponent<PickableObject>()) {
+                    target.GetComponent<PickableObject>().setObjectParent(gameObject.GetComponent<EnemyHoldCatnip>().GetComponent<SpawnableObjParent>());
+                } else {
+                    target.GetComponent<CatnipInteractable>().CollectEnemy(gameObject);
+                }
             }
             else
             {

@@ -51,7 +51,7 @@ public class CatnipInteractable : ResourceInteractable
         }
     }
 
-    public  void CollectEnemy(GameObject currentEnemy)
+    public void CollectEnemy(GameObject currentEnemy)
     {
         if (currentEnemy != null && !currentEnemy.GetComponent<EnemyHoldCatnip>().HasSpawnObject())
         {

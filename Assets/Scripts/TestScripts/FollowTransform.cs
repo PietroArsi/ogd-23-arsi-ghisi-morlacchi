@@ -45,8 +45,7 @@ public class FollowTransform : MonoBehaviour
             transform.rotation = transform.rotation;
             gameObject.GetComponent<BoxCollider>().enabled = true;
 
-            gameObject.layer = LayerMask.NameToLayer("Interactable");
-
+            //gameObject.layer = LayerMask.NameToLayer("Interactable");
         }
         else
         {

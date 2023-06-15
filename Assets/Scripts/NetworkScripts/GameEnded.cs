@@ -7,7 +7,7 @@ using TMPro;
 
 public class GameEnded : MonoBehaviour
 {
-    [SerializeField] private GameManager _gm;
+    [SerializeField] private GameManager gm;
     [SerializeField] private int score;
     [SerializeField] private List<Image> crunchies;
     [SerializeField] private GameObject GameEndedScreen;
@@ -29,7 +29,7 @@ public class GameEnded : MonoBehaviour
     }
     private void Start()
     {
-            Hide();
+        Hide();
 
         GameManagerStates.Instance.OnStateChanged += GameManagerStates_OnStateChanged;
     }
@@ -39,6 +39,7 @@ public class GameEnded : MonoBehaviour
         if (GameManagerStates.Instance.IsGameOver())
         {
             Debug.Log("GAMEOVER");
+            SaveScore();
             Show();
         }
     }
@@ -48,33 +49,45 @@ public class GameEnded : MonoBehaviour
 
     }
 
+    private void SaveScore() {
+        int catnipAmount = gm.GetCatnip();
+        int effectiveScore = catnipAmount * 10;
+
+        LevelProperties props = GameObject.Find("Level Properties").GetComponent<LevelProperties>();
+        if (props != null) {
+            SaveManager.RegisterHighscore(props.GetLevelName(), effectiveScore);
+            SaveManager.CheckAchievement(props.GetLevelName(), effectiveScore);
+        } else {
+            Debug.Log("Level properties not found.");
+        }
+    }
 
     private void Show()
     {
         GameEndedScreen.SetActive(true);
-        int numberCatnip= _gm.GetCatnip();
+        int numberCatnip = gm.GetCatnip();
         score = numberCatnip * 10;
-        totalScore.text = "Score: " + score;
+        totalScore.text = $"Score: {score}";
        
-            if (score >= 50  && score < 100)
-            {
-                Debug.Log(crunchies[0]);
-                crunchies[0].enabled = true;
-            }
-            else if (score > 100 && score < 200)
-            {
-                crunchies[0].enabled = true;
-                crunchies[1].enabled = true;
-            }
-            else if (score >= 200)
-            {
-                crunchies[0].enabled = true;
-                crunchies[1].enabled = true;
-                crunchies[2].enabled=true;
+        if (score >= 50 && score < 100)
+        {
+            Debug.Log(crunchies[0]);
+            crunchies[0].enabled = true;
+        }
+        else if (score >= 100 && score < 200)
+        {
+            crunchies[0].enabled = true;
+            crunchies[1].enabled = true;
+        }
+        else if (score >= 200)
+        {
+            crunchies[0].enabled = true;
+            crunchies[1].enabled = true;
+            crunchies[2].enabled=true;
          
-            }
-        
+        }
     }
+
     private void Hide()
     {
         GameEndedScreen.SetActive(false);
