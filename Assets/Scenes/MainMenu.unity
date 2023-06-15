@@ -2596,6 +2596,7 @@ GameObject:
   - component: {fileID: 1911363551}
   - component: {fileID: 1911363553}
   - component: {fileID: 1911363552}
+  - component: {fileID: 1911363554}
   m_Layer: 5
   m_Name: cat
   m_TagString: Untagged
@@ -2663,6 +2664,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911363550}
   m_CullTransparentMesh: 1
+--- !u!114 &1911363554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911363550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f89e9e587bf72b45b5677d328232d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyeOpen: {fileID: 21300000, guid: 6b75efc548bcf8e4a9b253a419a4fc60, type: 3}
+  eyeClosed: {fileID: 21300000, guid: e42671a36e1be2e45805ea8e65d4073a, type: 3}
+  eyeLeft: {fileID: 2081401188}
+  eyeRight: {fileID: 1956818687}
+  pupilLeft: {fileID: 507481522}
+  pupilRight: {fileID: 2017283659}
 --- !u!1 &1942941146
 GameObject:
   m_ObjectHideFlags: 0

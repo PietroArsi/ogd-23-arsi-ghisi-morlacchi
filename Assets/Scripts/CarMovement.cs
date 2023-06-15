@@ -88,10 +88,10 @@ public class CarMovement : NetworkBehaviour
 
         if (moveDirection.magnitude != 0) {
             cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-            playerAnimator.SetBool("walk", true);
+            //playerAnimator.SetBool("walk", true);
         }
         else {
-            playerAnimator.SetBool("walk", false);
+            //playerAnimator.SetBool("walk", false);
         }
 
     }
