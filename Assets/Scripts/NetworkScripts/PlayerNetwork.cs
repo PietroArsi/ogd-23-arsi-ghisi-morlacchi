@@ -12,6 +12,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     public GameObject spawnObject;
     public GameObject temp;
     public bool collect;
+    [SerializeField] private List<Vector3> spawnPositionList;
     //public GameObject ground;
 
 
@@ -23,12 +24,19 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
 
     //private bool _carriedObject=false;
     // Start is called before the first frame update
+    public void Start()
+    {
+
+        PlayerData playerdData = ConnectionManager.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerdData.colorId));
+    }
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
         {
             LocalIstance = this;
-            this.transform.position = new Vector3(0, 0.61f, 0);
+            transform.position = spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+            //this.transform.position = new Vector3(0, 0.61f, 0);
             //ground = GameObject.Find("map");
             // temp = this.gameObject;
             OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
@@ -39,12 +47,7 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
             NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientDisconnectCallback;
     }
 }
-    public void Start()
-    {
-
-        PlayerData playerdData = ConnectionManager.Instance.GetPlayerDataFromClientId(OwnerClientId);
-        playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerdData.colorId));
-    }
+   
     public void Update()
     {
         if (!IsOwner) return;

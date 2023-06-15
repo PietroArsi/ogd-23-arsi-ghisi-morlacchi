@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.Netcode;
 
-public class MouseMovement : NetworkBehaviour
+public class MouseMovement : NetworkBehaviour, EnemyInteractable
 {
     //public Transform spawn;
     private List<Vector3> path;
@@ -12,6 +12,8 @@ public class MouseMovement : NetworkBehaviour
     public int repeatCount = -1;
     private NavMeshAgent navMeshAgent;
     private Dictionary<Vector3, int> memory;
+
+    [SerializeField] private int carriedScore;
 
     private MouseStatus status;
     public enum MouseStatus {
@@ -36,7 +38,7 @@ public class MouseMovement : NetworkBehaviour
         //if (status == MouseStatus.Hidden) {
         //    Spawn();
         //}
-
+        if (!IsHost) return;
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) {
             ContinuePath();
         }
@@ -140,5 +142,35 @@ public class MouseMovement : NetworkBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void KillEnemy(PlayerNetwork player)
+    {
+        DestroyMouseObjectServerRpc("Kill Mouse");
+    }
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyMouseObjectServerRpc(string message, ServerRpcParams serverRpcParams = default)
+    {
+        //_plant
+
+        //Debug.Log(message);
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        Destroy(gameObject);
+        visualDebugger.AddMessage("Recive message form client: " + clientId.ToString());
+        UpdateScoreClientRpc("Add SCore");
+    }
+
+
+    // add for visual queue in the case of the catinip when collected. to   modify for multpile obj
+    [ClientRpc]
+    private void UpdateScoreClientRpc(string message)
+    {
+        //ask if only needed only to have a reference 
+        GameManager gm = GameManagerStates.Instance.gameObject.GetComponent<GameManager>();
+        gm.AddCatnip(carriedScore);
+        visualDebugger.AddMessage(message);
+
     }
 }

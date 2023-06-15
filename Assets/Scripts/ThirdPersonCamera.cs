@@ -82,7 +82,7 @@ public class ThirdPersonCamera : MonoBehaviour
     void Update()
     {
         //LUCA ADDITION WHEN THE GAME IS OVER
-        if (!GameManagerStates.Instance.IsGameOver())
+        if (!GameManagerStates.Instance.IsGameOver() && !GameManagerStates.Instance.IsPlayerDisconnected() && GameManagerStates.Instance.HostDisconnected==false)
         {
            // Debug.Log("IS PLAYER THERE? " + PlayerNetwork.LocalIstance != null);
             if (PlayerNetwork.LocalIstance != null)

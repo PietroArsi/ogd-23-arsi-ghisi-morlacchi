@@ -279,6 +279,17 @@ public class ConnectionManager : NetworkBehaviour
                 return playerData;
         return default;
     }
+    public int GetPlayerDataIndexFromClientId(ulong clientId)
+    {
+        for (int i = 0; i < playerDataNetworkList.Count; i++)
+        {
+            if (playerDataNetworkList[i].clientID == clientId)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     public PlayerData GetPlayerData()
     {
         return GetPlayerDataFromClientId(NetworkManager.Singleton.LocalClientId);

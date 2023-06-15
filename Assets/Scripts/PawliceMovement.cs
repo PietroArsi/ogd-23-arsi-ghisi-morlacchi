@@ -135,4 +135,10 @@ public class PawliceMovement : NetworkBehaviour
     {
         Destroy(gameObject);
     }
+
+    //GetMarkerToDestory Luca Addition
+    public GameObject GetSpawnMarker()
+    {
+        return spawnedMarker;
+    }
 }

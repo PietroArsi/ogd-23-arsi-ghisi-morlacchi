@@ -751,6 +751,11 @@ MonoBehaviour:
   spawnObject: {fileID: 0}
   temp: {fileID: 0}
   collect: 0
+  spawnPositionList:
+  - {x: -10, y: 0.61, z: -17}
+  - {x: -10, y: 0.61, z: -4}
+  - {x: 8, y: 0.61, z: 17}
+  - {x: 0, y: 0.61, z: 0}
   interactionLayer:
     serializedVersion: 2
     m_Bits: 896
@@ -801,8 +806,10 @@ MonoBehaviour:
   orientation: {fileID: 5783803694257311782}
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8448
   interactionCollider: {fileID: 5783803693882910956}
+  attackSound: {fileID: 0}
+  meows: []
 --- !u!1 &5783803693476502229
 GameObject:
   m_ObjectHideFlags: 0
