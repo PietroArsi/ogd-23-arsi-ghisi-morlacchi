@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent
+public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyInteractable
 {
     [SerializeField] private Transform holdPosition;
     [SerializeField] private GameObject spawnObject;
@@ -52,9 +52,16 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent
         spawnObject = obj;
     }
 
-    public void PlaceCatnipGround()
+    private void PlayerGetCatnip(PlayerNetwork player)
     {
-
+        if (HasSpawnObject()){
+            GetObject().setObjectParent(player.GetComponent<SpawnableObjParent>());
+        }
+    }
+    public void KillEnemy(PlayerNetwork player)
+    {
+        PlayerGetCatnip(player);
+        DestoryEnemyServerRpc();
     }
     public void DestroyCatnipStolen()
     {
@@ -66,4 +73,16 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent
         GameObject destoryObject = heldOject;
         Destroy(destoryObject);
     }
+
+
+    [ServerRpc(RequireOwnership =false)]
+    private void DestoryEnemyServerRpc()
+    {
+        GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
+        visualDebugger.AddMessage("KILL ENEMY");
+        Destroy(spawnedPlace);
+        Destroy(gameObject);
+    }
+
+    
 }

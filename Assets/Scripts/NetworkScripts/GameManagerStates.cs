@@ -19,6 +19,7 @@ public class GameManagerStates : NetworkBehaviour
         CountdownToStart,
         GamePlaying,
         GameEnd,
+        PlayerDisconnected,
     }
     public event EventHandler OnStateChanged;
     public event EventHandler OnLocalPlayerReadyChanged;
@@ -32,6 +33,8 @@ public class GameManagerStates : NetworkBehaviour
     private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(4f);
     private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(300f);
 
+
+    public bool HostDisconnected=false;
     // Game State Messages
     //[SerializeField] private GameObject ReadyPopUp;
     //[SerializeField] private GameObject WaitingOtherPlayer;
@@ -51,6 +54,19 @@ public class GameManagerStates : NetworkBehaviour
         //WaitingOtherPlayer.SetActive(false);
         isConstructionWindowOpen = false;
         ReadyButtonPlayer();
+        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong obj)
+    {
+        if (IsHost)
+        {
+            ActivateDisconnectStateServerRpc();
+        }
+        else
+        {
+            HostDisconnected = true;
+        }
     }
 
     public override void OnNetworkSpawn()
@@ -150,6 +166,11 @@ public class GameManagerStates : NetworkBehaviour
                    // Debug.Log("GAME OVER");
                 }
                 break;
+            case State.PlayerDisconnected:
+                {
+                    visualDebugger.AddMessage("DISCONNECTED PLAYER");
+                    break;
+                }
         }
     }
     public bool IsGamePlaying()
@@ -176,7 +197,10 @@ public class GameManagerStates : NetworkBehaviour
     {
         return state.Value == State.GameEnd;
     }
-
+    public bool IsPlayerDisconnected()
+    {
+        return state.Value == State.PlayerDisconnected;
+    }
     public bool IsWaitingToStart()
     {
         return state.Value == State.WaitingOtherPlayers;
@@ -229,4 +253,23 @@ public class GameManagerStates : NetworkBehaviour
     {
         return IsGamePlaying() && !GetConstructionWindowActive();
     }
+
+
+
+    // detect disconnection during game
+    [ServerRpc(RequireOwnership = false)]
+    private void ActivateDisconnectStateServerRpc()
+    {
+        state.Value = State.PlayerDisconnected;
+        ActivateDisconnectStateClientRpc();
+    }
+
+    [ClientRpc]
+    private void ActivateDisconnectStateClientRpc()
+    {
+        visualDebugger.AddMessage("SHOW THIS WHEN CLIENT DISCONEETS");
+    }
+    
+
+   
 }

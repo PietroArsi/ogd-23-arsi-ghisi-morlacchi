@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4319653849660028666}
   - component: {fileID: 4319653849660028667}
   - component: {fileID: 4319653849660028664}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   repeatCount: 2
+  carriedScore: 10
 --- !u!195 &4319653849899107308
 NavMeshAgent:
   m_ObjectHideFlags: 0

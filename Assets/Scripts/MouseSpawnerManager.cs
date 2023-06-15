@@ -78,7 +78,7 @@ public class MouseSpawnerManager : NetworkBehaviour
                 {
                     ConnectionManager.Instance.SpawnEnemyMouse(spawnPosition.position, mouse);
                     GameObject obj = ConnectionManager.Instance.GetMouseObject();
-                    Debug.Log(obj);
+                    //Debug.Log(obj);
                     obj.transform.GetComponent<MouseMovement>().SetPath(path);
                     obj.transform.GetComponent<MouseMovement>().SetEscape(spawnPosition.position);
                     obj.transform.GetComponent<MouseMovement>().Spawn();

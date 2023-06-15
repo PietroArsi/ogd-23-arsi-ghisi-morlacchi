@@ -2,14 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyInteractable : MonoBehaviour {
-    
+public interface EnemyInteractable  {
 
-    void Start() {
-        
-    }
 
-    void Update() {
-        
-    }
+    public void KillEnemy(PlayerNetwork player);
 }

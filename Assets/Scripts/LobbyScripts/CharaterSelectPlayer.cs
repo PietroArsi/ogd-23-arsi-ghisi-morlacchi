@@ -28,7 +28,16 @@ public class CharaterSelectPlayer : MonoBehaviour
         {
             PlayerData playerData = ConnectionManager.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
             playerName.text = playerData.playerName.ToString();
-            youText.gameObject.SetActive(ConnectionManager.Instance.showYou(playerData.clientID));
+            if (ConnectionManager.Instance.showYou(playerData.clientID))
+            {
+                playerName.text = playerData.playerName.ToString() + "\n(You)";
+            }
+            else
+            {
+                playerName.text = playerData.playerName.ToString();
+            }
+           
+            //youText.gameObject.SetActive(ConnectionManager.Instance.showYou(playerData.clientID));
             playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerData.colorId));
             Show();
         }
