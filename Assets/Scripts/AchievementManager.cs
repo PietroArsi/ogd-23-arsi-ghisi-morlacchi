@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public List<Transform> achievements;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach(Transform ach in achievements) {
+            bool check = SaveManager.CheckAchievement(ach.GetComponent<AchievementCard>().GetAchievementName());
+            ach.GetComponent<AchievementCard>().SetUnlocked(check);
+        }
     }
 }

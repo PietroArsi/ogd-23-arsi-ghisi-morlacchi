@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class LevelSelector : MonoBehaviour
 {
     public GameObject levelLabel;
+    public GameObject scoreLabel;
     public Transform interactionCollider;
     public LayerMask interactionLayer;
 
     private TMPro.TextMeshProUGUI levelText;
+    private TMPro.TextMeshProUGUI scoreText;
     private string levelSelected = null;
 
     void Start()
     {
         levelLabel.SetActive(false);
+        scoreLabel.SetActive(false);
         levelText = levelLabel.transform.Find("title").GetComponent<TMPro.TextMeshProUGUI>();
+        scoreText = scoreLabel.transform.Find("title").GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -28,11 +32,13 @@ public class LevelSelector : MonoBehaviour
             if (hitColliders.Length > 0 && c.GetComponent<LevelPointManager>()) {
                 string levelName = c.GetComponent<LevelPointManager>().GetLabel();
                 levelText.text = levelName;
+                scoreText.text = $"HS: {SaveManager.GetHighscore(c.GetComponent<LevelPointManager>().GetName())}";
                 if (c.GetComponent<LevelPointManager>().IsUnlocked()) {
                     levelSelected = c.GetComponent<LevelPointManager>().GetName();
                 }
                 found = true;
                 levelLabel.SetActive(true);
+                scoreLabel.SetActive(true);
                 break;
             }
         }
@@ -40,6 +46,7 @@ public class LevelSelector : MonoBehaviour
         if (!found) {
             levelSelected = null;
             levelLabel.SetActive(false);
+            scoreLabel.SetActive(false);
         }
     }
 

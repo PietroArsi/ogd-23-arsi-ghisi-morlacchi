@@ -56,7 +56,7 @@ public class GameEnded : MonoBehaviour
         LevelProperties props = GameObject.Find("Level Properties").GetComponent<LevelProperties>();
         if (props != null) {
             SaveManager.RegisterHighscore(props.GetLevelName(), effectiveScore);
-            SaveManager.CheckAchievement(props.GetLevelName(), effectiveScore);
+            SaveManager.RegisterAchievement(props.GetLevelName(), effectiveScore);
         } else {
             Debug.Log("Level properties not found.");
         }

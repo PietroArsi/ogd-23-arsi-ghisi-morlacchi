@@ -141,7 +141,7 @@ public static class SaveManager
         CommitSaves();
     }
 
-    public static void CheckAchievement(string levelName, int score) {
+    public static void RegisterAchievement(string levelName, int score) {
         LoadSaves();
 
         if (achievements == null) {
@@ -159,6 +159,40 @@ public static class SaveManager
         }
 
         CommitSaves();
+    }
+
+    public static bool CheckAchievement(string achievementName) {
+        LoadSaves();
+
+        if (achievements == null) {
+            return false;
+        }
+
+        foreach (Achievement achievement in achievements.achievements) {
+            if (achievement.name == achievementName) {
+                return achievement.unlocked;
+            }
+        }
+
+        return false;
+    }
+
+    public static int GetHighscore(string levelName) {
+        LoadSaves();
+
+        if (highscores == null) {
+            Debug.Log("Saves not found");
+            return 0;
+        }
+
+        Debug.Log(highscores.highscores);
+        foreach (HighScore highscore in highscores.highscores) {
+            if (highscore.levelName == levelName) {
+                return highscore.score;
+            }
+        }
+
+        return 0;
     }
 
     private static void CommitSaves() {
