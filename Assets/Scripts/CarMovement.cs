@@ -127,7 +127,7 @@ public class CarMovement : NetworkBehaviour
             Debug.Log($"Selected level: {level}");
             if (genericSceneManager != null)
             {
-                genericSceneManager.LoadNetwork("NetworkTestLevel");
+                genericSceneManager.LoadNetwork("test level");
             }//SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
             }
     }

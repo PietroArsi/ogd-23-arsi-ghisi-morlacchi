@@ -752,10 +752,10 @@ MonoBehaviour:
   temp: {fileID: 0}
   collect: 0
   spawnPositionList:
-  - {x: -10, y: 0.61, z: -17}
-  - {x: -10, y: 0.61, z: -4}
-  - {x: 8, y: 0.61, z: 17}
-  - {x: 0, y: 0.61, z: 0}
+  - {x: -25.95, y: 0.8, z: 11.14}
+  - {x: 0, y: 0.8, z: -10}
+  - {x: 10, y: 0.8, z: -9}
+  - {x: 28, y: 0.8, z: 10}
   interactionLayer:
     serializedVersion: 2
     m_Bits: 896

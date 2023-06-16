@@ -47,13 +47,14 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
         {
             case FurnaceStates.Empty:
                 {
-                    coockingTime.Value = 5f;
+                    coockingTime.Value = 20f;
                 }
                 break;
             case FurnaceStates.Coocking:
                 coockingTime.Value -= Time.deltaTime;
                 //Debug.Log(gamePlayingTimer.Value);
-               // Debug.Log("CATNIPISCOOKING");
+                // Debug.Log("CATNIPISCOOKING");
+                Debug.Log("HERE COOKING");
                 if (coockingTime.Value < 0f)
                 {
                     state.Value = FurnaceStates.Ready;
@@ -72,7 +73,7 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
     {
         if (coockingTime.Value > 0f)
         {
-
+            Debug.Log("HERE COOKING");
 
             //string minutes = Mathf.Floor(coockingTime.Value / 60).ToString("00");
             string seconds = Mathf.Floor(coockingTime.Value % 60).ToString("00");
@@ -122,6 +123,7 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
     [ServerRpc(RequireOwnership = false)]
     private void startCookingServerRpc()
     {
+        Debug.Log("START COOCKING PLEASE");
         state.Value = FurnaceStates.Coocking;
     }
     [ServerRpc(RequireOwnership = false)]
