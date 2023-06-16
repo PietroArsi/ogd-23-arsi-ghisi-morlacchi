@@ -125,9 +125,9 @@ public class CatnipLobby : MonoBehaviour
             });
 
             /*
-           Allocation allocation = await CreateAlllocationRelay();
+            Allocation allocation = await CreateAlllocationRelay();
 
-           string relyaJoinCode = await GetRelayJoinCode(allocation);
+            string relyaJoinCode = await GetRelayJoinCode(allocation);
 
             await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
             {
@@ -136,18 +136,17 @@ public class CatnipLobby : MonoBehaviour
                     { KEY_RELAY_JOIN_CODE, new DataObject(DataObject.VisibilityOptions.Member,relyaJoinCode) }
                 }
             });
-           NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation,"dtls"));
-           Debug.Log("<color=yellow>CatnipLobby ALLOCATION " + allocation.Region +"</color>");
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation,"dtls"));
+            Debug.Log("<color=yellow>CatnipLobby ALLOCATION " + allocation.Region +"</color>");
             */
             Debug.Log("<color=yellow>CatnipLobby Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartHost();
-             SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
-            //if (genericSceneLoader != null)
-            //{
-            //    genericSceneLoader.LoadNetwork("CharacterSlectionScreen");
-            //    Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
-            //}
+            //SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
+            if (genericSceneLoader != null) {
+                genericSceneLoader.LoadNetwork("CharacterSlectionScreen");
+                Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
             }
+        }
         catch (LobbyServiceException e)
         {
             Debug.Log(e);

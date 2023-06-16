@@ -1573,7 +1573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc84b6350c4e4747a26d36e795f1118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 0}
 --- !u!4 &1178773474
 Transform:
   m_ObjectHideFlags: 0
@@ -1817,6 +1816,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1178773473}
+        m_TargetAssemblyTypeName: GenericSceneManager, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LobbyManagement
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1289563942
@@ -2191,6 +2202,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1178773473}
+        m_TargetAssemblyTypeName: GenericSceneManager, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LobbyManagement
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1736018795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2236,6 +2259,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2452199339373184512, guid: 4dde83e910c9fd0428eab07767b2ce53, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1548273630, guid: 2b57ffd19ba97ad44b798625fce35d19, type: 3}
+    - target: {fileID: 5525322720739007819, guid: 4dde83e910c9fd0428eab07767b2ce53, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1250
+      objectReference: {fileID: 0}
     - target: {fileID: 7902884526361461435, guid: 4dde83e910c9fd0428eab07767b2ce53, type: 3}
       propertyPath: m_RootOrder
       value: 0

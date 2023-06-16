@@ -30,7 +30,7 @@ public class LobbyMenuUI : MonoBehaviour
     private void Awake()
     {
         playerName.text = GenerateRandomPlayerName();
-         nameLobby.text = NameGenerator.GenerateRandomName();
+        nameLobby.text = NameGenerator.GenerateRandomName();
         //nameLobby.text = "Lobby name";
         lobbyTemplate.gameObject.SetActive(false);
 
@@ -49,7 +49,7 @@ public class LobbyMenuUI : MonoBehaviour
 
     private void Start()
     {
-       ConnectionManager.Instance.SetPlayerName(playerName.text);
+        ConnectionManager.Instance.SetPlayerName(playerName.text);
 
         CatnipLobby.Instance.OnLobbyListChanged += CatnipLobby_OnLobbyListChanged;
         UpdateLobbyList(new List<Lobby>());
@@ -65,9 +65,6 @@ public class LobbyMenuUI : MonoBehaviour
         {
             genericSceneManager.CreateLobbyGruop();
         }
-        
-
-
     }
     //public void CreateLobby()
     //{
@@ -75,8 +72,10 @@ public class LobbyMenuUI : MonoBehaviour
     //}
     public void ReturnMenu()
     {
-        SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+        //SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+        genericSceneManager.ChangeScene("MainMenu");
     }
+
     private void CatnipLobby_OnLobbyListChanged(object sender, CatnipLobby.OnLobbyListChangedEventArgs e)
     {
         UpdateLobbyList(e.lobbyList);
@@ -87,20 +86,19 @@ public class LobbyMenuUI : MonoBehaviour
         //clean the lobby list
         //clean the lobby list
         
-            foreach (Transform child in lobbyContainer)
-            {
-                if (child == lobbyTemplate) continue;
-                Destroy(child.gameObject);
-            }
+        foreach (Transform child in lobbyContainer)
+        {
+            if (child == lobbyTemplate) continue;
+            Destroy(child.gameObject);
+        }
 
-            foreach (Lobby lobby in lobbyList)
-            {
-                //Debug.Log(lobby.Name);
-                Transform lobbyTransform = Instantiate(lobbyTemplate, lobbyContainer);
-                lobbyTransform.gameObject.SetActive(true);
-                lobbyTransform.GetComponent<lobbyTemplateUi>().setLobby(lobby);
-            }
-        
+        foreach (Lobby lobby in lobbyList)
+        {
+            //Debug.Log(lobby.Name);
+            Transform lobbyTransform = Instantiate(lobbyTemplate, lobbyContainer);
+            lobbyTransform.gameObject.SetActive(true);
+            lobbyTransform.GetComponent<lobbyTemplateUi>().setLobby(lobby);
+        }
     }
 
     private void OnDestroy()

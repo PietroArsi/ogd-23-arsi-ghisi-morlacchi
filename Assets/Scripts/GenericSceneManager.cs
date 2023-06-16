@@ -25,19 +25,26 @@ public class GenericSceneManager : MonoBehaviour
 
     public void LoadNetwork(string targetScene)
     {
-        NetworkManager.Singleton.SceneManager.LoadScene(targetScene, LoadSceneMode.Single);
+        //NetworkManager.Singleton.SceneManager.LoadScene(targetScene, LoadSceneMode.Single);
+        StartCoroutine(LoadSceneNetwork(targetScene));
+    }
+
+    IEnumerator LoadSceneNetwork(string name) {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(1f);
+        NetworkManager.Singleton.SceneManager.LoadScene(name, LoadSceneMode.Single);
     }
 
     public void CreateLobby() {
         HostOrJoin.pressHostBtn();
         //ChangeScene(name);
-        SceneLoader.LoadScene(SceneLoader.Scene.LobbyManagement);
+        //SceneLoader.LoadScene(SceneLoader.Scene.LobbyManagement);
     }
 
     public void JoinLobby()
     {
         HostOrJoin.pressJoinBtn();
-        SceneLoader.LoadScene(SceneLoader.Scene.LobbyManagement);
+        //SceneLoader.LoadScene(SceneLoader.Scene.LobbyManagement);
     }
     
     //this is to synch loading scene between host/server and clients
