@@ -41,7 +41,7 @@ public class UISoundManager : MonoBehaviour
             audioSource.clip = normalClickSound;
         }
 
-        audioSource.volume = 0.45f;
+        audioSource.volume = 0.5f;
         audioSource.Stop();
         audioSource.Play();
     }
