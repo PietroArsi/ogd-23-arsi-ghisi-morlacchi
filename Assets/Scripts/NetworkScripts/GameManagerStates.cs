@@ -61,6 +61,7 @@ public class GameManagerStates : NetworkBehaviour
     {
         if (IsHost)
         {
+            Debug.Log("CLIENT DISCONNETED");
             ActivateDisconnectStateServerRpc();
         }
         else
@@ -260,6 +261,7 @@ public class GameManagerStates : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void ActivateDisconnectStateServerRpc()
     {
+        Debug.Log("CALLED RPC");
         state.Value = State.PlayerDisconnected;
         ActivateDisconnectStateClientRpc();
     }

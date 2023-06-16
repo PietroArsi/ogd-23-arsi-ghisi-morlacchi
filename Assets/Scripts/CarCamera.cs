@@ -42,36 +42,45 @@ public class CarCamera : MonoBehaviour
 
     void Update() {
         //get forward direction player-camera
-        if (player != null)
+        if (!ClientDisconnetLevelSelect.Instance.IsPlayerDisconnected() && ClientDisconnetLevelSelect.Instance.HostDisconnected == false)
         {
-            Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-            orientation.forward = viewDir.normalized;
-
-            //if (currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown) {
-            //    //rotate player
-            //    float horizontalInput = Input.GetAxis("Horizontal");
-            //    float verticalInput = Input.GetAxis("Vertical");
-            //    Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-            //    if (inputDir != Vector3.zero) {
-            //        playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-            //    }
-            //}
-            //else if (currentStyle == CameraStyle.Combat) {
-            //    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
-            //    orientation.forward = dirToCombatLookAt.normalized;
-
-            //    playerObj.forward = dirToCombatLookAt.normalized;
-            //}
-
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-            Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-            if (inputDir != Vector3.zero)
+            if (player != null)
             {
-                playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+                orientation.forward = viewDir.normalized;
+
+                //if (currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown) {
+                //    //rotate player
+                //    float horizontalInput = Input.GetAxis("Horizontal");
+                //    float verticalInput = Input.GetAxis("Vertical");
+                //    Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+                //    if (inputDir != Vector3.zero) {
+                //        playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                //    }
+                //}
+                //else if (currentStyle == CameraStyle.Combat) {
+                //    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
+                //    orientation.forward = dirToCombatLookAt.normalized;
+
+                //    playerObj.forward = dirToCombatLookAt.normalized;
+                //}
+
+                float horizontalInput = Input.GetAxis("Horizontal");
+                float verticalInput = Input.GetAxis("Vertical");
+                Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+                if (inputDir != Vector3.zero)
+                {
+                    playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                }
             }
+        }
+        else
+        {
+            Debug.Log("UNLOCK PLEASE");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

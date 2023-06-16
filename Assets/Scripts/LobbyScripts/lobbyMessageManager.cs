@@ -25,18 +25,23 @@ public class lobbyMessageManager : MonoBehaviour
         CatnipLobby.Instance.OnCreateLobbyFailed += CatnipLobby_OnCreateLobbyFailed;
         CatnipLobby.Instance.OnJoinStarted += CatnipLobby_OnJoinStarted;
         CatnipLobby.Instance.OnJoinFailed += CatnipLobby_OnJoinFailed;
-        if (hostScreen.activeSelf)
+        if (hostScreen != null)
         {
-            ShowMessage("Loading...");
-            close.onClick.AddListener(() => {
+            if (hostScreen.activeSelf)
+            {
+                ShowMessage("Loading...");
+                close.onClick.AddListener(() =>
+                {
 
-                SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+                    SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
 
-            });
-        }
-        else {
-            Hide();
-            close.onClick.AddListener(Hide);
+                });
+            }
+            else
+            {
+                Hide();
+                close.onClick.AddListener(Hide);
+            }
         }
     }
 
@@ -53,11 +58,13 @@ public class lobbyMessageManager : MonoBehaviour
     private void CatnipLobby_OnCreateLobbyFailed(object sender, EventArgs e)
     {
         ShowMessage("Failed to create lobby");
+        close.gameObject.SetActive(true); ;
     }
 
     private void CatnipLobby_OnCreateLobbyStarted(object sender, EventArgs e)
     {
         ShowMessage("Creating lobby ....");
+        close.gameObject.SetActive(false);
     }
 
     private void ConnectionManager_OnFailedToJoinGame(object sender, EventArgs e)

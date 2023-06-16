@@ -13,15 +13,20 @@ public class GameEnded : MonoBehaviour
     [SerializeField] private GameObject GameEndedScreen;
     [SerializeField] private Button returnToMenu;
     [SerializeField] private TextMeshProUGUI totalScore;
+    //public GenericSceneManager genericSceneManager;
     // Start is called before the first frame update
 
     private void Awake()
     {
-        returnToMenu.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.Shutdown();
-            SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
-        });
+        //returnToMenu.onClick.AddListener(() =>
+        //{
+        //    NetworkManager.Singleton.Shutdown();
+        //    //if (genericSceneManager != null)
+        //    //{
+        //    //    genericSceneManager.ChangeScene("MainMenu");
+        //    //}
+        //    //SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+        //});
         foreach(Image crunch in crunchies)
         {
             crunch.enabled = false;
@@ -34,6 +39,15 @@ public class GameEnded : MonoBehaviour
         GameManagerStates.Instance.OnStateChanged += GameManagerStates_OnStateChanged;
     }
 
+    public void ReturnToMenu()
+    {
+        NetworkManager.Singleton.Shutdown();
+        //if (genericSceneManager != null)
+        //{
+        //    genericSceneManager.ChangeScene("MainMenu");
+        //}
+        //SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+    }
     private void GameManagerStates_OnStateChanged(object sender, System.EventArgs e)
     {
         if (GameManagerStates.Instance.IsGameOver())

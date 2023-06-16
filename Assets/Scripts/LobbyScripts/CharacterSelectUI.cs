@@ -14,6 +14,7 @@ public class CharacterSelectUI : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private int connettedPlayers;
+    public GenericSceneManager genericSceneManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,8 +35,13 @@ public class CharacterSelectUI : MonoBehaviour
 
     public void StartGame()
     {
-        CatnipLobby.Instance.DeleteLobby();
-        SceneLoader.LoadNetwork(SceneLoader.Scene.LevelSelection);
+        //CatnipLobby.Instance.DeleteLobby();
+        if (genericSceneManager != null)
+        {
+            genericSceneManager.DeleteLobby();
+            //genericSceneManager.LoadNetwork("LevelSelection");
+            //SceneLoader.LoadNetwork(SceneLoader.Scene.LevelSelection);
+        }
     }
     public void ReturnMenu()
     {
@@ -44,21 +50,25 @@ public class CharacterSelectUI : MonoBehaviour
         if (NetworkManager.Singleton.IsHost)
         {
             Debug.Log("<color:yellow>CharacterSlectUI DELETE LOBBY </color>");
-            CatnipLobby.Instance.DeleteLobby();
+            if (genericSceneManager != null)
+            {
+                genericSceneManager.DeleteLobby();
+            }
+                //CatnipLobby.Instance.DeleteLobby();
         }
         else
         {
             Debug.Log("<color:yellow>CharacterSlectUI LEAVE LOBBY</color>");
             CatnipLobby.Instance.LeaveLobby();
         }
-        SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+       // SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
     }
     private void NetworkManager_OnClientDisconnectCallback(ulong obj)
     {
         Debug.Log("<color=yellow>CharacterSelectUI OnClientDisconnetedCallback</color>");
         connettedPlayers--;
         startButton.enabled = true;
-        startButton.gameObject.SetActive(false);
+        //startButton.gameObject.SetActive(false);
     }
 
     private void NetworkManager_Client_OnClientConnetedCallback(ulong obj)

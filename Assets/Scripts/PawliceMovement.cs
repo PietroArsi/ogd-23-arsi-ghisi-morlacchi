@@ -97,6 +97,7 @@ public class PawliceMovement : NetworkBehaviour
             if (ConnectionManager.Instance != null)
             {
                 if (target.GetComponent<PickableObject>()) {
+                    target.gameObject.GetComponent<Collider>().enabled = false;
                     target.GetComponent<PickableObject>().setObjectParent(gameObject.GetComponent<EnemyHoldCatnip>().GetComponent<SpawnableObjParent>());
                 } else {
                     target.GetComponent<CatnipInteractable>().CollectEnemy(gameObject);

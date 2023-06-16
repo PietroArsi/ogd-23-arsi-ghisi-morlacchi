@@ -31,6 +31,8 @@ public class CatnipLobby : MonoBehaviour
     public event EventHandler OnJoinStarted;
     public event EventHandler OnJoinFailed;
 
+    public GenericSceneManager genericSceneLoader;
+
     //Event to get all the lobby available
     public event EventHandler <OnLobbyListChangedEventArgs> OnLobbyListChanged;
     public class OnLobbyListChangedEventArgs: EventArgs
@@ -139,10 +141,14 @@ public class CatnipLobby : MonoBehaviour
             */
             Debug.Log("<color=yellow>CatnipLobby Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartHost();
-            SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
-            Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
-        }
-        catch(LobbyServiceException e)
+             SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
+            //if (genericSceneLoader != null)
+            //{
+            //    genericSceneLoader.LoadNetwork("CharacterSlectionScreen");
+            //    Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
+            //}
+            }
+        catch (LobbyServiceException e)
         {
             Debug.Log(e);
             OnCreateLobbyFailed?.Invoke(this, EventArgs.Empty);

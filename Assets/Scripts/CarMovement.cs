@@ -18,6 +18,8 @@ public class CarMovement : NetworkBehaviour
 
     public Animator playerAnimator;
 
+    public GenericSceneManager genericSceneManager;
+
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
@@ -123,7 +125,10 @@ public class CarMovement : NetworkBehaviour
        //LUCA ADDITION LOAD THE GAME SCENE
         if (level != "") {
             Debug.Log($"Selected level: {level}");
-            SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
-        }
+            if (genericSceneManager != null)
+            {
+                genericSceneManager.LoadNetwork("NetworkTestLevel");
+            }//SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
+            }
     }
 }
