@@ -25,7 +25,7 @@ public class LobbyMenuUI : MonoBehaviour
 
     [Header("Playergenerator")]
     [SerializeField] private TextMeshProUGUI playerName;
-
+    public GenericSceneManager genericSceneManager;
 
     private void Awake()
     {
@@ -61,14 +61,18 @@ public class LobbyMenuUI : MonoBehaviour
     private IEnumerator WaitToCall()
     {
         yield return new WaitForSeconds(1f);
-        CreateLobby();
+        if (genericSceneManager != null)
+        {
+            genericSceneManager.CreateLobbyGruop();
+        }
+        
 
 
     }
-    public void CreateLobby()
-    {
-        CatnipLobby.Instance.CreateLobby(nameLobby.text);
-    }
+    //public void CreateLobby()
+    //{
+    //    CatnipLobby.Instance.CreateLobby(nameLobby.text);
+    //}
     public void ReturnMenu()
     {
         SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);

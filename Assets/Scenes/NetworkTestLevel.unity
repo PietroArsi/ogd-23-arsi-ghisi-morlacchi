@@ -3717,7 +3717,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28218
+  m_Name: pb_Mesh49924
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4357,7 +4357,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 637031117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 741391452}
+        m_TargetAssemblyTypeName: HostDisconnetUI, Assembly-CSharp
+        m_MethodName: ReturnToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 699975818}
+        m_TargetAssemblyTypeName: GenericSceneManager, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &637031117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4617,6 +4641,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694403808}
   m_CullTransparentMesh: 1
+--- !u!1 &699975817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 699975819}
+  - component: {fileID: 699975818}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &699975818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699975817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc84b6350c4e4747a26d36e795f1118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &699975819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699975817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 550.5992, y: 229.5818, z: 2.2473493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -4957,7 +5025,6 @@ GameObject:
   - component: {fileID: 741391445}
   - component: {fileID: 741391444}
   - component: {fileID: 741391443}
-  - component: {fileID: 741391448}
   - component: {fileID: 741391449}
   - component: {fileID: 741391450}
   - component: {fileID: 741391447}
@@ -5074,20 +5141,6 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &741391448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741391442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49ce21c3eaf02e498dee0dbedfe1e45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hostButn: {fileID: 0}
-  clientBtn: {fileID: 0}
 --- !u!114 &741391449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5148,7 +5201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65af00281b3341544abebd8bc7bb938a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnMenu: {fileID: 637031116}
   messageText: {fileID: 591037905}
   DisconnectionUI: {fileID: 103739835}
 --- !u!1001 &742682473
@@ -5585,7 +5637,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28828
+  m_Name: pb_Mesh50494
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7007,7 +7059,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28180
+  m_Name: pb_Mesh49894
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9346,9 +9398,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LobbyMenuUI, Assembly-CSharp
-        m_MethodName: ReturnMenu
+      - m_Target: {fileID: 741391450}
+        m_TargetAssemblyTypeName: GameEnded, Assembly-CSharp
+        m_MethodName: ReturnToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9356,6 +9408,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 699975818}
+        m_TargetAssemblyTypeName: GenericSceneManager, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1327763609
@@ -12340,7 +12404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5783803693308687763, guid: e5fd7ae8929d07f438615ce89edb37cf, type: 3}
   isConstructionWindowOpen: 0
-  maxGamePlayTimer: 300
+  maxGamePlayTimer: 10
   HostDisconnected: 0
 --- !u!1 &1660002981
 GameObject:
@@ -12913,7 +12977,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28158
+  m_Name: pb_Mesh49872
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14389,7 +14453,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 904171334}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16291,7 +16355,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28982
+  m_Name: pb_Mesh50620
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16455,7 +16519,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28670
+  m_Name: pb_Mesh50344
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

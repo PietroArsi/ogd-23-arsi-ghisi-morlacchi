@@ -7,19 +7,20 @@ using TMPro;
 
 public class HostDisconnetUI : MonoBehaviour
 {
-    [SerializeField] private Button returnMenu;
+   // [SerializeField] private Button returnMenu;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private GameObject DisconnectionUI;
+    //public GenericSceneManager genericSceneManager;
 
-   
 
     private void Awake()
     {
-        returnMenu.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.Shutdown();
-            SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
-        });
+       // returnMenu.onClick.AddListener(() =>
+       // {
+            //NetworkManager.Singleton.Shutdown();
+            // SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
+            //genericSceneManager.ChangeScene("MainMenu");
+        //});
     }
 
     private void Start()
@@ -30,41 +31,55 @@ public class HostDisconnetUI : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log("HAS PLAYER DISCONECTED? " + GameManagerStates.Instance.IsPlayerDisconnected());
-        if (!GameManagerStates.Instance.IsGameOver())
+        Debug.Log("HAS PLAYER DISCONECTED? " + GameManagerStates.Instance.IsPlayerDisconnected());
+        //if (!GameManagerStates.Instance.IsGameOver())
+        //{
+
+        if (!GameManagerStates.Instance.IsPlayerDisconnected())
         {
-            if (!GameManagerStates.Instance.IsPlayerDisconnected())
-            {
-                return;
-            }
-            else
-            {
-                Show("Client has disconneted");
-            }
+            return;
         }
-        else {
-            visualDebugger.AddMessage("Don't show this message");
+        //}else if (GameManagerStates.Instance.IsGameOver())
+        //{
+        //    return;
+        //}
+        else
+        {
+            Show("Client has disconneted");
         }
+        // }
+        //else
+        //{
+        //    visualDebugger.AddMessage("Don't show this message");
+        // }
+    }
+
+    public void ReturnToMenu()
+    {
+        NetworkManager.Singleton.Shutdown();
     }
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
     {
         Debug.Log("DISCONECT");
 
-        if (clientId == NetworkManager.ServerClientId && !GameManagerStates.Instance.IsGameOver())
+        if (!GameManagerStates.Instance.IsGameOver())
         {
+            if (clientId == NetworkManager.ServerClientId && !GameManagerStates.Instance.IsGameOver())
+            {
 
-            //Server is shutting down
-            Show("Host has disconnected");
+                //Server is shutting down
+                Show("Host has disconnected");
+            }
         }
-        
-     
+
+
     }
 
     private void Show(string message)
     {
         messageText.text = message;
         DisconnectionUI.SetActive(true);
-       // StartCoroutine(ReturnMenu());
+        // StartCoroutine(ReturnMenu());
     }
 
     private void Hide()
@@ -96,20 +111,20 @@ public class HostDisconnetUI : MonoBehaviour
     }
 
 
-    [ServerRpc (RequireOwnership =false)]
-    private void HandleClientDisconnetServerRpc(ulong clientId)
-    {
+    //[ServerRpc(RequireOwnership = false)]
+    //private void HandleClientDisconnetServerRpc(ulong clientId)
+    //{
 
-        HandleClientDisconnetClientRpc(clientId);
+    //    HandleClientDisconnetClientRpc(clientId);
 
-    }
+    //}
 
-    [ClientRpc]
-    private void HandleClientDisconnetClientRpc(ulong clientId)
-    {
-       
-       
-    }
+    //[ClientRpc]
+    //private void HandleClientDisconnetClientRpc(ulong clientId)
+    //{
+
+
+    //}
 }
 
-   
+
