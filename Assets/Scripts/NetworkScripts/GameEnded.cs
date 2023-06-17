@@ -83,7 +83,7 @@ public class GameEnded : MonoBehaviour
         score = numberCatnip * 10;
         totalScore.text = $"Score: {score}";
        
-        if (score >= 50 && score < 100)
+        if (score >= 0 && score < 100)
         {
             Debug.Log(crunchies[0]);
             crunchies[0].enabled = true;
@@ -97,7 +97,7 @@ public class GameEnded : MonoBehaviour
         {
             crunchies[0].enabled = true;
             crunchies[1].enabled = true;
-            crunchies[2].enabled=true;
+            crunchies[2].enabled = true;
          
         }
     }

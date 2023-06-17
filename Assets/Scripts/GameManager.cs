@@ -29,6 +29,6 @@ public class GameManager : MonoBehaviour
     }
 
     private void UpdateCatnipText() {
-        catnipCounter.text = $"Catnip: {catnipAmount}";
+        catnipCounter.text = $"{catnipAmount}";
     }
 }

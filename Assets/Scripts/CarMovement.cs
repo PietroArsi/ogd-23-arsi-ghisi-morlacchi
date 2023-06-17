@@ -127,6 +127,7 @@ public class CarMovement : NetworkBehaviour
             Debug.Log($"Selected level: {level}");
             if (genericSceneManager != null)
             {
+                GameObject.Find("UI sounds").transform.GetComponent<UISoundManager>().ClickDefault(false);
                 genericSceneManager.LoadNetwork("test level");
             }//SceneLoader.LoadNetwork(SceneLoader.Scene.NetworkTestLevel);
             }
