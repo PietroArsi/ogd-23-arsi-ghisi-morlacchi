@@ -136,7 +136,9 @@ public class PawliceMovement : NetworkBehaviour
     private void OnSpawnReturn() {
         Debug.Log("Catnip stolen successfully");
         //addtion to destroy catnip Luca
-       // gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
+        // gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
+
+        UpdateEvidenceClientRpc();
         if (ConnectionManager.Instance != null)
         {
             gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
@@ -163,4 +165,11 @@ public class PawliceMovement : NetworkBehaviour
     {
         return spawnedMarker;
     }
+
+    [ClientRpc]
+    private void UpdateEvidenceClientRpc()
+    {
+        GameManagerStates.Instance.gameObject.GetComponent<GameManager>().AddEvidence();
+    }
+    
 }

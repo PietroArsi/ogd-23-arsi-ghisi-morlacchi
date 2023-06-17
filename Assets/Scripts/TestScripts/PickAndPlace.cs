@@ -121,7 +121,7 @@ public class PickAndPlace : NetworkBehaviour
                 DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<Storage>().DeliverProcessCatnip();
             }
-            else if(sortedColliders[0].name == "Field")
+            else if(sortedColliders[0].name == "Field" || sortedColliders[0].name.Contains("Ramp"))
             {
                 //Debug.Log("Ground");
                 OnPlaceObject?.Invoke(this, EventArgs.Empty);

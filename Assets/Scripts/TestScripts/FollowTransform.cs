@@ -34,7 +34,7 @@ public class FollowTransform : MonoBehaviour
         }
         else if (targetTransform.gameObject.layer == 7)
         {
-            float height = transform.localScale.y/2;
+            float height = targetTransform.position.y + transform.localScale.y/2;
             targetTransform.gameObject.GetComponent<SpawnableObjParent>().SetspawnObject(null);
             if (gameObject.name == "Wall")
             {

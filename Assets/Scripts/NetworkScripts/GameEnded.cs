@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameEnded : MonoBehaviour
+public class GameEnded : NetworkBehaviour
 {
     [SerializeField] private GameManager gm;
     [SerializeField] private int score;
@@ -50,11 +50,22 @@ public class GameEnded : MonoBehaviour
     }
     private void GameManagerStates_OnStateChanged(object sender, System.EventArgs e)
     {
+
         if (GameManagerStates.Instance.IsGameOver())
         {
-            Debug.Log("GAMEOVER");
-            SaveScore();
-            Show();
+            if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() == 3)
+            {
+                if (IsHost)
+                {
+                    ShowGameOverClientRpc();
+                }
+            }
+            else
+            {
+                Debug.Log("Level Complete");
+                SaveScore();
+                Show();
+            }
         }
     }
 
@@ -82,28 +93,38 @@ public class GameEnded : MonoBehaviour
         int numberCatnip = gm.GetCatnip();
         score = numberCatnip * 10;
         totalScore.text = $"Score: {score}";
-       
-        if (score >= 0 && score < 100)
+
+        if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() != 3)
         {
-            Debug.Log(crunchies[0]);
-            crunchies[0].enabled = true;
-        }
-        else if (score >= 100 && score < 200)
-        {
-            crunchies[0].enabled = true;
-            crunchies[1].enabled = true;
-        }
-        else if (score >= 200)
-        {
-            crunchies[0].enabled = true;
-            crunchies[1].enabled = true;
-            crunchies[2].enabled = true;
-         
+            if (score >= 0 && score < 100)
+            {
+                Debug.Log(crunchies[0]);
+                crunchies[0].enabled = true;
+            }
+            else if (score >= 100 && score < 200)
+            {
+                crunchies[0].enabled = true;
+                crunchies[1].enabled = true;
+            }
+            else if (score >= 200)
+            {
+                crunchies[0].enabled = true;
+                crunchies[1].enabled = true;
+                crunchies[2].enabled = true;
+
+            }
         }
     }
 
     private void Hide()
     {
         GameEndedScreen.SetActive(false);
+    }
+
+    [ClientRpc]
+    private void ShowGameOverClientRpc()
+    {
+        totalScore.gameObject.SetActive(false);
+        Show();
     }
 }
