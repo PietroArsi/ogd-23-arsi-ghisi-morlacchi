@@ -13,7 +13,8 @@ public class MusicManager : MonoBehaviour
     public enum track {
         PuzzlePieces,
         OutOfTime,
-        Penultimate
+        Penultimate,
+        Go
     }
 
     void Awake() {
@@ -44,6 +45,8 @@ public class MusicManager : MonoBehaviour
                 audioSource.clip = Resources.Load<AudioClip>("Out of Time");
             } else if (music == track.Penultimate) {
                 audioSource.clip = Resources.Load<AudioClip>("Penultimate");
+            } else if (music == track.Go) {
+                audioSource.clip = Resources.Load<AudioClip>("Go");
             }
 
             isPlaying = true;
