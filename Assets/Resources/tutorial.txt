@@ -1,42 +1,42 @@
-Game Installation
+<b>Game Installation<\b>
 
-Unleash the purr-fection by downloading Catnipped! from Steam onto your Windows device. Make sure you've got enough room for this "meow-nificent" adventure and check the system requirements for a smooth gameplay experience.
+Unleash the purr-fection by downloading Catnipped! from Steam onto your Windows device. Ensure you have enough room for this "meow-nificent" adventure and check the system requirements for a smooth gameplay experience.
 
-Starting the Game:
+<b>Starting the Game<\b>
 
-Spot the Catnipped! icon on your device and give it a playful paw tap to launch the game. Get ready for some feline fun!
+Spot the Catnipped! icon on your device, give it a playful paw tap to launch the game. Get ready for some feline fun!
 You'll be greeted with a splash screen or an introductory video, depending on whether it's your first playthrough or not. Sit tight and let the catxcitement build as the game loads.
 
-Main Menu
+<b>Main Menu<\b>
 
 After loading, you'll be taken to the main menu of Catnipped! Prepare to be whiskered away to various options and menus, including:
 
-	- Host: Ready to host a lobby and rule the kitty kingdom?
-	- Join: Join forces with fellow fur-riends in a purr-suit of adventure?
-	- Extra: Unleash some extra surprises and secrets that will make you purr with delight!
-	- Tutorial: Hey, that's me! Check this menu for helpful tips and tricks to conquer Catnipped!
-	- Options: Tailor the game settings to your liking and make it truly meow-gical.
+<indent=15%>- Host: Ready to host a lobby and rule the kitty kingdom?<\indent>
+<indent=15%>- Join: Join forces with fellow fur-riends in a purr-suit of adventure?<\indent>
+<indent=15%>- Extra: Unleash some extra surprises and secrets that will make you purr with delight!<\indent>
+<indent=15%>- Tutorial: Hey, that's me! Check this menu for helpful tips and tricks to conquer Catnipped!<\indent>
+<indent=15%>- Options: Tailor the game settings to your liking and make it truly meow-gical.<\indent>
 
-Lobby Menu 
+<b>Lobby Menu<\b>
 
-Once you click the "Join" button you will find yourself in the Lobby Selection Screen. Choose a purrfectly paw-some lobby to join and embark on your escapades.
+Once you click the "Join" button you will find yourself in the Lobby Selection Screen. Choose a purrfectly paw-some lobby to join and embark on your escapades.00
  
-Level Selection Menu
+<b>Level Selection Menu<\b>
 
 Once every member of your mischievous crew has selected their cunning catnip-loving character, it's time to embark on the Level Selection Screen. Gather in the CatCar and paw-sitively choose the level where your adventures will unfold. Please note that in this version, the host will be the sole master of the van's steering wheel.
 
-Gameplay
+<b>Gameplay<\b>
 
 Finally some gameplay! Here are the controls that will make you a whisker-wielding master:
-	- Movement: Use WASD keys to gracefully navigate the world.
-	- Camera Movement: Purrlay with the mouse to find the perfect angle.
-	- Sprint: Tap the Space Bar for a burst of feline speed.
-	- Interaction: Left-click like a pawfessional gamer to engage with objects and characters.
-	- Open Menu: Press Q to reveal lots of menus for delightful surprises.
-	- Scratch: Unleash your inner cattitude by pressing E to scratch and make your presence known.
-	- Meow: Express yourself with a mighty meow by pressing R.
-	- Menu Navigation: Use the mouse, WASD, or Arrow Keys to navigate the menus with cat-like grace.
-	- Go Back: Press Esc when you need to take a pawse and regroup.
+<indent=15%>- Movement: Use WASD keys to gracefully navigate the world.<\indent>
+<indent=15%>- Camera Movement: Purrlay with the mouse to find the perfect angle.<\indent>
+<indent=15%>- Sprint: Tap the Space Bar for a burst of feline speed.<\indent>
+<indent=15%>- Interaction: Left-click like a pawfessional gamer to engage with objects and characters.<\indent>
+<indent=15%>- Open Menu: Press Q to reveal lots of menus for delightful surprises.<\indent>
+<indent=15%>- Scratch: Unleash your inner cattitude by pressing E to scratch and make your presence known.<\indent>
+<indent=15%>- Meow: Express yourself with a mighty meow by pressing R.<\indent>
+<indent=15%>- Menu Navigation: Use the mouse, WASD, or Arrow Keys to navigate the menus with cat-like grace.<\indent>
+<indent=15%>- Go Back: Press Esc when you need to take a pawse and regroup.<\indent>
 
 In Catnipped! your goal is to produce as much catnip as possible in the time given by each level.
 Keep an eye out for mischievous mice scurrying about, as catching them will earn you extra points. 
@@ -47,15 +47,15 @@ To produce catnip, harvest the tantalizing plants from the field, cook them in t
 The level comes to an end when time runs out or if the Pawlice gathers enough evidence (catnip) to put the cuffs on you.
 Keep a keen eye on the evidence counter and stay one step ahead!
 
-Results Screen
+<b>Results Screen<\b>
 
 Once you've conquered a level, your score will be presented in the form of mouth-watering "crunchies" on the results screen. Purr-haps you'll earn the highest honor of a three-crunchie rating!
 
-Saving Your Progress
+<b>Saving Your Progress<\b>
 
 The game implements automatic saving to avoid losing your progress. We don't wanna lose any life here, even if we have nine of them.
 
-Have a Pawsome Time!
+<b>Have a Pawsome Time!<\b>
 
 Now that you're fully equipped with the knowledge of Catnipped!, it's time to dive into the enchanting world of mischievous cats and addictive catnip. Explore, interact, complete daring levels, and enjoy the "claw-some" adventures that await you.
 

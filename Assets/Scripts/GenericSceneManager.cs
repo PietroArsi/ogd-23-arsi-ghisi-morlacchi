@@ -62,4 +62,8 @@ public class GenericSceneManager : MonoBehaviour
     {
         CatnipLobby.Instance.JoinwithId(lobby.Id);
     }
+
+    public void CloseGame() {
+        Application.Quit();
+    }
 }

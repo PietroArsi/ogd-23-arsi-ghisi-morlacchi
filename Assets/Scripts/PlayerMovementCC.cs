@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMovementCC : NetworkBehaviour
 {
     [Header("Movement")]
@@ -34,7 +36,7 @@ public class PlayerMovementCC : NetworkBehaviour
     public Transform orientation;
 
     [Header("Interaction")]
-    ActionCooldown attackCooldown;
+    private ActionCooldown attackCooldown;
 
     //inputs
     float horizontalInput;
@@ -50,16 +52,20 @@ public class PlayerMovementCC : NetworkBehaviour
 
     private AudioSource stepAudioSource;
     private AudioSource attackAudioSource;
-    private AudioSource miaoAudioSource;
+    private AudioSource meowAudioSource;
 
     public AudioClip attackSound;
     public List<AudioClip> meows;
-   
+
+    private ActionCooldown meowCooldown;
+    private bool meow;
+
     private void Start() {
         cc = GetComponent<CharacterController>();
         readyToJump = true;
 
         attackCooldown = new ActionCooldown();
+        meowCooldown = new ActionCooldown();
 
         constructionMenu = GameObject.Find("Canvas").GetComponent<ConstructionMenu>();
     }
@@ -72,11 +78,12 @@ public class PlayerMovementCC : NetworkBehaviour
         //SpeedControl();
 
         attackCooldown.Advance(Time.deltaTime);
+        meowCooldown.Advance(Time.deltaTime);
     }
 
     private void FixedUpdate() {
         if (!IsOwner) return;
-        MovePlayer();
+        MovePlayer2();
     }
 
     private void GetInput() {
@@ -98,11 +105,17 @@ public class PlayerMovementCC : NetworkBehaviour
             verticalInput = Input.GetAxisRaw("Vertical");
 
             attack = Input.GetButtonDown("Fire1");
+            meow = Input.GetKeyDown(KeyCode.M);
         }
 
         if (attack && attackCooldown.Check()) {
             attackCooldown.Set(0.5f);
             Attack();
+        }
+
+        if (meow && meowCooldown.Check()) {
+            attackCooldown.Set(5f);
+            Meow();
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !constructionMenu.GetConstructionScreen().activeSelf && !PlayerNetwork.LocalIstance.HasSpawnObject())
@@ -167,36 +180,50 @@ public class PlayerMovementCC : NetworkBehaviour
         }
     }
 
-    private void SpeedControl() {
-        //if (OnSlope()) {
-        //    if (rb.velocity.magnitude > moveSpeed) {
-        //        rb.velocity = rb.velocity.normalized * moveSpeed;
-        //    }
-        //} else {
-        //    Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+    private void MovePlayer2() {
+        Vector3 movementDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;//new Vector3(horizontalInput, 0, verticalInput);
+        float magnitude = Mathf.Clamp01(movementDirection.magnitude) * moveSpeed;
+        movementDirection.Normalize();
 
-        //    if (flatVelocity.magnitude > moveSpeed) {
-        //        Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
-        //        rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
-        //    }
-        //}
-        //Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        cc.SimpleMove(movementDirection * magnitude);
 
-        //if (flatVelocity.magnitude > moveSpeed) {
-        //    Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
-        //    rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+        //if (movementDirection != Vector3.zero) {
+        //    Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+
+        //    transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
         //}
     }
 
-    private void Jump() {
-        //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+    //private void SpeedControl() {
+    //    //if (OnSlope()) {
+    //    //    if (rb.velocity.magnitude > moveSpeed) {
+    //    //        rb.velocity = rb.velocity.normalized * moveSpeed;
+    //    //    }
+    //    //} else {
+    //    //    Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-    }
+    //    //    if (flatVelocity.magnitude > moveSpeed) {
+    //    //        Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
+    //    //        rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+    //    //    }
+    //    //}
+    //    //Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-    private void ResetJump() {
-        readyToJump = true;
-    }
+    //    //if (flatVelocity.magnitude > moveSpeed) {
+    //    //    Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
+    //    //    rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+    //    //}
+    //}
+
+    //private void Jump() {
+    //    //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+    //    //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    //}
+
+    //private void ResetJump() {
+    //    readyToJump = true;
+    //}
 
     private bool OnSlope() {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f)) {
@@ -240,4 +267,10 @@ public class PlayerMovementCC : NetworkBehaviour
     //    Vector3 direction = GetSlopeMoveDirection() * 5;
     //    Gizmos.DrawRay(transform.position, direction);
     //}
+
+    private void Meow() {
+        meowAudioSource.volume = 0.6f;
+        meowAudioSource.loop = false;
+        meowAudioSource.clip = meows[Random.Range(0, meows.Count)];
+    }
 }
