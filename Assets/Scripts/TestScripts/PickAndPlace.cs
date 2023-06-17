@@ -98,18 +98,18 @@ public class PickAndPlace : NetworkBehaviour
             if (sortedColliders[0].name== "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
                 && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Unprocessed")
             {
-              //  Debug.Log("FURNACE");
+                Debug.Log("FURNACE");
                 DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<FurnaceCook>().StartToCoock();
                
             }
-            else if (sortedColliders[0].name == "Storage" && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Processed")
+            else if (sortedColliders[0].name == "chest" && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Processed")
             {
                // Debug.Log("Storage");
                 DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<Storage>().DeliverProcessCatnip();
             }
-            else if(sortedColliders[0].name == "Cube" )
+            else if(sortedColliders[0].name == "Field")
             {
                 //Debug.Log("Ground");
                 OnPlaceObject?.Invoke(this, EventArgs.Empty);

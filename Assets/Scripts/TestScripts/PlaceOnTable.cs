@@ -8,7 +8,7 @@ public class PlaceOnTable : NetworkBehaviour,SpawnableObjParent
 {
     //name PlaceOnTable;
     [SerializeField] private GameObject spawnObject;
-    [SerializeField] private Transform placement;
+    //[SerializeField] private Transform placement;
     private int priority;
     public static event EventHandler OnAnyObjectPlacedHere;
 
@@ -33,10 +33,7 @@ public class PlaceOnTable : NetworkBehaviour,SpawnableObjParent
 
     public Transform GetObjectFollowTransform()
     {
-        if (placement != null)
-            return placement;
-       else
-            return transform;
+         return transform;
     }
 
     public int GetPriority()

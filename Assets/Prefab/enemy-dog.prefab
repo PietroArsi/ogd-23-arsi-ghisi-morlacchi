@@ -86,7 +86,7 @@ MonoBehaviour:
   catnipLayer:
     serializedVersion: 2
     m_Bits: 2048
-  distanceFromTarget: 1
+  distanceFromTarget: 2
   spawnMarker: {fileID: 2555238178594080414, guid: f6f6dc4f4c010c949ba00de38b49ea3b, type: 3}
 --- !u!195 &2695571673428293565
 NavMeshAgent:
