@@ -7,9 +7,10 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
 {
     [SerializeField] private Transform holdPosition;
     [SerializeField] private GameObject spawnObject;
+    private int priority;
     void Start()
     {
-
+        priority = 1;
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
 
     public int GetPriority()
     {
-        throw new System.NotImplementedException();
+        return priority;
     }
 
     public bool HasSpawnObject()

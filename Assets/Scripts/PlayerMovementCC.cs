@@ -220,17 +220,17 @@ public class PlayerMovementCC : NetworkBehaviour
                 c.GetComponent<ResourceInteractable>().Collect();
                 break;
             }
-            if (c.GetComponentInParent<MouseMovement>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject())
-            {
-                Debug.Log("HELLO THERE MOUSE");
-                c.GetComponentInParent<MouseMovement>().KillEnemy(null);
-                break;
-            }
-            if (c.GetComponent<EnemyHoldCatnip>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject())
-            {   
-               c.GetComponent<EnemyHoldCatnip>().KillEnemy(gameObject.GetComponent<PlayerNetwork>());
-                break;
-            }
+            //if (c.GetComponentInParent<MouseMovement>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject())
+            //{
+            //    Debug.Log("HELLO THERE MOUSE");
+            //    c.GetComponentInParent<MouseMovement>().KillEnemy(null);
+            //    break;
+            //}
+            //if (c.GetComponent<EnemyHoldCatnip>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject())
+            //{   
+            //   c.GetComponent<EnemyHoldCatnip>().KillEnemy(gameObject.GetComponent<PlayerNetwork>());
+            //    break;
+            //}
         }
     }
 
