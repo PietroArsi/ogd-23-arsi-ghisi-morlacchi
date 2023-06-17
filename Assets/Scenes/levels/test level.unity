@@ -4092,7 +4092,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1046200883}
   m_HandleRect: {fileID: 1046200882}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4142,7 +4142,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh84200
+  m_Name: pb_Mesh37544
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4662,6 +4662,8 @@ GameObject:
   - component: {fileID: 316568920}
   - component: {fileID: 316568919}
   - component: {fileID: 316568918}
+  - component: {fileID: 316568924}
+  - component: {fileID: 316568923}
   m_Layer: 7
   m_Name: Ramp_Plane
   m_TagString: Untagged
@@ -4995,6 +4997,34 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &316568923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316568916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 980586686
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &316568924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316568916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b89711cec69f944ae85c5c1c09173a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &324990630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c106e14658ea3ec49be266fcf7937c1a, type: 3}
@@ -8567,7 +8597,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1558524345}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10620,7 +10650,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh84120
+  m_Name: pb_Mesh37464
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11114,7 +11144,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh85754
+  m_Name: pb_Mesh39098
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18023,7 +18053,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh85614
+  m_Name: pb_Mesh38958
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25482,6 +25512,8 @@ GameObject:
   - component: {fileID: 2042358447}
   - component: {fileID: 2042358446}
   - component: {fileID: 2042358445}
+  - component: {fileID: 2042358449}
+  - component: {fileID: 2042358450}
   m_Layer: 7
   m_Name: Ramp
   m_TagString: Untagged
@@ -25799,6 +25831,34 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &2042358449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042358442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3078004365
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &2042358450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042358442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b89711cec69f944ae85c5c1c09173a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2047339298
 GameObject:
   m_ObjectHideFlags: 0
