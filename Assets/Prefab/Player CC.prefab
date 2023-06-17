@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 2432
+    m_Bits: 10624
   checkGround: {fileID: 5987651425426459334}
 --- !u!1 &5783803692794993127
 GameObject:
@@ -758,7 +758,7 @@ MonoBehaviour:
   - {x: 28, y: 0.8, z: 10}
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 9088
   interactionCollider: {fileID: 2570226658538745779}
   playerVisual: {fileID: 9194828993692188335}
 --- !u!114 &210512320678051429

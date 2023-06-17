@@ -103,6 +103,10 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
                 interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
             }
         }
+        if (Input.GetKeyDown(KeyCode.E) && !HasSpawnObject())
+        {
+            interactionCollider.GetComponent<PickAndPlace>().CutCatnip(this);
+        }
         //if (Input.GetKeyDown(KeyCode.Space) && HasSpawnObject())
         //{
         //    //PlaceDownObject();

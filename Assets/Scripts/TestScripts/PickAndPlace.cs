@@ -42,12 +42,23 @@ public class PickAndPlace : NetworkBehaviour
                 break;
                 // Debug.Log("<color=yellow>PlayerNetwork: PickUp Object</color>");
             }
-           // else if (c.gameObject.GetComponent<GetWall>())
+            // else if (c.gameObject.GetComponent<GetWall>())
             //{
 
             //    c.GetComponent<GetWall>().getWall();
             //    break;
             //}
+            if (c.GetComponentInParent<MouseMovement>())
+            {
+                Debug.Log("HELLO THERE MOUSE");
+                c.GetComponentInParent<MouseMovement>().KillEnemy(null);
+                break;
+            }
+            if (c.GetComponent<EnemyHoldCatnip>())
+            {
+                c.GetComponent<EnemyHoldCatnip>().KillEnemy(player);
+                break;
+            }
             if (c.gameObject.GetComponent<FurnaceCook>() != null && !PlayerNetwork.LocalIstance.HasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
             {
 
@@ -56,6 +67,7 @@ public class PickAndPlace : NetworkBehaviour
                 break;
 
             }
+           
         }
 
     }
@@ -96,14 +108,14 @@ public class PickAndPlace : NetworkBehaviour
             //Debug.Log(sortedColliders[0].name);
             
             if (sortedColliders[0].name== "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
-                && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Unprocessed")
+                && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Unprocessed)
             {
                 Debug.Log("FURNACE");
                 DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<FurnaceCook>().StartToCoock();
                
             }
-            else if (sortedColliders[0].name == "chest" && PlayerNetwork.LocalIstance.GetObject().gameObject.tag == "Processed")
+            else if (sortedColliders[0].name == "chest" && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus==CatnipStatus.status.Cut)
             {
                // Debug.Log("Storage");
                 DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
@@ -119,7 +131,9 @@ public class PickAndPlace : NetworkBehaviour
             else if (sortedColliders[0].name.Contains("place"))
             {
                // Debug.Log("Table");
-                PlayerNetwork.LocalIstance.spawnObject.GetComponent<BoxCollider>().enabled = true;
+               
+                sortedColliders[0].GetComponent<CuttingTable>().SetToReady();
+                AddColliderServerRpc(PlayerNetwork.LocalIstance.spawnObject);
                 PlayerNetwork.LocalIstance.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
                 PlayerNetwork.LocalIstance.ClearSpawnObject();
             }
@@ -128,6 +142,26 @@ public class PickAndPlace : NetworkBehaviour
                 Debug.Log("CANNOT PLACE");
             }
    
+        }
+    }
+    public void CutCatnip(PlayerNetwork player)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity, interactionLayer);
+        List<Collider> sortedColliders = new List<Collider>();
+        foreach (Collider c in hitColliders)
+        {
+            if (c.GetComponent<CuttingTable>() != null)
+            {
+                sortedColliders.Add(c);
+            }
+        }
+        sortedColliders.Sort((a, b) => a.transform.GetComponent<SpawnableObjParent>().GetPriority().CompareTo(b.transform.GetComponent<SpawnableObjParent>().GetPriority()));
+        sortedColliders.Reverse();
+
+        if (sortedColliders[0].GetComponent<PlaceOnTable>().HasSpawnObject() && sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cooodked)
+        {
+            sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().gameObject.layer = 0;
+            sortedColliders[0].GetComponent<CuttingTable>().StartToCut();
         }
     }
 
@@ -164,6 +198,19 @@ public class PickAndPlace : NetworkBehaviour
         visualDebugger.AddMessage("REMOVE COLLIDER FOR THIS OBJECT PLEASE");
         GameObject PickedUp = c;
         PickedUp.GetComponent<BoxCollider>().enabled = false;
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void AddColliderServerRpc(NetworkObjectReference placed)
+    {
+        GameObject place = placed;
+        AddColliderClientRpc(place);
+    }
+    [ClientRpc]
+    private void AddColliderClientRpc(NetworkObjectReference c)
+    {
+        visualDebugger.AddMessage("Add COLLIDER FOR THIS OBJECT PLEASE");
+        GameObject PickedUp = c;
+        PickedUp.GetComponent<BoxCollider>().enabled = true;
     }
 }
 
