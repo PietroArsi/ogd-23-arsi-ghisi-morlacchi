@@ -21,16 +21,6 @@ public class UISoundManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void ClickNote(bool usePiano) {
         CheckReference();
 
@@ -41,7 +31,7 @@ public class UISoundManager : MonoBehaviour
             audioSource.clip = normalClickSound;
         }
 
-        audioSource.volume = 0.5f;
+        audioSource.volume = 0.65f;
         audioSource.Stop();
         audioSource.Play();
     }
@@ -57,7 +47,7 @@ public class UISoundManager : MonoBehaviour
             audioSource.clip = normalClickSound;
         }
 
-        audioSource.volume = 0.45f;
+        audioSource.volume = 0.8f;
         audioSource.Stop();
         audioSource.Play();
     }
@@ -67,7 +57,7 @@ public class UISoundManager : MonoBehaviour
 
         audioSource.loop = false;
         audioSource.clip = audio;
-        audioSource.volume = 0.45f;
+        audioSource.volume = 0.65f;
         audioSource.Stop();
         audioSource.Play();
     }

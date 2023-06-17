@@ -14,7 +14,8 @@ public class MusicManager : MonoBehaviour
         PuzzlePieces,
         OutOfTime,
         Penultimate,
-        Go
+        Go,
+        ArabianPrincess
     }
 
     void Awake() {
@@ -47,12 +48,14 @@ public class MusicManager : MonoBehaviour
                 audioSource.clip = Resources.Load<AudioClip>("Penultimate");
             } else if (music == track.Go) {
                 audioSource.clip = Resources.Load<AudioClip>("Go");
+            } else if (music == track.ArabianPrincess) {
+                audioSource.clip = Resources.Load<AudioClip>("Arabian Princess");
             }
 
             isPlaying = true;
             lastTrack = music;
             audioSource.loop = true;
-            audioSource.volume = 0.65f;
+            audioSource.volume = 0.45f;
             audioSource.Play();
         }
     }
