@@ -83,17 +83,17 @@ public class GameEnded : MonoBehaviour
         score = numberCatnip * 10;
         totalScore.text = $"Score: {score}";
        
-        if (score >= 0 && score < 100)
+        if (score >= 0 && score < 10)
         {
             Debug.Log(crunchies[0]);
             crunchies[0].enabled = true;
         }
-        else if (score >= 100 && score < 200)
+        else if (score >= 10 && score < 30)
         {
             crunchies[0].enabled = true;
             crunchies[1].enabled = true;
         }
-        else if (score >= 200)
+        else if (score >= 30)
         {
             crunchies[0].enabled = true;
             crunchies[1].enabled = true;
