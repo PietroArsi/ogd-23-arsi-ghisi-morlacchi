@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 2054925860453536012}
   - component: {fileID: 6824828130148323152}
   - component: {fileID: 6047812402212093208}
+  - component: {fileID: 7170790470942284341}
   m_Layer: 13
   m_Name: enemy-dog
   m_TagString: Untagged
@@ -172,6 +173,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdPosition: {fileID: 8257878297058574188}
   spawnObject: {fileID: 0}
+--- !u!114 &7170790470942284341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2695571673428293560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec91552ce6224f04787f7c2bbcbd5be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTransform: {x: 0, y: 0, z: 0}
+  currentRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5602448816890362018
 GameObject:
   m_ObjectHideFlags: 0

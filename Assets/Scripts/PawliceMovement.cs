@@ -43,6 +43,8 @@ public class PawliceMovement : NetworkBehaviour
             if (status == PawliceStatus.Idle)
             {
                 CheckTarget();
+                //NavMeshPath navMeshPath = new NavMeshPath();
+                //navMeshAgent.CalculatePath(target.position, navMeshPath);
                 navMeshAgent.destination = target.position;
                 spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
             }

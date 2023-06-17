@@ -3252,7 +3252,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4748126877029901868, guid: aeaf721f2b843dd4f8b1750ea9490a51, type: 3}
       propertyPath: music
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4748126877029901869, guid: aeaf721f2b843dd4f8b1750ea9490a51, type: 3}
       propertyPath: m_RootOrder

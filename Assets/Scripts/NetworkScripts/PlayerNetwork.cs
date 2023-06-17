@@ -90,16 +90,24 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     //this need to be updated to check when there is a big block i cannot place it on top of it
     private void GetInput()
     {
-        if (Input.GetButtonDown("Fire1") && !HasSpawnObject())
+        if (Input.GetButtonDown("Fire1"))
         {
-            // PickUpObject();
-            interactionCollider.GetComponent<PickAndPlace>().PickUpObject(this);
+            if (!HasSpawnObject())
+            {
+                // PickUpObject();
+                interactionCollider.GetComponent<PickAndPlace>().PickUpObject(this);
+            }
+            else if (HasSpawnObject())
+            {
+                // PickUpObject();
+                interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && HasSpawnObject())
-        {
-            //PlaceDownObject();
-            interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && HasSpawnObject())
+        //{
+        //    //PlaceDownObject();
+        //    interactionCollider.GetComponent<PickAndPlace>().PlaceDownObject(this);
+        //}
     }
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
