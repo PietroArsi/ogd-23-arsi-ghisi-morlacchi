@@ -37,7 +37,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
             //orientation = PlayerNetwork.LocalIstance.gameObject.transform.Find("Orientation").transform;
         //}
-        if(PlayerNetwork.LocalIstance!=null)
+        if(PlayerNetwork.LocalIstance != null)
         {
             //Debug.Log("HELLO THERE");
             Cursor.lockState = CursorLockMode.Locked;
@@ -82,9 +82,9 @@ public class ThirdPersonCamera : MonoBehaviour
     void Update()
     {
         //LUCA ADDITION WHEN THE GAME IS OVER
-        if (!GameManagerStates.Instance.IsGameOver() && !GameManagerStates.Instance.IsPlayerDisconnected() && GameManagerStates.Instance.HostDisconnected==false)
+        if (!GameManagerStates.Instance.IsGameOver() && !GameManagerStates.Instance.IsPlayerDisconnected() && GameManagerStates.Instance.HostDisconnected == false)
         {
-           // Debug.Log("IS PLAYER THERE? " + PlayerNetwork.LocalIstance != null);
+            // Debug.Log("IS PLAYER THERE? " + PlayerNetwork.LocalIstance != null);
             if (PlayerNetwork.LocalIstance != null)
             {
                 player = PlayerNetwork.LocalIstance.gameObject.transform;
@@ -98,7 +98,7 @@ public class ThirdPersonCamera : MonoBehaviour
                 {
                     float horizontalInput = 0f;
                     float verticalInput = 0f;
-                    if (GameManagerStates.Instance.CanMovePlayer() || player.GetComponent<PlayerNetwork>().isPlayerCutting)
+                    if (GameManagerStates.Instance.CanMovePlayer()) // || player.GetComponent<PlayerNetwork>().isPlayerCutting
                     {
                         //rotate player
                         horizontalInput = Input.GetAxis("Horizontal");
@@ -111,13 +111,13 @@ public class ThirdPersonCamera : MonoBehaviour
                         playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
                     }
                 }
-                else if (currentStyle == CameraStyle.Combat)
-                {
-                    Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
-                    orientation.forward = dirToCombatLookAt.normalized;
+                // else if (currentStyle == CameraStyle.Combat)
+                // {
+                //     Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
+                //     orientation.forward = dirToCombatLookAt.normalized;
 
-                    playerObj.forward = dirToCombatLookAt.normalized;
-                }
+                //     playerObj.forward = dirToCombatLookAt.normalized;
+                // }
 
                 // Luca Addition when the Construction Menu is Open
                 if (GameManagerStates.Instance.GetConstructionWindowActive())

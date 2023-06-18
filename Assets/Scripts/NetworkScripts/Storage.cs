@@ -9,6 +9,7 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
     [SerializeField] private int countCatnip;
     [SerializeField] private int scoreforPuttingInIt = 5;
     private int priority;
+    public AudioClip depositSound;
     private void Start()
     {
         priority = 8;
@@ -23,6 +24,9 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
 
     public void DeliverProcessCatnip()
     {
+        if (depositSound != null) {
+            GameObject.Find("UI sounds").transform.GetComponent<UISoundManager>().ClickSound(depositSound);
+        }
         string message = "Deliver process catnip";
         SendMessageServerRpc(message);
     }
@@ -69,7 +73,6 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
         UpdateScoreClientRpc("Add SCore");
     }
 
-
     // add for visual queue in the case of the catinip when collected. to   modify for multpile obj
     [ClientRpc]
     private void UpdateScoreClientRpc(string message)
@@ -78,6 +81,5 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
         _gm.GetComponent<GameManager>().AddCatnip(scoreforPuttingInIt);
         countCatnip++;
         visualDebugger.AddMessage(message);
-
     }
 }
