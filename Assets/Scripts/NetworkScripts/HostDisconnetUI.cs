@@ -45,7 +45,14 @@ public class HostDisconnetUI : MonoBehaviour
         //}
         else
         {
-            Show("Client has disconneted");
+            if (GameManagerStates.Instance.IsGameOver())
+            {
+                return;
+            }
+            else
+            {
+                Show("Client has disconneted");
+            }
         }
         // }
         //else

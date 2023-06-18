@@ -98,7 +98,7 @@ public class ThirdPersonCamera : MonoBehaviour
                 {
                     float horizontalInput = 0f;
                     float verticalInput = 0f;
-                    if (GameManagerStates.Instance.CanMoveCamera())
+                    if (GameManagerStates.Instance.CanMovePlayer() || player.GetComponent<PlayerNetwork>().isPlayerCutting)
                     {
                         //rotate player
                         horizontalInput = Input.GetAxis("Horizontal");
@@ -141,7 +141,7 @@ public class ThirdPersonCamera : MonoBehaviour
         }
         else
         {
-            Debug.Log("UNLOCK PLEASE");
+           // Debug.Log("UNLOCK PLEASE");
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

@@ -13,10 +13,10 @@ public class PlayerVisual : MonoBehaviour
     }
 
 
-    public void SetPlayerColor(Color color)
+    public void SetPlayerColor(Material mat)
     {
-        material = new Material(catMeshRenderer.material);
-        catMeshRenderer.material = material;
-        material.color = color;
+       // material = new Material(catMeshRenderer.material);
+        catMeshRenderer.material = mat;
+       // material.color = color;
     }
 }

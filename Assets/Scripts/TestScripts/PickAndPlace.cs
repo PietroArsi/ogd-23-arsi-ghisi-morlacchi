@@ -169,8 +169,9 @@ public class PickAndPlace : NetworkBehaviour
 
         if (sortedColliders[0].GetComponent<PlaceOnTable>().HasSpawnObject() && sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cooodked)
         {
+            player.isPlayerCutting = true;
             sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().gameObject.layer = 0;
-            sortedColliders[0].GetComponent<CuttingTable>().StartToCut();
+            sortedColliders[0].GetComponent<CuttingTable>().StartToCut(player);
         }
         else
         {

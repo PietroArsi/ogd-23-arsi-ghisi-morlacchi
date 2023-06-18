@@ -7,6 +7,7 @@ public class CuttingTable : NetworkBehaviour
 {
     private NetworkVariable<float> cuttingTime = new NetworkVariable<float>(5f);
     [SerializeField] private GameObject cuttedCatnip;
+    [SerializeField] private PlayerNetwork player;
     private enum TableState
     {
         Empty,
@@ -41,6 +42,10 @@ public class CuttingTable : NetworkBehaviour
                 break;
             case TableState.Cutting:
                 cuttingTime.Value -= Time.deltaTime;
+                if (GameManagerStates.Instance.IsGameOver())
+                {
+                    state.Value = TableState.Empty;
+                }
                 //Debug.Log(gamePlayingTimer.Value);
                 Debug.Log("CatnipIsCutting");
                
@@ -52,16 +57,18 @@ public class CuttingTable : NetworkBehaviour
                 break;
             case TableState.Complete:
                 {
+                    player.isPlayerCutting = false;
                      Debug.Log("CATNIP IS Complete");
                 }
                 break;
         }
     }
 
-    public void StartToCut()
+    public void StartToCut(PlayerNetwork passedPlayer)
     {
         if (IsClient)
         {
+            player = passedPlayer;
             StartCuttingServerRpc();
 
         }

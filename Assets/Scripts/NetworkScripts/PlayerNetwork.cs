@@ -12,7 +12,9 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     public GameObject spawnObject;
     public GameObject temp;
     public bool collect;
-    [SerializeField] private List<Vector3> spawnPositionList;
+
+    public bool isPlayerCutting;
+    
     //public GameObject ground;
 
 
@@ -29,13 +31,16 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
 
         PlayerData playerdData = ConnectionManager.Instance.GetPlayerDataFromClientId(OwnerClientId);
         playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerdData.colorId));
+        isPlayerCutting = false;
     }
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
         {
             LocalIstance = this;
-            transform.position = spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+            //transform.position = GameManagerStates.Instance.spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)].position;
+            //Debug.Log(GameManagerStates.Instance.spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)].position);
+            Debug.Log(transform.position);
             //this.transform.position = new Vector3(0, 0.61f, 0);
             //ground = GameObject.Find("map");
             // temp = this.gameObject;

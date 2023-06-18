@@ -42,7 +42,7 @@ public class MouseSpawnerManager : NetworkBehaviour
             if (!IsHost) return;
             if (spawnCount > 0)
             {
-                if (spawnTimer.Check())
+                if (spawnTimer.Check() && GameManagerStates.Instance.IsGamePlaying())
                 {
                     SpawnEnemy();
                     spawnTimer.Set(spawnInterval);

@@ -44,6 +44,6 @@ public class GameManager : MonoBehaviour
     }
     private void UpdateEvidence()
     {
-        evidenceCounter.text = $"{evidence}/3";
+        evidenceCounter.text = $"{evidence}/5";
     }
 }

@@ -54,6 +54,10 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
                 coockingTime.Value -= Time.deltaTime;
                 //Debug.Log(gamePlayingTimer.Value);
                 // Debug.Log("CATNIPISCOOKING");
+                if (GameManagerStates.Instance.IsGameOver())
+                {
+                    state.Value = FurnaceStates.Empty;
+                }
                 Debug.Log("HERE COOKING");
                 if (coockingTime.Value < 0f)
                 {

@@ -24,6 +24,7 @@ public class ConnectionManager : NetworkBehaviour
     private const string PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER = "PlayerNameMultiplayer";
     public const int MAX_NUMBER_PLAYER = 4;
     [SerializeField] private List<Color> playerColorList;
+    [SerializeField] private List<Material> playerMaterialList;
     //need to create when the game start
     //[SerializeField] private Transform carPrefab;
 
@@ -72,10 +73,10 @@ public class ConnectionManager : NetworkBehaviour
         return playerName;
     }
     //get color of the Player
-    public Color GetPlayerColor(int colorId)
+    public Material GetPlayerColor(int colorId)
     {
         Debug.Log("<color=yellow>ConnectionManager: Player color id: " + colorId +"</color>");
-        return playerColorList[colorId];
+        return playerMaterialList[colorId];
     }
     public void SetPlayerName(string playerName)
     {
@@ -233,7 +234,7 @@ public class ConnectionManager : NetworkBehaviour
     //get the first color that is not used
     private int GetFirstAvailableColorId()
     {
-        for (int i = 0; i < playerColorList.Count; i++)
+        for (int i = 0; i < playerMaterialList.Count; i++)
         {
             if (IsColorAvailable(i))
             {
@@ -243,9 +244,9 @@ public class ConnectionManager : NetworkBehaviour
         return -1;
     }
     //get list Color
-    public List<Color> totalColors()
+    public List<Material> totalColors()
     {
-        return playerColorList;
+        return playerMaterialList;
     }
 
     // On player Disconnet 
@@ -285,6 +286,7 @@ public class ConnectionManager : NetworkBehaviour
         {
             if (playerDataNetworkList[i].clientID == clientId)
             {
+                Debug.Log(i);
                 return i;
             }
         }
@@ -352,7 +354,7 @@ public class ConnectionManager : NetworkBehaviour
         visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
 
 
-        currentObj = Instantiate(currentObj, spawnPosition, Quaternion.identity);
+        currentObj = Instantiate(currentObj, spawnPosition, transform.rotation);
         NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
         objNetworkObject.Spawn(true);
     }

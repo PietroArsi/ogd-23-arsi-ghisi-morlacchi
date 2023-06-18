@@ -42,6 +42,10 @@ public class MouseMovement : NetworkBehaviour, EnemyInteractable
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) {
             ContinuePath();
         }
+        if (GameManagerStates.Instance.IsGameOver())
+        {
+            DestroyMouseObjectServerRpc("Destory Mouse");
+        }
     }
 
     public void SetPath(List<Transform> mousePath) {
@@ -149,6 +153,11 @@ public class MouseMovement : NetworkBehaviour, EnemyInteractable
         DestroyMouseObjectServerRpc("Kill Mouse");
     }
 
+    public void DestoryEnemyOnGameOver()
+    {
+        DestroyMouseObjectServerRpc("Kill Mouse");
+    }
+
 
     [ServerRpc(RequireOwnership = false)]
     private void DestroyMouseObjectServerRpc(string message, ServerRpcParams serverRpcParams = default)
@@ -159,7 +168,10 @@ public class MouseMovement : NetworkBehaviour, EnemyInteractable
         var clientId = serverRpcParams.Receive.SenderClientId;
         Destroy(gameObject);
         visualDebugger.AddMessage("Recive message form client: " + clientId.ToString());
-        UpdateScoreClientRpc("Add SCore");
+        if (GameManagerStates.Instance.IsGamePlaying())
+        {
+            UpdateScoreClientRpc("Add SCore");
+        }
     }
 
 

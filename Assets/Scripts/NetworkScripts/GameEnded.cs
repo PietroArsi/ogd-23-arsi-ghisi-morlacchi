@@ -53,11 +53,12 @@ public class GameEnded : NetworkBehaviour
 
         if (GameManagerStates.Instance.IsGameOver())
         {
-            if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() == 3)
+            if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() == 5)
             {
                 if (IsHost)
                 {
                     ShowGameOverClientRpc();
+                    HideCookiesClientRpc();
                 }
             }
             else
@@ -94,8 +95,13 @@ public class GameEnded : NetworkBehaviour
         score = numberCatnip * 10;
         totalScore.text = $"Score: {score}";
 
-        if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() != 3)
+        if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() != 5)
         {
+            HideCookiesClientRpc();
+        }
+        else
+        {
+
             if (score >= 0 && score < 10)
             {
                 Debug.Log(crunchies[0]);
@@ -126,5 +132,14 @@ public class GameEnded : NetworkBehaviour
     {
         totalScore.gameObject.SetActive(false);
         Show();
+    }
+
+    [ClientRpc] 
+    void HideCookiesClientRpc()
+    {
+        foreach (Image crunch in crunchies)
+        {
+            crunch.enabled = false;
+        }
     }
 }

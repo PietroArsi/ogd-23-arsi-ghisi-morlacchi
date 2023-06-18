@@ -48,7 +48,10 @@ public class PawliceMovement : NetworkBehaviour
                 navMeshAgent.destination = target.position;
                 spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
             }
-
+            if (GameManagerStates.Instance.IsGameOver())
+            {
+                DestoryEnemyClientRpc();
+            }
             CheckDistance();
         }
         else {
@@ -141,7 +144,10 @@ public class PawliceMovement : NetworkBehaviour
         UpdateEvidenceClientRpc();
         if (ConnectionManager.Instance != null)
         {
-            gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
+            if (gameObject.GetComponent<EnemyHoldCatnip>().HasSpawnObject())
+            {
+                gameObject.GetComponent<EnemyHoldCatnip>().DestroyCatnipStolen();
+            }
             if (IsHost)
             {
                 DestoryEnemyClientRpc();

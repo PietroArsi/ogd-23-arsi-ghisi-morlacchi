@@ -93,7 +93,7 @@ public class PlayerMovementCC : NetworkBehaviour
         //    Invoke(nameof(ResetJump), jumpCooldown);
         //}
 
-        if (!GameManagerStates.Instance.CanMoveCamera())
+        if (!GameManagerStates.Instance.CanMovePlayer() || GetComponent<PlayerNetwork>().isPlayerCutting)
         {
             horizontalInput = 0;
             verticalInput = 0;

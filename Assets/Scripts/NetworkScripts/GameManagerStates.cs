@@ -12,6 +12,7 @@ public class GameManagerStates : NetworkBehaviour
     public static GameManagerStates Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
     [SerializeField] private bool isConstructionWindowOpen;
+    [SerializeField] public List<Transform> spawnPositionList;
     //varoious GameState;
     private enum State
     {
@@ -89,8 +90,11 @@ public class GameManagerStates : NetworkBehaviour
     {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            Transform playerTransform = Instantiate(playerPrefab);
+           Vector3 position= spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(clientId)].position;
+            Transform playerTransform = Instantiate(playerPrefab, position, Quaternion.identity);
+
             playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+             
         }
     }
 
@@ -159,7 +163,7 @@ public class GameManagerStates : NetworkBehaviour
 
 
                 //Debug.Log(gamePlayingTimer.Value);
-                if (gamePlayingTimer.Value < 0f || gameObject.GetComponent<GameManager>().GetEvidence()==3)
+                if (gamePlayingTimer.Value < 0f || gameObject.GetComponent<GameManager>().GetEvidence()==5)
                 {
                     state.Value = State.GameEnd;
                 }
@@ -252,7 +256,7 @@ public class GameManagerStates : NetworkBehaviour
         return false;
     }
 
-    public bool CanMoveCamera()
+    public bool CanMovePlayer()
     {
         return IsGamePlaying() && !GetConstructionWindowActive();
     }
