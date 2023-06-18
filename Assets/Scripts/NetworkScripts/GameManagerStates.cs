@@ -266,8 +266,11 @@ public class GameManagerStates : NetworkBehaviour
     private void ActivateDisconnectStateServerRpc()
     {
         Debug.Log("CALLED RPC");
-        state.Value = State.PlayerDisconnected;
-        ActivateDisconnectStateClientRpc();
+        if (!IsGameOver())
+        {
+            state.Value = State.PlayerDisconnected;
+            ActivateDisconnectStateClientRpc();
+        }
     }
 
     [ClientRpc]

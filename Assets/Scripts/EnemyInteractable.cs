@@ -5,5 +5,5 @@ using UnityEngine;
 public interface EnemyInteractable  {
 
 
-    public void KillEnemy(PlayerNetwork player);
+    public void KillEnemy();
 }

@@ -53,15 +53,10 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
         spawnObject = obj;
     }
 
-    private void PlayerGetCatnip(PlayerNetwork player)
+    
+    public void KillEnemy()
     {
-        if (HasSpawnObject()){
-            GetObject().setObjectParent(player.GetComponent<SpawnableObjParent>());
-        }
-    }
-    public void KillEnemy(PlayerNetwork player)
-    {
-        PlayerGetCatnip(player);
+        //PlayerGetCatnip(player);
         DestoryEnemyServerRpc();
     }
     public void DestroyCatnipStolen()
@@ -76,12 +71,22 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
         }
     }
 
-    [ServerRpc(RequireOwnership =false)]
+    [ServerRpc(RequireOwnership = false)]
     private void DestoryEnemyServerRpc()
     {
-        GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
+       // GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
         visualDebugger.AddMessage("KILL ENEMY");
+        // Destroy(spawnedPlace);
+        // Destroy(gameObject);à
+        DestroyEnemyClientRpc();
+    }
+
+    [ClientRpc]
+    private void DestroyEnemyClientRpc()
+    {
+        GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
         Destroy(spawnedPlace);
         Destroy(gameObject);
     }
+
 }

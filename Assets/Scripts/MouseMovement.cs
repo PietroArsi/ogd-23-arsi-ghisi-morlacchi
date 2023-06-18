@@ -148,7 +148,7 @@ public class MouseMovement : NetworkBehaviour, EnemyInteractable
         }
     }
 
-    public void KillEnemy(PlayerNetwork player)
+    public void KillEnemy()
     {
         DestroyMouseObjectServerRpc("Kill Mouse");
     }

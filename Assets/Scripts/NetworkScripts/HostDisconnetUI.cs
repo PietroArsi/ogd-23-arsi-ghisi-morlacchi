@@ -12,6 +12,7 @@ public class HostDisconnetUI : MonoBehaviour
     [SerializeField] private GameObject DisconnectionUI;
     //public GenericSceneManager genericSceneManager;
 
+    private bool canShow;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class HostDisconnetUI : MonoBehaviour
 
     private void Start()
     {
+        canShow = true;
         NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         Hide();
     }

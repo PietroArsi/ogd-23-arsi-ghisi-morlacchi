@@ -51,18 +51,26 @@ public class PickAndPlace : NetworkBehaviour
             if (c.GetComponentInParent<MouseMovement>())
             {
                 Debug.Log("HELLO THERE MOUSE");
-                c.GetComponentInParent<MouseMovement>().KillEnemy(null);
+                c.GetComponentInParent<MouseMovement>().KillEnemy();
                 break;
             }
             if (c.GetComponent<EnemyHoldCatnip>())
             {
-                c.GetComponent<EnemyHoldCatnip>().KillEnemy(player);
+                if (c.GetComponent<EnemyHoldCatnip>().HasSpawnObject())
+                {
+                    c.GetComponent<EnemyHoldCatnip>().GetObject().setObjectParent(player.GetComponent<SpawnableObjParent>());
+                    c.GetComponent<EnemyHoldCatnip>().KillEnemy();
+                }
+                else
+                {
+                    c.GetComponent<EnemyHoldCatnip>().KillEnemy();
+                }
+ 
+                
                 break;
             }
             if (c.gameObject.GetComponent<FurnaceCook>() != null && !PlayerNetwork.LocalIstance.HasSpawnObject() && c.gameObject.GetComponent<FurnaceCook>().IsCookingOver())
             {
-
-
                 c.gameObject.GetComponent<FurnaceCook>().getProcessCatnip(PlayerNetwork.LocalIstance);
                 break;
 

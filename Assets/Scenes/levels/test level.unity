@@ -875,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contructionName: Turret
   cost: 5
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1930670494}
   costText: {fileID: 352275104}
   constructionType: {fileID: 8501766288584867928, guid: d1a158a401d145b46a1cda7d0fbfdf9d, type: 3}
   construction: {fileID: 450154787}
@@ -7288,7 +7288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contructionName: Wall
   cost: 20
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1930670494}
   costText: {fileID: 90157214}
   constructionType: {fileID: 4214819476982542002, guid: 5ca1ede7a31b3424c98376f74a563986, type: 3}
   construction: {fileID: 450154787}
@@ -8351,7 +8351,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1558524346}
   m_HandleRect: {fileID: 1558524345}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -23260,7 +23260,7 @@ MonoBehaviour:
   - {fileID: 623298241}
   - {fileID: 558967176}
   - {fileID: 443632440}
-  maxGamePlayTimer: 10
+  maxGamePlayTimer: 300
   HostDisconnected: 0
 --- !u!114 &1930670496
 MonoBehaviour:
