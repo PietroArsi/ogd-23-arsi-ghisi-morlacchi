@@ -115,13 +115,22 @@ public class PickAndPlace : NetworkBehaviour
                 sortedColliders[0].gameObject.GetComponent<FurnaceCook>().StartToCoock();
                
             }
-            else if (sortedColliders[0].name == "chest" && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus==CatnipStatus.status.Cut)
+            else if (sortedColliders[0].name == "chest")
             {
-               // Debug.Log("Storage");
-                DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
-                sortedColliders[0].gameObject.GetComponent<Storage>().DeliverProcessCatnip();
+                if (PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cut)
+                {
+                    // Debug.Log("Storage");
+                    DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
+                    sortedColliders[0].gameObject.GetComponent<Storage>().DeliverProcessCatnip();
+                }
+                else
+                {
+                    Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+                    canvas.GetComponent<GameplayMessages>().CannotStore();
+
+                }
             }
-            else if(sortedColliders[0].name == "Field")
+            else if(sortedColliders[0].name == "Field" || sortedColliders[0].name.Contains("Ramp"))
             {
                 //Debug.Log("Ground");
                 OnPlaceObject?.Invoke(this, EventArgs.Empty);
@@ -162,6 +171,11 @@ public class PickAndPlace : NetworkBehaviour
         {
             sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().gameObject.layer = 0;
             sortedColliders[0].GetComponent<CuttingTable>().StartToCut();
+        }
+        else
+        {
+            Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            canvas.GetComponent<GameplayMessages>().CannotCut();
         }
     }
 

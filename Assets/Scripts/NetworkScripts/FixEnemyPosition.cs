@@ -11,6 +11,8 @@ public class FixEnemyPosition : NetworkBehaviour
     void Start()
     {
         currentTransform = transform.position;
+        currentRotation = transform.rotation;
+        FixClientPositionClientRpc(transform.position, transform.rotation);
         StartCoroutine(CheckEnemyPosition()); 
     }
 

@@ -156,8 +156,10 @@ public class GameManagerStates : NetworkBehaviour
                 break;
             case State.GamePlaying:
                 gamePlayingTimer.Value -= Time.deltaTime;
+
+
                 //Debug.Log(gamePlayingTimer.Value);
-                if (gamePlayingTimer.Value < 0f)
+                if (gamePlayingTimer.Value < 0f || gameObject.GetComponent<GameManager>().GetEvidence()==3)
                 {
                     state.Value = State.GameEnd;
                 }
