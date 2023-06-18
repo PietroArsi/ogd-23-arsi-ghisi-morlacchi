@@ -47,7 +47,7 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
         {
             case FurnaceStates.Empty:
                 {
-                    coockingTime.Value = 20f;
+                    coockingTime.Value = 10f;
                 }
                 break;
             case FurnaceStates.Coocking:

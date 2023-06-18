@@ -45,11 +45,19 @@ public static class SaveManager
             InitAchievements();
         }
 
-        string highscores_string = File.ReadAllText($"{dir}/highscores.json");
-        highscores = JsonUtility.FromJson<Highscores>(highscores_string);
+        try
+        {
+            string highscores_string = File.ReadAllText($"{dir}/highscores.json");
+            highscores = JsonUtility.FromJson<Highscores>(highscores_string);
+        }
+        catch { }
 
-        string achievements_string = File.ReadAllText($"{dir}/achievements.json");
+        try
+        {
+            string achievements_string = File.ReadAllText($"{dir}/achievements.json");
         achievements = JsonUtility.FromJson<Achievements>(achievements_string);
+        }
+        catch { }
     }
 
     public static void InitSaves(){
@@ -102,9 +110,12 @@ public static class SaveManager
             highscores = hs
         };
 
-        string highscoresJson = JsonUtility.ToJson(highscores_data, true);
-        Debug.Log($"<color=red> {highscoresJson} </color>");
-        File.WriteAllText($"{dir}/highscores.json", highscoresJson);
+        try
+        {
+            string highscoresJson = JsonUtility.ToJson(highscores_data, true);
+            Debug.Log($"<color=red> {highscoresJson} </color>");
+            File.WriteAllText($"{dir}/highscores.json", highscoresJson);
+        } catch { }
     }
 
     private static void InitAchievements(){
@@ -119,8 +130,12 @@ public static class SaveManager
             }
         };
 
-        string achievementsJson = JsonUtility.ToJson(achievements_data, true);
+        try
+        {
+            string achievementsJson = JsonUtility.ToJson(achievements_data, true);
         File.WriteAllText($"{dir}/achievements.json", achievementsJson);
+        }
+        catch { }
     }
 
     public static void RegisterHighscore(string levelName, int score) {
@@ -196,13 +211,19 @@ public static class SaveManager
     }
 
     private static void CommitSaves() {
-        string dir = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/Catnipped";
+        try
+        {
+            string dir = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/Catnipped";
 
-        string highscoresJson = JsonUtility.ToJson(highscores, true);
-        File.WriteAllText($"{dir}/highscores.json", highscoresJson);
+            string highscoresJson = JsonUtility.ToJson(highscores, true);
+            File.WriteAllText($"{dir}/highscores.json", highscoresJson);
 
-        string achievementsJson = JsonUtility.ToJson(achievements, true);
-        File.WriteAllText($"{dir}/achievements.json", achievementsJson);
+            string achievementsJson = JsonUtility.ToJson(achievements, true);
+            File.WriteAllText($"{dir}/achievements.json", achievementsJson);
+        } catch
+        {
+            Debug.Log("SAVE ERROR");
+        }
     }
 
     private static void UnlockAchievement(string achievementName) {

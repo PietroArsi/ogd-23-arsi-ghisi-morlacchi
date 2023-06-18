@@ -17,20 +17,20 @@ public class TableCurrentState : MonoBehaviour
         }
         else if (gameObject.GetComponent<CuttingTable>().IsCatnipOnTable())
         {
-            stateTable.SetActive(true);
-            stateTable.GetComponent<TextMeshPro>().text = "Ready ";
+            stateTable.SetActive(false);
+            stateTable.GetComponent<TextMeshPro>().text = "Press E";
             
         }
         else if (gameObject.GetComponent<CuttingTable>().IsTableCutting())
         {
-            //Debug.Log("Ready");
+            stateTable.SetActive(true);
             stateTable.GetComponent<TextMeshPro>().text = "Cutting: " + gameObject.GetComponent<CuttingTable>().getCuttingTime();
           
         }
         else if (gameObject.GetComponent<CuttingTable>().IsCatnipCut())
         {
-            // Debug.Log("Ready");
-            stateTable.GetComponent<TextMeshPro>().text = "Complete";
+            stateTable.SetActive(false);
+            stateTable.GetComponent<TextMeshPro>().text = "Press E";
 
         }
         

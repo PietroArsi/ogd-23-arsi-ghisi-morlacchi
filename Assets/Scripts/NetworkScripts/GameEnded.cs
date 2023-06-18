@@ -53,7 +53,7 @@ public class GameEnded : NetworkBehaviour
 
         if (GameManagerStates.Instance.IsGameOver())
         {
-            if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() == 5)
+            if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() >= 5)
             {
                 if (IsHost)
                 {
@@ -63,9 +63,10 @@ public class GameEnded : NetworkBehaviour
             }
             else
             {
-                Debug.Log("Level Complete");
-                SaveScore();
-                Show();
+                ShowLevelCompleteClientRpc();
+                //Debug.Log("Level Complete");
+                //SaveScore();
+                //Show(GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() < 5);
             }
         }
     }
@@ -88,20 +89,14 @@ public class GameEnded : NetworkBehaviour
         }
     }
 
-    private void Show()
+    private void Show(bool withCookies)
     {
         GameEndedScreen.SetActive(true);
         int numberCatnip = gm.GetCatnip();
         score = numberCatnip * 10;
         totalScore.text = $"Score: {score}";
-
-        if (GameManagerStates.Instance.GetComponent<GameManager>().GetEvidence() != 5)
+        if (withCookies)
         {
-            HideCookiesClientRpc();
-        }
-        else
-        {
-
             if (score >= 0 && score < 10)
             {
                 Debug.Log(crunchies[0]);
@@ -119,7 +114,14 @@ public class GameEnded : NetworkBehaviour
                 crunchies[2].enabled = true;
 
             }
+        } else
+        {
+            crunchies[0].enabled = false;
+            crunchies[1].enabled = false;
+            crunchies[2].enabled = false;
+            totalScore.enabled = false;
         }
+        
     }
 
     private void Hide()
@@ -131,7 +133,8 @@ public class GameEnded : NetworkBehaviour
     private void ShowGameOverClientRpc()
     {
         totalScore.gameObject.SetActive(false);
-        Show();
+        Show(false);
+       // NetworkManager.Singleton.Shutdown();
     }
 
     [ClientRpc] 
@@ -141,5 +144,16 @@ public class GameEnded : NetworkBehaviour
         {
             crunch.enabled = false;
         }
+      
     }
+    [ClientRpc]
+    private void ShowLevelCompleteClientRpc()
+    {
+        totalScore.gameObject.SetActive(true);
+        SaveScore();
+        Show(true);
+        // NetworkManager.Singleton.Shutdown();
+    }
+
+   
 }

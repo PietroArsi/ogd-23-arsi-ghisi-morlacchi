@@ -56,5 +56,14 @@ public class PlaceOnTable : NetworkBehaviour,SpawnableObjParent
         }
     }
 
-  
+
+    public void ActivateBoxCollider()
+    {
+        ActivateBoxColliderClientRpc();
+    }
+
+    [ClientRpc]
+    private void ActivateBoxColliderClientRpc() {
+        spawnObject.GetComponent<Collider>().enabled = true;
+    }
 }

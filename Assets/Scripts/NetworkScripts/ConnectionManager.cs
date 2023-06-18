@@ -50,9 +50,6 @@ public class ConnectionManager : NetworkBehaviour
     {
         if (Instance != null) Destroy(this.gameObject);
         Instance = this;
-        
-        Screen.SetResolution(1920, 1080, false);
-
         DontDestroyOnLoad(this);
 
         playerName = PlayerPrefs.GetString(PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER, "PlayerName" + UnityEngine.Random.Range(0, 100));

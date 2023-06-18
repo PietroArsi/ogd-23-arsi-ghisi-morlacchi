@@ -31,29 +31,25 @@ public class HostDisconnetUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("HAS PLAYER DISCONECTED? " + GameManagerStates.Instance.IsPlayerDisconnected());
+        Debug.Log("HAS PLAYER DISCONECTTED? " + GameManagerStates.Instance.IsPlayerDisconnected());
         //if (!GameManagerStates.Instance.IsGameOver())
         //{
-
-        if (!GameManagerStates.Instance.IsPlayerDisconnected())
+        if (GameManagerStates.Instance.IsGameOver())
+        {
+            Debug.Log("GAME OVER");
+            return;
+        }else if (!GameManagerStates.Instance.IsPlayerDisconnected())
         {
             return;
+        }
+        else
+        {
+            Show("Client has disconneted");
         }
         //}else if (GameManagerStates.Instance.IsGameOver())
         //{
         //    return;
         //}
-        else
-        {
-            if (GameManagerStates.Instance.IsGameOver())
-            {
-                return;
-            }
-            else
-            {
-                Show("Client has disconneted");
-            }
-        }
         // }
         //else
         //{

@@ -68,6 +68,8 @@ public class PlayerMovementCC : NetworkBehaviour
         meowCooldown = new ActionCooldown();
 
         constructionMenu = GameObject.Find("Canvas").GetComponent<ConstructionMenu>();
+
+        meowAudioSource = transform.Find("meow sound").transform.GetComponent<AudioSource>();
     }
 
     private void Update() {
@@ -93,8 +95,9 @@ public class PlayerMovementCC : NetworkBehaviour
         //    Invoke(nameof(ResetJump), jumpCooldown);
         //}
 
-        if (!GameManagerStates.Instance.CanMovePlayer() || GetComponent<PlayerNetwork>().isPlayerCutting)
+        if (!GameManagerStates.Instance.CanMovePlayer() || GetComponent<PlayerNetwork>().isPlayerCutting==true)
         {
+            Debug.Log(GetComponent<PlayerNetwork>().isPlayerCutting == true);
             horizontalInput = 0;
             verticalInput = 0;
             attack = false;
@@ -187,6 +190,8 @@ public class PlayerMovementCC : NetworkBehaviour
 
         cc.SimpleMove(movementDirection * magnitude);
 
+        playerAnimator.SetBool("walk", movementDirection.magnitude > 0);
+
         //if (movementDirection != Vector3.zero) {
         //    Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
@@ -269,8 +274,9 @@ public class PlayerMovementCC : NetworkBehaviour
     //}
 
     private void Meow() {
-        meowAudioSource.volume = 0.6f;
+        meowAudioSource.volume = 0.8f;
         meowAudioSource.loop = false;
         meowAudioSource.clip = meows[Random.Range(0, meows.Count)];
+        meowAudioSource.Play();
     }
 }

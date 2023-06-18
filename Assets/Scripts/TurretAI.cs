@@ -78,14 +78,14 @@ public class TurretAI : NetworkBehaviour
                     audioSource = GetComponent<AudioSource>();
                     AlarmPlayClientRpc();
                     status = TurretStatus.Active;
-                    StartCoroutine(DieLater(10));
+                    StartCoroutine(DieLater(alarmDuration));
                 }
             }
             else
             {
                 PlayAlarm();
                 status = TurretStatus.Active;
-                StartCoroutine(DieLater(10));
+                StartCoroutine(DieLater(alarmDuration));
             }
         }
     }

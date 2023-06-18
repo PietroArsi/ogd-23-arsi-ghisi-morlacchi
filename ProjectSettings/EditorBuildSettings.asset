@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/levels/test level.unity
     guid: 0c51fbe6979685b4e8a1a9da5ee58d3c
   - enabled: 0
-    path: Assets/Scenes/NetworkTestLevel.unity
+    path: Assets/Scenes/Test/NetworkTestLevel.unity
     guid: b42dcbb6bd7dc7442803a7c3c319d25c
   - enabled: 0
     path: Assets/Scenes/Test/TestNetcode.unity

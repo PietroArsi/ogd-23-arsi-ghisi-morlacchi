@@ -170,7 +170,7 @@ public class MouseMovement : NetworkBehaviour, EnemyInteractable
         visualDebugger.AddMessage("Recive message form client: " + clientId.ToString());
         if (GameManagerStates.Instance.IsGamePlaying())
         {
-            UpdateScoreClientRpc("Add SCore");
+            UpdateScoreClientRpc("Add Score");
         }
     }
 

@@ -69,7 +69,7 @@ public class CatnipPickUpNetwork : MultiplayerAdapter
     private void UpdateScoreClientRpc(string message, NetworkObjectReference catnip)
     {
         //ask if only needed only to have a reference 
-        _gm.GetComponent<GameManager>().AddCatnip(1);
+        //_gm.GetComponent<GameManager>().AddCatnip(1);
         GameObject _currentplant = catnip;
         _catnipedRemovedList.Add(catnip);
 

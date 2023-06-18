@@ -124,7 +124,7 @@ public class CatnipLobby : MonoBehaviour
 
             });
 
-            /*
+            
             Allocation allocation = await CreateAlllocationRelay();
 
             string relyaJoinCode = await GetRelayJoinCode(allocation);
@@ -138,7 +138,7 @@ public class CatnipLobby : MonoBehaviour
             });
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation,"dtls"));
             Debug.Log("<color=yellow>CatnipLobby ALLOCATION " + allocation.Region +"</color>");
-            */
+            
             Debug.Log("<color=yellow>CatnipLobby Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartHost();
             //SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
@@ -218,13 +218,13 @@ public class CatnipLobby : MonoBehaviour
         {
             //when the client join the lobby.
             joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
-            /*
+            
             string relayJoinedCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
             JoinAllocation joinAllocation = await JoinRelay(relayJoinedCode);
             Debug.Log("join " + joinAllocation.Region);
             Debug.Log(relayJoinedCode);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
-            */
+            
             Debug.Log("<color=yellow>CatnipLobby: Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartClient();
             

@@ -52,12 +52,13 @@ public class CuttingTable : NetworkBehaviour
                 if (cuttingTime.Value < 0f)
                 {
                     ShowCatnipCut();
+                    
                     state.Value = TableState.Complete;
                 }
                 break;
             case TableState.Complete:
                 {
-                    player.isPlayerCutting = false;
+                    
                      Debug.Log("CATNIP IS Complete");
                 }
                 break;
@@ -68,7 +69,7 @@ public class CuttingTable : NetworkBehaviour
     {
         if (IsClient)
         {
-            player = passedPlayer;
+           // player = passedPlayer;
             StartCuttingServerRpc();
 
         }
@@ -87,10 +88,7 @@ public class CuttingTable : NetworkBehaviour
     {
         Destroy(gameObject.GetComponent<PlaceOnTable>().GetObject().gameObject);
         PickableObject.spawnObj(cuttedCatnip, gameObject);
-        if (gameObject.GetComponent<PlaceOnTable>().HasSpawnObject())
-        {
-            gameObject.GetComponent<PlaceOnTable>().GetObject().gameObject.GetComponent<Collider>().enabled = true;
-        }
+        gameObject.GetComponent<PlaceOnTable>().ActivateBoxCollider();
     }
     public void GetCutCatnip(PlayerNetwork player)
     {

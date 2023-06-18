@@ -11,7 +11,7 @@ You'll be greeted with a splash screen or an introductory video, depending on wh
 
 After loading, you'll be taken to the main menu of Catnipped! Prepare to be whiskered away to various options and menus, including:
 
-- Host: Ready to host a lobby and rule the kitty kingdom?
+- Host: Ready to host a lobby and rule the kitty underworld?
 - Join: Join forces with fellow fur-riends in a purr-suit of adventure?
 - Extra: Unleash some extra surprises and secrets that will make you purr with delight!
 - Tutorial: Hey, that's me! Check this menu for helpful tips and tricks to conquer Catnipped!
@@ -19,7 +19,7 @@ After loading, you'll be taken to the main menu of Catnipped! Prepare to be whis
 
 <b>Lobby Menu</b>
 
-Once you click the "Join" button you will find yourself in the Lobby Selection Screen. Choose a purrfectly paw-some lobby to join and embark on your escapades.00
+Once you click the "Join" button you will find yourself in the Lobby Selection Screen. Choose a purrfectly paw-some lobby to join and embark on your escapades.
  
 <b>Level Selection Menu</b>
 
@@ -29,20 +29,17 @@ Once every member of your mischievous crew has selected their cunning catnip-lov
 
 Finally some gameplay! Here are the controls that will make you a whisker-wielding master:
 - Movement: Use WASD keys to gracefully navigate the world.
-- Camera Movement: Purrlay with the mouse to find the perfect angle.
-- Sprint: Tap the Space Bar for a burst of feline speed.
-- Interaction: Left-click like a pawfessional gamer to engage with objects and characters.
-- Open Menu: Press Q to reveal lots of menus for delightful surprises.
-- Scratch: Unleash your inner cattitude by pressing E to scratch and make your presence known.
-- Meow: Express yourself with a mighty meow by pressing R.
-- Menu Navigation: Use the mouse, WASD, or Arrow Keys to navigate the menus with cat-like grace.
-- Go Back: Press Esc when you need to take a pawse and regroup.
+- Camera Movement: Use the mouse to find the perfect angle.
+- Interaction: Left-click like a pawfessional gamer to interact with objects and characters (Scratch).
+- Open Menu: Press Q to reveal the Construction Menu for delightful surprises.
+- Meow: Express yourself with a mighty meow by pressing M.
+- Menu Navigation: Use the mouse or WASD to navigate the menus with cat-like grace.
 
-In Catnipped! your goal is to produce as much catnip as possible in the time given by each level.
+In Catnipped! your goal is to produce as much catnip as possible in the time given by each level, meow-organize with other feline fellows to maximize your catnip production.
 Keep an eye out for mischievous mice scurrying about, as catching them will earn you extra points. 
 At the end of each level, a generous serving of "crunchies" (1, 2, or 3) will be awarded based on your catnip production and mouse-catching prowess.
 But beware! The P.U.P.S. (Paws United for Protecting Society), a barking-mad group of puppies, will stop at nothing to snatch your precious catnip and land you in the doghouse. Use your mighty scratching powers to fend them off and catch those delicious mice!	
-Want to fortify your defenses? Access the construction menu and strategically place traps to keep your turf secure. But remember, in the underground world, everything has a price!
+Want to fortify your defenses? Access the construction menu and strategically place traps to keep your turf secure. But remember, in the underground world, everything has a price! Using these traps an alarm will play when a pup passes through it. You can also buy some pieces of wall to deter the puppies from accessing the catnip from some specific angles.
 To produce catnip, harvest the tantalizing plants from the field, cook them in the FURnace, slice them on the cutting table, and store them safely in the storage box. 
 The level comes to an end when time runs out or if the Pawlice gathers enough evidence (catnip) to put the cuffs on you.
 Keep a keen eye on the evidence counter and stay one step ahead!

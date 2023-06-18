@@ -55,7 +55,7 @@ public class MusicManager : MonoBehaviour
             isPlaying = true;
             lastTrack = music;
             audioSource.loop = true;
-            audioSource.volume = 0.45f;
+            audioSource.volume = 0.2f;
             audioSource.Play();
         }
     }

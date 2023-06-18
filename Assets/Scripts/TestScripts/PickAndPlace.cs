@@ -105,7 +105,7 @@ public class PickAndPlace : NetworkBehaviour
         {
             Collider[] placedObjectColldier = Physics.OverlapSphere(checkGround.transform.position, 2f, interactionLayer);
 
-            //Debug.Log(sortedColliders[0].name);
+            Debug.Log(sortedColliders[0].name);
             
             if (sortedColliders[0].name== "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
                 && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Unprocessed)
@@ -130,10 +130,12 @@ public class PickAndPlace : NetworkBehaviour
 
                 }
             }
-            else if(sortedColliders[0].name == "Field" || sortedColliders[0].name.Contains("Ramp"))
+            //else if(sortedColliders[0].name == "Field" || sortedColliders[0].name.Contains("Ramp"))
+            else if (sortedColliders[0].GetComponent<GroundPlacement>())
             {
                 //Debug.Log("Ground");
                 OnPlaceObject?.Invoke(this, EventArgs.Empty);
+                AddColliderServerRpc(PlayerNetwork.LocalIstance.spawnObject);
                 PlayerNetwork.LocalIstance.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
                 PlayerNetwork.LocalIstance.ClearSpawnObject();
             }
@@ -170,6 +172,7 @@ public class PickAndPlace : NetworkBehaviour
         if (sortedColliders[0].GetComponent<PlaceOnTable>().HasSpawnObject() && sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cooodked)
         {
             player.isPlayerCutting = true;
+            StartCoroutine(ResetPlayerCutting(5f, player));
             sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().gameObject.layer = 0;
             sortedColliders[0].GetComponent<CuttingTable>().StartToCut(player);
         }
@@ -180,6 +183,11 @@ public class PickAndPlace : NetworkBehaviour
         }
     }
 
+     IEnumerator ResetPlayerCutting(float seconds, PlayerNetwork player)
+    {
+        yield return new WaitForSeconds(seconds);
+        player.isPlayerCutting = false;
+    }
 
     [ServerRpc]
     private void DestroyHeldObjectServerRpc(NetworkObjectReference heldOject)
