@@ -11,7 +11,7 @@ public struct PlayerData:IEquatable<PlayerData>, INetworkSerializable
     public ulong clientID;
     public FixedString64Bytes playerName;
     public FixedString64Bytes playerId;
-   public int colorId;
+    public int colorId;
 
     public bool Equals(PlayerData other)
     {

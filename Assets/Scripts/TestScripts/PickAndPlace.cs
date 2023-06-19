@@ -75,7 +75,13 @@ public class PickAndPlace : NetworkBehaviour
                 break;
 
             }
-           
+            if (c.GetComponent<ResourceInteractable>())
+            {
+                Debug.Log("HELLO There catnip get");
+                c.GetComponent<ResourceInteractable>().Collect();
+                break;
+            }
+
         }
 
     }
@@ -115,7 +121,7 @@ public class PickAndPlace : NetworkBehaviour
 
             Debug.Log(sortedColliders[0].name);
             
-            if (sortedColliders[0].name== "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
+            if (sortedColliders[0].name == "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
                 && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Unprocessed)
             {
                 Debug.Log("FURNACE");

@@ -5,7 +5,7 @@ using Unity.Netcode;
 using System;
 
 //Luca
-public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
+public class PlayerNetwork : NetworkBehaviour, SpawnableObjParent
 {
     public static event EventHandler OnAnyPlayerSpawned;
     public Transform holdPosition;
@@ -14,10 +14,10 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
     public bool collect;
 
     public bool isPlayerCutting;
-    
+
     //public GameObject ground;
 
-
+    [SerializeField] private List<Vector3> spawnPositionList;
     public LayerMask interactionLayer;
     public Transform interactionCollider;
     public static PlayerNetwork LocalIstance { get; private set; }
@@ -33,24 +33,47 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         playerVisual.SetPlayerColor(ConnectionManager.Instance.GetPlayerColor(playerdData.colorId));
         isPlayerCutting = false;
     }
+    public void SetPlayerPosition(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+    public Vector3 GetPlayerPosition()
+    {
+        return transform.position;
+    }
+    //[ServerRpc(RequireOwnership =false)]
+    //private void SetPlayerPositionServerRpc()
+    //{
+    //    transform.position = GetPlayerPosition();
+    //    SetPlayerPositionClientRpc(transform.position);
+    //}
+    //[ClientRpc]
+    //private void SetPlayerPositionClientRpc(Vector3 pos)
+    //{
+    //    transform.position = pos;
+
+    //}
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
         {
-            LocalIstance = this;
-            //transform.position = GameManagerStates.Instance.spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)].position;
-            //Debug.Log(GameManagerStates.Instance.spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)].position);
-            Debug.Log(transform.position);
-            //this.transform.position = new Vector3(0, 0.61f, 0);
-            //ground = GameObject.Find("map");
-            // temp = this.gameObject;
-            OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
+            LocalIstance = this; 
         }
+           // SetPlayerPositionServerRpc();
+            //transform.position = GameManagerStates.Instance.spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)].position;
+           // transform.position = spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+        //Debug.Log(GameManagerStates.Instance.spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)].position);
+        //Debug.Log(transform.position);
+        //this.transform.position = new Vector3(10, 2f, 5);
+        //ground = GameObject.Find("map");
+        // temp = this.gameObject;
+        Debug.Log(transform.position);
+            OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
         
         if (IsServer)
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientDisconnectCallback;
-    }
+            //NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientDisconnectCallback;
+        }
 }
    
     public void Update()
@@ -119,13 +142,13 @@ public class PlayerNetwork : NetworkBehaviour,SpawnableObjParent
         //}
     }
 
-    private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
-    {
-    if(clientID == OwnerClientId && HasSpawnObject())
-        {
-            Destroy(spawnObject);
-        }
-    }
+    //private void NetworkManager_OnClientDisconnectCallback(ulong clientID)
+    //{
+    //    if(clientID == OwnerClientId && HasSpawnObject())
+    //    {
+    //        Destroy(spawnObject);
+    //    }
+    //}
 
     public int GetPriority()
     {

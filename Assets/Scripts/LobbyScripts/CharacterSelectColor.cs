@@ -46,6 +46,13 @@ public class CharacterSelectColor : MonoBehaviour
                 colorId--;
                 ConnectionManager.Instance.ChangePlayerColor(colorId);
             }
+            //colorId = colorId > 0 ? colorId-1 : ConnectionManager.Instance.totalColors().Count - 1;
+            //bool result = ConnectionManager.Instance.ChangePlayerColor(colorId);
+            //while (!result)
+            //{
+            //    colorId = colorId > 0 ? colorId-1 : ConnectionManager.Instance.totalColors().Count - 1;
+            //    result = ConnectionManager.Instance.ChangePlayerColor(colorId);
+            //}
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
@@ -62,6 +69,13 @@ public class CharacterSelectColor : MonoBehaviour
                 colorId++;
                 ConnectionManager.Instance.ChangePlayerColor(colorId);
             }
+            //colorId = colorId < ConnectionManager.Instance.totalColors().Count - 1 ? colorId+1 : 0;
+            //bool result = ConnectionManager.Instance.ChangePlayerColor(colorId);
+            //while (!result)
+            //{
+            //    colorId = colorId < ConnectionManager.Instance.totalColors().Count - 1 ? colorId+1 : 0;
+            //    result = ConnectionManager.Instance.ChangePlayerColor(colorId);
+            //}
         }
     }
 }

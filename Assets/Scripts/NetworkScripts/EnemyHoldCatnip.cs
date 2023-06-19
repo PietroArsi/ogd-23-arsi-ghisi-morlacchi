@@ -8,6 +8,8 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
     [SerializeField] private Transform holdPosition;
     [SerializeField] private GameObject spawnObject;
     private int priority;
+    public AudioClip killEnemySound;
+
     void Start()
     {
         priority = 1;
@@ -77,15 +79,20 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
        // GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
         visualDebugger.AddMessage("KILL ENEMY");
         // Destroy(spawnedPlace);
-        // Destroy(gameObject);à
+        // Destroy(gameObject);
         DestroyEnemyClientRpc();
     }
 
     [ClientRpc]
     private void DestroyEnemyClientRpc()
     {
-        GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
-        Destroy(spawnedPlace);
+        //GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
+        //Destroy(spawnedPlace);
+        if (killEnemySound != null)
+        {
+            GameObject.Find("UI sounds").transform.GetComponent<UISoundManager>().ClickSound(killEnemySound);
+        }
+        gameObject.GetComponent<PawliceMovement>().DestroyDogHome();
         Destroy(gameObject);
     }
 

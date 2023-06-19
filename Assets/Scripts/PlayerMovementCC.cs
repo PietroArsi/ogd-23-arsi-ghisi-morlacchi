@@ -247,11 +247,11 @@ public class PlayerMovementCC : NetworkBehaviour
     private void Attack() {
         Collider[] hitColliders = Physics.OverlapBox(interactionCollider.transform.position, interactionCollider.localScale / 2, Quaternion.identity, interactionLayer);
         foreach (Collider c in hitColliders) {
-            if (c.GetComponent<ResourceInteractable>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject()) {
-                Debug.Log("HELLO There catnip get");
-                c.GetComponent<ResourceInteractable>().Collect();
-                break;
-            }
+            //if (c.GetComponent<ResourceInteractable>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject()) {
+            //    Debug.Log("HELLO There catnip get");
+            //    c.GetComponent<ResourceInteractable>().Collect();
+            //    break;
+            //}
             //if (c.GetComponentInParent<MouseMovement>() && !gameObject.GetComponent<PlayerNetwork>().HasSpawnObject())
             //{
             //    Debug.Log("HELLO THERE MOUSE");

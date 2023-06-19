@@ -10,13 +10,19 @@ public class TimerGame : MonoBehaviour
 
     private void Update()
     {
-        countDown.text= $"{GameManagerStates.Instance.GetCountdownToStartTimer()}";
-        //if (int.Parse(GameManagerStates.Instance.GetCountdownToStartTimer()) <= 0)
+
+        if (GameManagerStates.Instance.IsCountdownToStartActive())
+        {
+            countDown.text = $"{GameManagerStates.Instance.GetCountdownToStartTimer()}";
+        }
         //{
         //    countDown.gameObject.SetActive(false);
         //}
-       
-        timer.text = $"{GameManagerStates.Instance.GetGamePlayingTimerNormalized()}";
+
+        else if(GameManagerStates.Instance.IsGamePlaying())
+        {
+            timer.text = $"{GameManagerStates.Instance.GetGamePlayingTimerNormalized()}";
+        }
         
     }
 }

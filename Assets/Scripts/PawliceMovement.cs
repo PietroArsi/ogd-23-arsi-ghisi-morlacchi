@@ -46,8 +46,19 @@ public class PawliceMovement : NetworkBehaviour
                 //NavMeshPath navMeshPath = new NavMeshPath();
                 //navMeshAgent.CalculatePath(target.position, navMeshPath);
                 navMeshAgent.destination = target.position;
-                spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
+                //spawnedMarker = Instantiate(spawnMarker, transform.position, Quaternion.identity);
+                ConnectionManager.Instance.SpawnEnemyHouse(transform.position, spawnMarker);
+                spawnedMarker = ConnectionManager.Instance.GetEnemyHouse();
             }
+            else
+            {
+                if (!GetComponent<EnemyHoldCatnip>().HasSpawnObject())
+                {
+                    CheckTarget();
+                    navMeshAgent.destination = target.position;
+                }
+            }
+
             if (GameManagerStates.Instance.IsGameOver())
             {
                 DestoryEnemyClientRpc();
@@ -163,6 +174,7 @@ public class PawliceMovement : NetworkBehaviour
     [ClientRpc]
     private void DestoryEnemyClientRpc()
     {
+        Destroy(spawnedMarker);
         Destroy(gameObject);
     }
 
@@ -177,5 +189,15 @@ public class PawliceMovement : NetworkBehaviour
     {
         GameManagerStates.Instance.gameObject.GetComponent<GameManager>().AddEvidence();
     }
-    
+
+   public void DestroyDogHome()
+    {
+        DestroyGameDogHomeClientRpc();
+    }
+
+    [ClientRpc]
+    private void DestroyGameDogHomeClientRpc()
+    {
+        Destroy(spawnedMarker);
+    }
 }

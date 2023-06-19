@@ -24,7 +24,8 @@ public class Storage : NetworkBehaviour,SpawnableObjParent
 
     public void DeliverProcessCatnip()
     {
-        if (depositSound != null) {
+        if (depositSound != null)
+        {
             GameObject.Find("UI sounds").transform.GetComponent<UISoundManager>().ClickSound(depositSound);
         }
         string message = "Deliver process catnip";
