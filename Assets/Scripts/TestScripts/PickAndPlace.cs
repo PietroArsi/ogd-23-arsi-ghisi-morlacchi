@@ -75,7 +75,13 @@ public class PickAndPlace : NetworkBehaviour
                 break;
 
             }
-           
+            if (c.GetComponent<ResourceInteractable>())
+            {
+                Debug.Log("HELLO There catnip get");
+                c.GetComponent<ResourceInteractable>().Collect();
+                break;
+            }
+
         }
 
     }

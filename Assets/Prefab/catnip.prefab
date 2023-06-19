@@ -63,7 +63,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantModel: {fileID: 6172004291051882981}
-  respawnTime: 2
+  respawnTime: 25
+  pickedPlant: {fileID: 0}
   gm: {fileID: 0}
 --- !u!1001 &6441894463238738653
 PrefabInstance:

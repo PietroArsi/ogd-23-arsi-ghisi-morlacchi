@@ -32,9 +32,10 @@ public class ConnectionManager : NetworkBehaviour
     //list of object that can spawn during gameplay
     [SerializeField] List<GameObject> spawnableObj;
     private GameObject mouseObj;
-    
-   
-   
+    private GameObject houseObj;
+
+
+
 
     //the different event tied with the player client
     public event EventHandler OnTryingToJoinGame;
@@ -44,6 +45,8 @@ public class ConnectionManager : NetworkBehaviour
 
     //tell when the  netowkr list changes when player connects or leaves
    public event EventHandler onListPlayerDataChanged;
+
+    private bool changeColorResult;
 
      //[SerializeField] private bool isHostScreen = false;
     private void Awake()
@@ -81,9 +84,10 @@ public class ConnectionManager : NetworkBehaviour
         PlayerPrefs.SetString(PLAYER_PREFS_PLAYER_NAME_MULTIPLAYER, playerName);
     }
     // change the color
-    public void ChangePlayerColor(int colorId)
+    public bool ChangePlayerColor(int colorId)
     {
         ChangePlayerColorServerRpc(colorId);
+        return changeColorResult;
     }
 
     public void StartHost()
@@ -188,20 +192,44 @@ public class ConnectionManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void ChangePlayerColorServerRpc(int colorId, ServerRpcParams serverRpcParams = default)
     {
+        //var clientId = serverRpcParams.Receive.SenderClientId;
         if (!IsColorAvailable(colorId))
         {
             //colorNotAvailable
+          //  changeColorResult = false;
+           // ChangeColorFalseClientRpc(clientId);
             return;
-
         }
         int playerDataIndex = getPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
         PlayerData playerData = playerDataNetworkList[playerDataIndex];
 
         playerData.colorId = colorId;
         playerDataNetworkList[playerDataIndex] = playerData;
-
-
+        changeColorResult = true;
+        //ChangeColorTrueClientRpc(clientId);
+        return;
     }
+    //[ClientRpc]
+    //private void ChangeColorFalseClientRpc(ulong clientid, ClientRpcParams clientRpcParams = default)
+    //{
+    //    if (OwnerClientId == clientid) {
+    //        changeColorResult = false;
+    //        }
+
+    //    // Run your client-side logic here!!
+       
+    //}
+    //[ClientRpc]
+    //private void ChangeColorTrueClientRpc(ulong clientid, ClientRpcParams clientRpcParams = default)
+    //{
+    //    if (OwnerClientId == clientid)
+    //    {
+    //        changeColorResult = true;
+    //    }
+
+    //    // Run your client-side logic here!!
+
+    //}
 
     //Get the id function form the sender of the ServerRpc
     private int getPlayerDataIndexFromClientId(ulong senderClientId)
@@ -323,6 +351,10 @@ public class ConnectionManager : NetworkBehaviour
     {
         SpawnEnemyMouseServerRpc(GetSpawnIndex(enemy), spawnPosition);
     }
+    public void SpawnEnemyHouse(Vector3 spawnPosition, GameObject house)
+    {
+        SpawnEnemyHouseServerRpc(GetSpawnIndex(house), spawnPosition);
+    }
 
     // spawn the object in the server.
     [ServerRpc(RequireOwnership = false)]
@@ -355,6 +387,20 @@ public class ConnectionManager : NetworkBehaviour
         NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
         objNetworkObject.Spawn(true);
     }
+    [ServerRpc(RequireOwnership =false)]
+    private void SpawnEnemyHouseServerRpc(int current, Vector3 spawnPosition, ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        GameObject currentObj = GetSpawnFromId(current);
+        //visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
+
+
+        currentObj = Instantiate(currentObj, spawnPosition, transform.rotation);
+        NetworkObject objNetworkObject = currentObj.GetComponent<NetworkObject>();
+        objNetworkObject.Spawn(true);
+        SetHouseObj(currentObj);
+    }
+
     [ServerRpc(RequireOwnership = false)]
     private void SpawnEnemyMouseServerRpc(int current, Vector3 spawnPosition, ServerRpcParams serverRpcParams = default)
     {
@@ -388,6 +434,14 @@ public class ConnectionManager : NetworkBehaviour
     public GameObject GetMouseObject()
     {
         return mouseObj;
+    }
+    private void SetHouseObj(GameObject house)
+    {
+        houseObj = house;
+    }
+    public GameObject GetEnemyHouse()
+    {
+        return houseObj;
     }
     //------------------------- HANDLE THE SPAWNABLE OBJECTS
 

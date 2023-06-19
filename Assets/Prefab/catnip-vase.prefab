@@ -93,6 +93,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
+  layerMaskPlaceDown:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &8917229463782055895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 85dd3ea5c411dd545b74c8cfba92c7a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.153
+      value: 0.225
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 85dd3ea5c411dd545b74c8cfba92c7a0, type: 3}
       propertyPath: m_LocalPosition.z
