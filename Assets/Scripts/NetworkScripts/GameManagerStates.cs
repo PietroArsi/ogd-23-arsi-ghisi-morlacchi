@@ -90,13 +90,18 @@ public class GameManagerStates : NetworkBehaviour
     {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
-           Vector3 position= spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(clientId)].position;
-            Transform playerTransform = Instantiate(playerPrefab, position, Quaternion.identity);
+            //Debug.Log($"INDEX FOR SPAWN: {ConnectionManager.Instance.GetPlayerDataIndexFromClientId(clientId)}");
+            Vector3 pos = spawnPositionList[ConnectionManager.Instance.GetPlayerDataIndexFromClientId(clientId)].position;
+            //Debug.Log(position);
+            Transform playerTransform = Instantiate(playerPrefab);//, pos, Quaternion.identity);
+            //playerTransform.GetComponent<PlayerNetwork>().SetPlayerPosition(pos);
 
             playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
              
         }
     }
+
+    
 
     public void ReadyButtonPlayer()
     {

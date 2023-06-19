@@ -303,10 +303,19 @@ public class ConnectionManager : NetworkBehaviour
         foreach (PlayerData playerData in playerDataNetworkList)
             if (playerData.clientID == clientId)
                 return playerData;
-        return default;
+
+        PlayerData result = default;
+        Debug.Log($"CLIENT ID {clientId} DID NOT FIND INDEX, RETURNING {result.clientID}");
+        return result;
     }
     public int GetPlayerDataIndexFromClientId(ulong clientId)
     {
+        //string aaa = "";
+        //foreach (PlayerData a in playerDataNetworkList)
+        //{
+        //    aaa += $"{a.clientID} ";
+        //}
+        //Debug.Log(aaa);
         for (int i = 0; i < playerDataNetworkList.Count; i++)
         {
             if (playerDataNetworkList[i].clientID == clientId)
