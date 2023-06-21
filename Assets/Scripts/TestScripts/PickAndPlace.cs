@@ -183,7 +183,7 @@ public class PickAndPlace : NetworkBehaviour
         sortedColliders.Sort((a, b) => a.transform.GetComponent<SpawnableObjParent>().GetPriority().CompareTo(b.transform.GetComponent<SpawnableObjParent>().GetPriority()));
         sortedColliders.Reverse();
 
-        if (sortedColliders[0].GetComponent<PlaceOnTable>().HasSpawnObject() && sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cooodked)
+        if (sortedColliders[0].GetComponent<PlaceOnTable>()!=null && sortedColliders[0].GetComponent<PlaceOnTable>().HasSpawnObject() && sortedColliders[0].GetComponent<PlaceOnTable>().GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cooodked)
         {
             player.isPlayerCutting = true;
             StartCoroutine(ResetPlayerCutting(5f, player));
@@ -192,8 +192,8 @@ public class PickAndPlace : NetworkBehaviour
         }
         else
         {
-            Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-            canvas.GetComponent<GameplayMessages>().CannotCut();
+           // Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            //canvas.GetComponent<GameplayMessages>().CannotCut();
         }
     }
 

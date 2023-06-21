@@ -31,6 +31,7 @@ Finally some gameplay! Here are the controls that will make you a whisker-wieldi
 - Movement: Use WASD keys to gracefully navigate the world.
 - Camera Movement: Use the mouse to find the perfect angle.
 - Interaction: Left-click like a pawfessional gamer to interact with objects and characters (Scratch).
+- Cut: Press E to use your claws and prepare some delicious catnip ready for storage.
 - Open Menu: Press Q to reveal the Construction Menu for delightful surprises.
 - Meow: Express yourself with a mighty meow by pressing M.
 - Menu Navigation: Use the mouse or WASD to navigate the menus with cat-like grace.

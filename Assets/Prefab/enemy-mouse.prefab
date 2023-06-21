@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 837645862357712244}
   - component: {fileID: -4569416607013933504}
   - component: {fileID: 5169575570328231014}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: enemy-mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3616426818568051356}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

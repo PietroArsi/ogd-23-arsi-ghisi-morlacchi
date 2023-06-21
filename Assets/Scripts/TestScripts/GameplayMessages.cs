@@ -22,13 +22,13 @@ public class GameplayMessages : MonoBehaviour
 
     public void CannotCut()
     {
-        messageToPlayer.gameObject.SetActive(true);
+        messageToPlayer.gameObject.SetActive(false);
         messageToPlayer.text = "Cannot cut, you need to cook it";
         StartCoroutine(ShowMessage());
     }
     public void CannotStore()
     {
-        messageToPlayer.gameObject.SetActive(true);
+        messageToPlayer.gameObject.SetActive(false);
         messageToPlayer.text = "Cannot store, you need to cut it";
         StartCoroutine(ShowMessage());
     }

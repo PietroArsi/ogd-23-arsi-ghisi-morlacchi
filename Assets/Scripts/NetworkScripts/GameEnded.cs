@@ -13,6 +13,7 @@ public class GameEnded : NetworkBehaviour
     [SerializeField] private GameObject GameEndedScreen;
     [SerializeField] private Button returnToMenu;
     [SerializeField] private TextMeshProUGUI totalScore;
+    [SerializeField] private TextMeshProUGUI EndTitle;
     //public GenericSceneManager genericSceneManager;
     // Start is called before the first frame update
 
@@ -57,6 +58,7 @@ public class GameEnded : NetworkBehaviour
             {
                 if (IsHost)
                 {
+                   
                     ShowGameOverClientRpc();
                     HideCookiesClientRpc();
                 }
@@ -132,6 +134,7 @@ public class GameEnded : NetworkBehaviour
     [ClientRpc]
     private void ShowGameOverClientRpc()
     {
+        EndTitle.text = "Game Over (Dog Strike)";
         totalScore.gameObject.SetActive(false);
         Show(false);
        // NetworkManager.Singleton.Shutdown();
@@ -149,6 +152,7 @@ public class GameEnded : NetworkBehaviour
     [ClientRpc]
     private void ShowLevelCompleteClientRpc()
     {
+        EndTitle.text = "Winner Winner Mouse Dinner";
         totalScore.gameObject.SetActive(true);
         SaveScore();
         Show(true);
