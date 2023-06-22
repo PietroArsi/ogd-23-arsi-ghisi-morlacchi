@@ -11,7 +11,7 @@ public class FurnaceCurrentState : MonoBehaviour
     {
         if (gameObject.GetComponent<FurnaceCook>().isFunraceEmpty())
         {
-            Debug.Log("EMPTY");
+            //Debug.Log("EMPTY");
             stateFurnace.GetComponent<TextMeshPro>().text = "Empty";
         }else if (gameObject.GetComponent<FurnaceCook>().IsFurnaceCooking())
         {
@@ -19,7 +19,7 @@ public class FurnaceCurrentState : MonoBehaviour
             stateFurnace.GetComponent<TextMeshPro>().text = "Cooking: "+ gameObject.GetComponent<FurnaceCook>().GetCookingTime();
         }else if (gameObject.GetComponent<FurnaceCook>().IsCookingOver())
         {
-            Debug.Log("Ready");
+            //Debug.Log("Ready");
             stateFurnace.GetComponent<TextMeshPro>().text = "Ready";
         }
     }

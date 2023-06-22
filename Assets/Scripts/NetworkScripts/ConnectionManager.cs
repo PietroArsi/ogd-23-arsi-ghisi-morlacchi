@@ -75,7 +75,7 @@ public class ConnectionManager : NetworkBehaviour
     //get color of the Player
     public Material GetPlayerColor(int colorId)
     {
-        Debug.Log("<color=yellow>ConnectionManager: Player color id: " + colorId +"</color>");
+        //Debug.Log("<color=yellow>ConnectionManager: Player color id: " + colorId +"</color>");
         return playerMaterialList[colorId];
     }
     public void SetPlayerName(string playerName)
@@ -305,7 +305,7 @@ public class ConnectionManager : NetworkBehaviour
                 return playerData;
 
         PlayerData result = default;
-        Debug.Log($"CLIENT ID {clientId} DID NOT FIND INDEX, RETURNING {result.clientID}");
+        //Debug.Log($"CLIENT ID {clientId} DID NOT FIND INDEX, RETURNING {result.clientID}");
         return result;
     }
     public int GetPlayerDataIndexFromClientId(ulong clientId)
@@ -320,7 +320,7 @@ public class ConnectionManager : NetworkBehaviour
         {
             if (playerDataNetworkList[i].clientID == clientId)
             {
-                Debug.Log(i);
+               // Debug.Log(i);
                 return i;
             }
         }
@@ -371,7 +371,7 @@ public class ConnectionManager : NetworkBehaviour
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
         GameObject currentObj = GetSpawnFromId(current);
-        visualDebugger.AddMessage("Sender of message for spawn: "+ clientId);
+       // visualDebugger.AddMessage("Sender of message for spawn: "+ clientId);
 
 
         currentObj = Instantiate(currentObj, new Vector3(UnityEngine.Random.Range(0, 10), 1, UnityEngine.Random.Range(0, 10)), Quaternion.identity);
@@ -389,7 +389,7 @@ public class ConnectionManager : NetworkBehaviour
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
         GameObject currentObj = GetSpawnFromId(current);
-        visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
+        //visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
 
 
         currentObj = Instantiate(currentObj, spawnPosition, transform.rotation);
@@ -415,7 +415,7 @@ public class ConnectionManager : NetworkBehaviour
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
         GameObject currentObj = GetSpawnFromId(current);
-        visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
+       // visualDebugger.AddMessage("Sender of message for spawn: " + clientId);
 
 
         currentObj = Instantiate(currentObj, spawnPosition, Quaternion.identity);

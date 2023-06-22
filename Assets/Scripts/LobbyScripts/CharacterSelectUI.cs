@@ -31,7 +31,7 @@ public class CharacterSelectUI : MonoBehaviour
         NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_Client_OnClientConnetedCallback;
         NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         Lobby lobby = CatnipLobby.Instance.GetLobby();
-        Debug.Log("<color=yellow>CharacterSelectUI: Lobby Name: " + lobby.Name +  "</color>");
+       // Debug.Log("<color=yellow>CharacterSelectUI: Lobby Name: " + lobby.Name +  "</color>");
         lobbyNameText.text = lobby.Name;
     }
 
@@ -51,7 +51,7 @@ public class CharacterSelectUI : MonoBehaviour
 
         if (NetworkManager.Singleton.IsHost)
         {
-            Debug.Log("<color=yellow>CharacterSlectUI DELETE LOBBY </color>");
+            //Debug.Log("<color=yellow>CharacterSlectUI DELETE LOBBY </color>");
             if (genericSceneManager != null)
             {
                 genericSceneManager.DeleteLobby();
@@ -60,14 +60,14 @@ public class CharacterSelectUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("<color=yellow>CharacterSlectUI LEAVE LOBBY</color>");
+            //Debug.Log("<color=yellow>CharacterSlectUI LEAVE LOBBY</color>");
             CatnipLobby.Instance.LeaveLobby();
         }
         // SceneLoader.LoadScene(SceneLoader.Scene.MainMenu);
     }
     private void NetworkManager_OnClientDisconnectCallback(ulong obj)
     {
-        Debug.Log("<color=yellow>CharacterSelectUI OnClientDisconnetedCallback</color>");
+        //Debug.Log("<color=yellow>CharacterSelectUI OnClientDisconnetedCallback</color>");
         connettedPlayers--;
         startButton.enabled = true;
         //startButton.gameObject.SetActive(false);
@@ -75,7 +75,7 @@ public class CharacterSelectUI : MonoBehaviour
 
     private void NetworkManager_Client_OnClientConnetedCallback(ulong obj)
     {
-        Debug.Log("<color=yellow>CharacterSelectUI OnClientConnetedCallback</color>");
+        //Debug.Log("<color=yellow>CharacterSelectUI OnClientConnetedCallback</color>");
         connettedPlayers++;
         if (connettedPlayers == ConnectionManager.MAX_NUMBER_PLAYER-1 && NetworkManager.Singleton.IsHost)
         {
@@ -87,13 +87,13 @@ public class CharacterSelectUI : MonoBehaviour
     {
         if (NetworkManager.Singleton != null)
         {
-            Debug.Log("<color=yellow>CharacterSelectUI remove event</color>");
+            //Debug.Log("<color=yellow>CharacterSelectUI remove event</color>");
             NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_Client_OnClientConnetedCallback;
             NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
         }
         else
         {
-            Debug.Log("<color=yellow>CharacterSelectUI no event to remove</color>");
+           // Debug.Log("<color=yellow>CharacterSelectUI no event to remove</color>");
         }
     }
 }

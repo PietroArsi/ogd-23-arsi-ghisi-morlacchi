@@ -33,7 +33,7 @@ public class HostDisconnetUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("HAS PLAYER DISCONECTTED? " + GameManagerStates.Instance.IsPlayerDisconnected());
+        //Debug.Log("HAS PLAYER DISCONECTTED? " + GameManagerStates.Instance.IsPlayerDisconnected());
         //if (!GameManagerStates.Instance.IsGameOver())
         //{
         if (GameManagerStates.Instance.IsGameOver())

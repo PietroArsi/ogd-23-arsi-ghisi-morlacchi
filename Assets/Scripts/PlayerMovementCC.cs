@@ -101,7 +101,7 @@ public class PlayerMovementCC : NetworkBehaviour
 
         if (!GameManagerStates.Instance.CanMovePlayer() || GetComponent<PlayerNetwork>().isPlayerCutting==true)
         {
-            Debug.Log(GetComponent<PlayerNetwork>().isPlayerCutting == true);
+            //Debug.Log(GetComponent<PlayerNetwork>().isPlayerCutting == true);
             horizontalInput = 0;
             verticalInput = 0;
             attack = false;
@@ -206,7 +206,7 @@ public class PlayerMovementCC : NetworkBehaviour
 
         ySpeed += Physics.gravity.y * Time.deltaTime;
 
-        Debug.Log($"GROUNDED: {cc.isGrounded}");
+        //Debug.Log($"GROUNDED: {cc.isGrounded}");
 
         if (cc.isGrounded) {
             cc.stepOffset = originalStepOffset;

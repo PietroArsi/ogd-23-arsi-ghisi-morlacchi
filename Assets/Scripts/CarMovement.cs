@@ -124,7 +124,7 @@ public class CarMovement : NetworkBehaviour
 
        //LUCA ADDITION LOAD THE GAME SCENE
         if (level != "") {
-            Debug.Log($"Selected level: {level}");
+            //Debug.Log($"Selected level: {level}");
             if (genericSceneManager != null)
             {
                 GameObject.Find("UI sounds").transform.GetComponent<UISoundManager>().ClickDefault(false);

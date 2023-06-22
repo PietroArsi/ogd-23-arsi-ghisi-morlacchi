@@ -33,7 +33,7 @@ public class PickAndPlace : NetworkBehaviour
             if (c.gameObject.GetComponent<PickableObject>())
             {
                 
-                Debug.Log("Remove Collider");
+                //Debug.Log("Remove Collider");
                 RemoveColliderServerRpc(c.gameObject);
                 c.gameObject.GetComponent<PickableObject>().currentParent().ClearSpawnObject();
                 
@@ -50,7 +50,7 @@ public class PickAndPlace : NetworkBehaviour
             //}
             if (c.GetComponentInParent<MouseMovement>())
             {
-                Debug.Log("HELLO THERE MOUSE");
+                //Debug.Log("HELLO THERE MOUSE");
                 c.GetComponentInParent<MouseMovement>().KillEnemy();
                 break;
             }
@@ -77,7 +77,7 @@ public class PickAndPlace : NetworkBehaviour
             }
             if (c.GetComponent<ResourceInteractable>())
             {
-                Debug.Log("HELLO There catnip get");
+                //Debug.Log("HELLO There catnip get");
                 c.GetComponent<ResourceInteractable>().Collect();
                 break;
             }
@@ -119,12 +119,12 @@ public class PickAndPlace : NetworkBehaviour
         {
             Collider[] placedObjectColldier = Physics.OverlapSphere(checkGround.transform.position, 2f, interactionLayer);
 
-            Debug.Log(sortedColliders[0].name);
+            //Debug.Log(sortedColliders[0].name);
             
             if (sortedColliders[0].name == "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
                 && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Unprocessed)
             {
-                Debug.Log("FURNACE");
+                //Debug.Log("FURNACE");
                 DestroyHeldObjectServerRpc(PlayerNetwork.LocalIstance.GetObject().gameObject);
                 sortedColliders[0].gameObject.GetComponent<FurnaceCook>().StartToCoock();
                

@@ -200,7 +200,7 @@ public static class SaveManager
             return 0;
         }
 
-        Debug.Log(highscores.highscores);
+        //Debug.Log(highscores.highscores);
         foreach (HighScore highscore in highscores.highscores) {
             if (highscore.levelName == levelName) {
                 return highscore.score;

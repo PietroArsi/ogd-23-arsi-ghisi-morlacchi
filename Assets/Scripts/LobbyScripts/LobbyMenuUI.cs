@@ -103,7 +103,7 @@ public class LobbyMenuUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("<color=yellow> LobbyMenuUI called Destroy function Remove LobbyListChangedEvent</color>");
+        //Debug.Log("<color=yellow> LobbyMenuUI called Destroy function Remove LobbyListChangedEvent</color>");
         CatnipLobby.Instance.OnLobbyListChanged -= CatnipLobby_OnLobbyListChanged;
     }
 

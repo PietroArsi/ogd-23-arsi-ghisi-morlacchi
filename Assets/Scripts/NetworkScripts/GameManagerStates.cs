@@ -109,7 +109,7 @@ public class GameManagerStates : NetworkBehaviour
         {
             isLocalPlayerReady = true;
             OnLocalPlayerReadyChanged?.Invoke(this, EventArgs.Empty);
-            Debug.Log("START WITH THIS");
+            //Debug.Log("START WITH THIS");
           //  ReadyPopUp.SetActive(false);
            // WaitingOtherPlayer.SetActive(true);
             SetPlayerReadyServerRpc();
@@ -133,7 +133,7 @@ public class GameManagerStates : NetworkBehaviour
 
         if (allClientsReady)
         {
-            Debug.Log("ALL READY");
+            //Debug.Log("ALL READY");
             showGameClientRpc();
             state.Value = State.CountdownToStart;
         }
@@ -141,7 +141,7 @@ public class GameManagerStates : NetworkBehaviour
     [ClientRpc]
     private void showGameClientRpc()
     {
-       Debug.Log("SHOW COUTDONW TO PLAYER");
+       //Debug.Log("SHOW COUTDONW TO PLAYER");
     }
     void Update()
     {
@@ -158,7 +158,7 @@ public class GameManagerStates : NetworkBehaviour
                 //Debug.Log(countdownToStartTimer.Value);
                 if (countdownToStartTimer.Value < 1f)
                 {
-                    Debug.Log("START GAM£");
+                    //Debug.Log("START GAM£");
                     state.Value = State.GamePlaying;
                     gamePlayingTimer.Value = maxGamePlayTimer;
                 }

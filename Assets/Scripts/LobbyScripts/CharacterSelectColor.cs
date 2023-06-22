@@ -33,16 +33,16 @@ public class CharacterSelectColor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("<color=yellow> CharacterSelectColorA</color>");
+            //Debug.Log("<color=yellow> CharacterSelectColorA</color>");
             if (colorId==0)
             {
                 colorId= ConnectionManager.Instance.totalColors().Count - 1;
-                Debug.Log("<color=yellow> CharacterSelectColorA color id:" +colorId+ "</color>");
+              //  Debug.Log("<color=yellow> CharacterSelectColorA color id:" +colorId+ "</color>");
                 ConnectionManager.Instance.ChangePlayerColor(colorId);
             }
             else
             {
-                Debug.Log("<color=yellow> CharacterSelectColorA color id:" + colorId + "</color>");
+               // Debug.Log("<color=yellow> CharacterSelectColorA color id:" + colorId + "</color>");
                 colorId--;
                 ConnectionManager.Instance.ChangePlayerColor(colorId);
             }
@@ -56,16 +56,16 @@ public class CharacterSelectColor : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            Debug.Log("<color=yellow> CharacterSelectColorD</color>");
+            //Debug.Log("<color=yellow> CharacterSelectColorD</color>");
             if (colorId == ConnectionManager.Instance.totalColors().Count-1)
             {
-                Debug.Log("<color=yellow> CharacterSelectColorD color id:" + colorId + "</color>");
+            //    Debug.Log("<color=yellow> CharacterSelectColorD color id:" + colorId + "</color>");
                 colorId = 0;
                 ConnectionManager.Instance.ChangePlayerColor(colorId);
             }
             else
             {
-                Debug.Log("<color=yellow> CharacterSelectColorD color id:" + colorId + "</color>");
+            //    Debug.Log("<color=yellow> CharacterSelectColorD color id:" + colorId + "</color>");
                 colorId++;
                 ConnectionManager.Instance.ChangePlayerColor(colorId);
             }

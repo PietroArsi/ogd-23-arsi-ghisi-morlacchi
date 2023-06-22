@@ -113,7 +113,7 @@ public class LevelSelectionDisconnetUI : MonoBehaviour
     {
         if (NetworkManager.Singleton != null)
         {
-            Debug.Log("<color=yellow> HostDisconnetUI called Destroy function OnClientDisconnetCallback Function</color>");
+            //Debug.Log("<color=yellow> HostDisconnetUI called Destroy function OnClientDisconnetCallback Function</color>");
             NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
         }
     }

@@ -67,7 +67,7 @@ public class PlayerNetwork : NetworkBehaviour, SpawnableObjParent
         //this.transform.position = new Vector3(10, 2f, 5);
         //ground = GameObject.Find("map");
         // temp = this.gameObject;
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
             OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
         
         if (IsServer)
@@ -111,7 +111,7 @@ public class PlayerNetwork : NetworkBehaviour, SpawnableObjParent
     }
     public void ClearSpawnObject()
     {
-        Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
+        //Debug.Log("<color=yellow>PlayerNetwork: remove spawnObject</color>");
         spawnObject = null;
     }
 

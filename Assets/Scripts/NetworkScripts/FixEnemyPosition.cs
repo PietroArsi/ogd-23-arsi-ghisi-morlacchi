@@ -38,7 +38,7 @@ public class FixEnemyPosition : NetworkBehaviour
         if ((currentTransform-serverPosition).magnitude != 0)
         {
             //visualDebugger.AddMessage("FIX CLIENT POSITION");
-            Debug.Log("HELLO THERE");
+            //Debug.Log("HELLO THERE");
             currentTransform = serverPosition;
             transform.position = currentTransform;
            

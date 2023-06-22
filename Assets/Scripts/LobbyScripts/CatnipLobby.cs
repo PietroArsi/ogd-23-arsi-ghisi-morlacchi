@@ -73,7 +73,7 @@ public class CatnipLobby : MonoBehaviour
         {
 
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(ConnectionManager.MAX_NUMBER_PLAYER - 1); //region: "europe-central2"
-            Debug.Log("<color=yellow>CatnipLobby Create Allocation</color>");
+           // Debug.Log("<color=yellow>CatnipLobby Create Allocation</color>");
 
             return allocation;
         }catch(RelayServiceException e){
@@ -137,14 +137,14 @@ public class CatnipLobby : MonoBehaviour
                 }
             });
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation,"dtls"));
-            Debug.Log("<color=yellow>CatnipLobby ALLOCATION " + allocation.Region +"</color>");
+            //Debug.Log("<color=yellow>CatnipLobby ALLOCATION " + allocation.Region +"</color>");
             
-            Debug.Log("<color=yellow>CatnipLobby Put Relay in pause for testing</color>");
+            //Debug.Log("<color=yellow>CatnipLobby Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartHost();
             //SceneLoader.LoadNetwork(SceneLoader.Scene.CharacterSlectionScreen);
             if (genericSceneLoader != null) {
                 genericSceneLoader.LoadNetwork("CharacterSlectionScreen");
-                Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
+               // Debug.Log("<color=yellow>CatnipLobby: Created Lobby</color>");
             }
         }
         catch (LobbyServiceException e)
@@ -168,7 +168,7 @@ public class CatnipLobby : MonoBehaviour
             {
                 float heartbeatTimerMax = 15f;
                 heartbeatTimer = heartbeatTimerMax;
-                Debug.Log("<color=yellow>CatnipLobby: KeepLobbyAlive</color>");
+               // Debug.Log("<color=yellow>CatnipLobby: KeepLobbyAlive</color>");
                 LobbyService.Instance.SendHeartbeatPingAsync(joinedLobby.Id);
             }
         }
@@ -221,11 +221,11 @@ public class CatnipLobby : MonoBehaviour
             
             string relayJoinedCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
             JoinAllocation joinAllocation = await JoinRelay(relayJoinedCode);
-            Debug.Log("join " + joinAllocation.Region);
-            Debug.Log(relayJoinedCode);
+          //  Debug.Log("join " + joinAllocation.Region);
+          //  Debug.Log(relayJoinedCode);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
             
-            Debug.Log("<color=yellow>CatnipLobby: Put Relay in pause for testing</color>");
+            //Debug.Log("<color=yellow>CatnipLobby: Put Relay in pause for testing</color>");
             ConnectionManager.Instance.StartClient();
             
         }
@@ -246,7 +246,7 @@ public class CatnipLobby : MonoBehaviour
     {
         if (joinedLobby != null) {
             try {
-                Debug.Log("<color=yellow>CatnipLobby: Delete Lobby</color>");
+                //Debug.Log("<color=yellow>CatnipLobby: Delete Lobby</color>");
                 await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
                 joinedLobby = null;
                 } catch(LobbyServiceException e)
@@ -261,7 +261,7 @@ public class CatnipLobby : MonoBehaviour
     {
         try
         {
-            Debug.Log("<color=yellow>CatnipLobby: Leave Lobby</color>");
+            //Debug.Log("<color=yellow>CatnipLobby: Leave Lobby</color>");
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
 
             joinedLobby = null;
@@ -284,7 +284,7 @@ public class CatnipLobby : MonoBehaviour
             }
             };
             QueryResponse queryResponse = await LobbyService.Instance.QueryLobbiesAsync(queryLobbiesOptions);
-            Debug.Log("<color=yellow>CatnipLobby Query Response Lobby: "+ queryResponse +"</color>");
+            //Debug.Log("<color=yellow>CatnipLobby Query Response Lobby: "+ queryResponse +"</color>");
 
            OnLobbyListChanged?.Invoke(this, new OnLobbyListChangedEventArgs
             {

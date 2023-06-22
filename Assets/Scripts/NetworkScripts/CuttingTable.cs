@@ -47,7 +47,7 @@ public class CuttingTable : NetworkBehaviour
                     state.Value = TableState.Empty;
                 }
                 //Debug.Log(gamePlayingTimer.Value);
-                Debug.Log("CatnipIsCutting");
+                //Debug.Log("CatnipIsCutting");
                
                 if (cuttingTime.Value < 0f)
                 {
@@ -59,7 +59,7 @@ public class CuttingTable : NetworkBehaviour
             case TableState.Complete:
                 {
                     
-                     Debug.Log("CATNIP IS Complete");
+                    // Debug.Log("CATNIP IS Complete");
                 }
                 break;
         }
@@ -109,7 +109,7 @@ public class CuttingTable : NetworkBehaviour
     private void StartCuttingServerRpc()
     {
         gameObject.GetComponent<PlaceOnTable>().GetObject().gameObject.layer = 0;
-        Debug.Log("START COOCKING PLEASE");
+        //Debug.Log("START COOCKING PLEASE");
         state.Value = TableState.Cutting;
     }
     [ServerRpc(RequireOwnership = false)]
@@ -145,7 +145,7 @@ public class CuttingTable : NetworkBehaviour
     {
         if (cuttingTime.Value > 0f)
         {
-            Debug.Log("HERE COOKING");
+            //Debug.Log("HERE COOKING");
 
             //string minutes = Mathf.Floor(coockingTime.Value / 60).ToString("00");
             string seconds = Mathf.Floor(cuttingTime.Value % 60).ToString("00");
