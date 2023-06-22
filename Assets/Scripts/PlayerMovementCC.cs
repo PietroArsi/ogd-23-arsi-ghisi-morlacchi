@@ -60,6 +60,9 @@ public class PlayerMovementCC : NetworkBehaviour
     private ActionCooldown meowCooldown;
     private bool meow;
 
+    private float ySpeed;
+    private float originalStepOffset;
+
     private void Start() {
         cc = GetComponent<CharacterController>();
         readyToJump = true;
@@ -70,6 +73,8 @@ public class PlayerMovementCC : NetworkBehaviour
         constructionMenu = GameObject.Find("Canvas").GetComponent<ConstructionMenu>();
 
         meowAudioSource = transform.Find("meow sound").transform.GetComponent<AudioSource>();
+
+        originalStepOffset = cc.stepOffset;
     }
 
     private void Update() {
@@ -77,7 +82,6 @@ public class PlayerMovementCC : NetworkBehaviour
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         GetInput();
-        //SpeedControl();
 
         attackCooldown.Advance(Time.deltaTime);
         meowCooldown.Advance(Time.deltaTime);
@@ -131,72 +135,110 @@ public class PlayerMovementCC : NetworkBehaviour
         }
     }
 
-    private void MovePlayer() {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+    //private void MovePlayer() {
+    //    moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        bool isOnSlope = OnSlope();
+    //    bool isOnSlope = OnSlope();
 
-        if (!grounded) {
-            vSpeed += (-9.81f) * gravityMultiplier * Time.deltaTime;
-        }
-        else {
-            vSpeed = 0;
-        }
+    //    if (!grounded) {
+    //        vSpeed += (-9.81f) * gravityMultiplier * Time.deltaTime;
+    //    }
+    //    else {
+    //        vSpeed = 0;
+    //    }
 
-        //if (moveDirection.magnitude != 0) {
-        //    if (grounded) {
-        //        //cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-        //        playerAnimator.SetBool("walk", true);
-        //    } else {
-        //        moveDirection.y = vSpeed;
-        //        //cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-        //        playerAnimator.SetBool("walk", false);
-        //    }
-        //    cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-        //} else {
-        //    moveDirection.y = vSpeed;
-        //    cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-        //    playerAnimator.SetBool("walk", false);
-        //}
-        if (moveDirection.magnitude != 0) {
-            if (isOnSlope) {
-                cc.Move(GetSlopeMoveDirection() * moveSpeed * 0.02f);
+    //    //if (moveDirection.magnitude != 0) {
+    //    //    if (grounded) {
+    //    //        //cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //    //        playerAnimator.SetBool("walk", true);
+    //    //    } else {
+    //    //        moveDirection.y = vSpeed;
+    //    //        //cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //    //        playerAnimator.SetBool("walk", false);
+    //    //    }
+    //    //    cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //    //} else {
+    //    //    moveDirection.y = vSpeed;
+    //    //    cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //    //    playerAnimator.SetBool("walk", false);
+    //    //}
+    //    if (moveDirection.magnitude != 0) {
+    //        if (isOnSlope) {
+    //            cc.Move(GetSlopeMoveDirection(moveDirection) * moveSpeed * 0.02f);
 
-                playerAnimator.SetBool("walk", true);
-            }
-            else if (grounded) { //grounded
-                cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-                playerAnimator.SetBool("walk", true);
-            }
-            else { //not grounded
-                moveDirection.y = vSpeed;
-                cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-                playerAnimator.SetBool("walk", false);
-            }
-        }
-        else {
-            if (!grounded) {
-                moveDirection.y = vSpeed;
-                cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
-            }
-            playerAnimator.SetBool("walk", false);
-        }
-    }
+    //            playerAnimator.SetBool("walk", true);
+    //        }
+    //        else if (grounded) { //grounded
+    //            cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //            playerAnimator.SetBool("walk", true);
+    //        }
+    //        else { //not grounded
+    //            moveDirection.y = vSpeed;
+    //            cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //            playerAnimator.SetBool("walk", false);
+    //        }
+    //    }
+    //    else {
+    //        if (!grounded) {
+    //            moveDirection.y = vSpeed;
+    //            cc.Move(moveDirection.normalized * moveSpeed * 0.02f);
+    //        }
+    //        playerAnimator.SetBool("walk", false);
+    //    }
+    //}
 
     private void MovePlayer2() {
-        Vector3 movementDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;//new Vector3(horizontalInput, 0, verticalInput);
-        float magnitude = Mathf.Clamp01(movementDirection.magnitude) * moveSpeed;
-        movementDirection.Normalize();
+        bool isOnSlope = OnSlope();
 
-        cc.SimpleMove(movementDirection * magnitude);
-
-        playerAnimator.SetBool("walk", movementDirection.magnitude > 0);
-
-        //if (movementDirection != Vector3.zero) {
-        //    Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-
-        //    transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+        //moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;//new Vector3(horizontalInput, 0, verticalInput);
+        ////float magnitude = Mathf.Clamp01(moveDirection.magnitude) * moveSpeed;
+        //if (isOnSlope) {
+        //    moveDirection = GetSlopeMoveDirection(moveDirection);
         //}
+        //moveDirection.Normalize();
+
+        //cc.Move(moveDirection * Time.deltaTime);
+
+        //moveDirection = new Vector3(horizontalInput, 0, verticalInput);
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        float magnitude = Mathf.Clamp01(moveDirection.magnitude) * moveSpeed;
+        moveDirection.Normalize();
+
+        ySpeed += Physics.gravity.y * Time.deltaTime;
+
+        Debug.Log($"GROUNDED: {cc.isGrounded}");
+
+        if (cc.isGrounded) {
+            cc.stepOffset = originalStepOffset;
+            ySpeed = -0.5f;
+        } else {
+            cc.stepOffset = 0f;
+        }
+
+        Vector3 velocity = moveDirection * magnitude;
+        velocity = AdjustVelocityToSlope(velocity);
+        velocity.y += ySpeed;
+
+        cc.Move(velocity * Time.deltaTime);
+
+        playerAnimator.SetBool("walk", moveDirection.magnitude > 0);
+
+        moveDirection = velocity;
+    }
+
+    private Vector3 AdjustVelocityToSlope(Vector3 velocity) {
+        var ray = new Ray(transform.position, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 2f)) {
+            var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            var adjustedVelocity = slopeRotation * velocity;
+
+            if (adjustedVelocity.y < 0) {
+                return adjustedVelocity;
+            }
+        }
+
+        return velocity;
     }
 
     //private void SpeedControl() {
@@ -231,7 +273,7 @@ public class PlayerMovementCC : NetworkBehaviour
     //}
 
     private bool OnSlope() {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f)) {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f, whatIsGround)) {
             float angle = Mathf.Abs(Vector3.Angle(Vector3.up, slopeHit.normal));
 
             return angle < maxSlopeAngle && angle != 0;
@@ -240,8 +282,8 @@ public class PlayerMovementCC : NetworkBehaviour
         return false;
     }
 
-    private Vector3 GetSlopeMoveDirection() {
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+    private Vector3 GetSlopeMoveDirection(Vector3 dir) {
+        return Vector3.ProjectOnPlane(dir, slopeHit.normal);
     }
 
     private void Attack() {
@@ -266,12 +308,13 @@ public class PlayerMovementCC : NetworkBehaviour
         }
     }
 
-    // when activated causes borders to flicker in game view
-    //void OnDrawGizmos() {
-    //    Gizmos.color = Color.red;
-    //    Vector3 direction = GetSlopeMoveDirection() * 5;
-    //    Gizmos.DrawRay(transform.position, direction);
-    //}
+    //when activated causes borders to flicker in game view
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Vector3 direction = moveDirection * 5;
+        Gizmos.DrawRay(transform.position, direction);
+        Gizmos.DrawSphere(new Vector3(slopeHit.point.x, slopeHit.point.y, slopeHit.point.z), 0.1f);
+    }
 
     private void Meow() {
         meowAudioSource.volume = 0.8f;
