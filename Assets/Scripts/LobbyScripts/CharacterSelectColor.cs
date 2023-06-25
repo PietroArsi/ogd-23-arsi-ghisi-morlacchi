@@ -7,8 +7,11 @@ using UnityEngine.UI;
 
 public class CharacterSelectColor : MonoBehaviour
 {
-    [SerializeField] private int colorId;
-   // [SerializeField] private Image image;
+    //[SerializeField] private int colorId;
+    [SerializeField] private int playerIndex;
+    [SerializeField] private int materialId;
+    
+    // [SerializeField] private Image image;
 
     private void Awake()
     {
@@ -16,66 +19,77 @@ public class CharacterSelectColor : MonoBehaviour
     private void Start()
     {
         ConnectionManager.Instance.onListPlayerDataChanged += ConnectionManager_onListPlayerDataChanged;
-        //image.color = ConnectionManager.Instance.GetPlayerColor(colorId[currentIndex]);
+        ConnectionManager.Instance.OnSameColorPlayer += ConnectionManager_OnSameColorPlayer;
+        //image.color = ConnectionManager.Instance.GetPlayerColor(colorId[currentIndex]
+    }
+
+    private void ConnectionManager_OnSameColorPlayer(object sender, System.EventArgs e)
+    {
+        Debug.Log("EVENT FIRED WHEN FALSE");
+        Debug.Log("MATERIAL ID");
     }
 
     private void ConnectionManager_onListPlayerDataChanged(object sender, System.EventArgs e)
     {
-       // colorIsselected();
+       // GetColorId();
     }
-   
+    public void GetColorId()
+    {
+
+        if (ConnectionManager.Instance.IsPlayerIndexConnected(playerIndex))
+        {
+            PlayerData playerData = ConnectionManager.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
+            materialId = playerData.colorId;
+        }
+            //currentColorId=
+        }  
     private void Update()
     {
-       if(SceneManager.GetActiveScene().name!=SceneLoader.Scene.NetworkTestLevel.ToString())
-            GetInput();
+      // if(SceneManager.GetActiveScene().name!=SceneLoader.Scene.NetworkTestLevel.ToString())
+
+        GetInput();
     }
     void GetInput()
     {
+        
         if (Input.GetKeyDown(KeyCode.A))
         {
-            //Debug.Log("<color=yellow> CharacterSelectColorA</color>");
-            if (colorId==0)
-            {
-                colorId= ConnectionManager.Instance.totalColors().Count - 1;
-              //  Debug.Log("<color=yellow> CharacterSelectColorA color id:" +colorId+ "</color>");
-                ConnectionManager.Instance.ChangePlayerColor(colorId);
-            }
-            else
-            {
-               // Debug.Log("<color=yellow> CharacterSelectColorA color id:" + colorId + "</color>");
-                colorId--;
-                ConnectionManager.Instance.ChangePlayerColor(colorId);
-            }
-            //colorId = colorId > 0 ? colorId-1 : ConnectionManager.Instance.totalColors().Count - 1;
-            //bool result = ConnectionManager.Instance.ChangePlayerColor(colorId);
-            //while (!result)
+            //if (!NetworkManager.Singleton.IsHost)
             //{
-            //    colorId = colorId > 0 ? colorId-1 : ConnectionManager.Instance.totalColors().Count - 1;
-            //    result = ConnectionManager.Instance.ChangePlayerColor(colorId);
+            materialId = materialId > 0 ? materialId - 1 : ConnectionManager.Instance.totalColors().Count - 1;
+                while (!ConnectionManager.Instance.IsColorAvailable(materialId))
+                {
+                    materialId = materialId > 0 ? materialId - 1 : ConnectionManager.Instance.totalColors().Count - 1;
+                   // Debug.Log("MAT " + materialId);
+                    Debug.Log("THIS MATERIAL ID IS NOT AVAILABLE GO TO THE NEXT ONE");
+                }
+                ConnectionManager.Instance.ChangePlayerColor(materialId);
+                Debug.Log("FOUND AVAILABLE MATERIAL");
+            //}
+            //else
+            //{
+            //    materialId = materialId > 0 ? materialId - 1 : ConnectionManager.Instance.totalColors().Count - 1;
+            //    ConnectionManager.Instance.ChangePlayerColor(materialId);
             //}
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            //Debug.Log("<color=yellow> CharacterSelectColorD</color>");
-            if (colorId == ConnectionManager.Instance.totalColors().Count-1)
-            {
-            //    Debug.Log("<color=yellow> CharacterSelectColorD color id:" + colorId + "</color>");
-                colorId = 0;
-                ConnectionManager.Instance.ChangePlayerColor(colorId);
-            }
-            else
-            {
-            //    Debug.Log("<color=yellow> CharacterSelectColorD color id:" + colorId + "</color>");
-                colorId++;
-                ConnectionManager.Instance.ChangePlayerColor(colorId);
-            }
-            //colorId = colorId < ConnectionManager.Instance.totalColors().Count - 1 ? colorId+1 : 0;
-            //bool result = ConnectionManager.Instance.ChangePlayerColor(colorId);
-            //while (!result)
+            materialId = materialId < ConnectionManager.Instance.totalColors().Count - 1 ? materialId + 1 : 0;
+            //if (!NetworkManager.Singleton.IsHost)
             //{
-            //    colorId = colorId < ConnectionManager.Instance.totalColors().Count - 1 ? colorId+1 : 0;
-            //    result = ConnectionManager.Instance.ChangePlayerColor(colorId);
+                while (!ConnectionManager.Instance.IsColorAvailable(materialId))
+                {
+                    materialId = materialId < ConnectionManager.Instance.totalColors().Count - 1 ? materialId + 1 : 0;
+                   //Debug.Log("MAT " + materialId);
+                    Debug.Log("THIS MATERIAL ID IS NOT AVAILABLE GO TO THE NEXT ONE");
+                }
+                ConnectionManager.Instance.ChangePlayerColor(materialId);
             //}
+            //else
+            //{
+            //    materialId = materialId < ConnectionManager.Instance.totalColors().Count - 1 ? materialId + 1 : 0;
+            //    ConnectionManager.Instance.ChangePlayerColor(materialId);
+            //} 
         }
     }
 }

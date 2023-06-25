@@ -40,6 +40,7 @@ public class ConnectionManager : NetworkBehaviour
     //the different event tied with the player client
     public event EventHandler OnTryingToJoinGame;
     public event EventHandler OnFailToJoinGame;
+    public event EventHandler OnSameColorPlayer;
 
    
 
@@ -86,6 +87,7 @@ public class ConnectionManager : NetworkBehaviour
     // change the color
     public bool ChangePlayerColor(int colorId)
     {
+        //Debug.Log("Debug COLOR ID: " + colorId);
         ChangePlayerColorServerRpc(colorId);
         return changeColorResult;
     }
@@ -196,8 +198,9 @@ public class ConnectionManager : NetworkBehaviour
         if (!IsColorAvailable(colorId))
         {
             //colorNotAvailable
-          //  changeColorResult = false;
-           // ChangeColorFalseClientRpc(clientId);
+            //  changeColorResult = false;
+            // ChangeColorFalseClientRpc(clientId);
+            OnSameColorPlayer?.Invoke(this, EventArgs.Empty);
             return;
         }
         int playerDataIndex = getPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
@@ -209,28 +212,7 @@ public class ConnectionManager : NetworkBehaviour
         //ChangeColorTrueClientRpc(clientId);
         return;
     }
-    //[ClientRpc]
-    //private void ChangeColorFalseClientRpc(ulong clientid, ClientRpcParams clientRpcParams = default)
-    //{
-    //    if (OwnerClientId == clientid) {
-    //        changeColorResult = false;
-    //        }
-
-    //    // Run your client-side logic here!!
-       
-    //}
-    //[ClientRpc]
-    //private void ChangeColorTrueClientRpc(ulong clientid, ClientRpcParams clientRpcParams = default)
-    //{
-    //    if (OwnerClientId == clientid)
-    //    {
-    //        changeColorResult = true;
-    //    }
-
-    //    // Run your client-side logic here!!
-
-    //}
-
+   
     //Get the id function form the sender of the ServerRpc
     private int getPlayerDataIndexFromClientId(ulong senderClientId)
     {
@@ -244,7 +226,7 @@ public class ConnectionManager : NetworkBehaviour
         return -1;
     }
     //check if the color for character selection is available
-    private bool IsColorAvailable(int colorId)
+    public bool IsColorAvailable(int colorId)
     {
         foreach (PlayerData playerData in playerDataNetworkList)
         {
