@@ -165,6 +165,10 @@ public class MouseMovement : NetworkBehaviour, EnemyInteractable
         //_plant
 
         //Debug.Log(message);
+        var explosion = Resources.Load<GameObject>("smoke explosion");
+        GameObject smoke = Instantiate(explosion,transform.position, Quaternion.identity);
+        smoke.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        smoke.GetComponent<NetworkObject>().Spawn();
         var clientId = serverRpcParams.Receive.SenderClientId;
         Destroy(gameObject);
         visualDebugger.AddMessage("Recive message form client: " + clientId.ToString());

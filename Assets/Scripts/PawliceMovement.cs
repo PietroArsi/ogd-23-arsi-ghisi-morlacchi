@@ -61,7 +61,7 @@ public class PawliceMovement : NetworkBehaviour
 
             if (GameManagerStates.Instance.IsGameOver())
             {
-                DestoryEnemyClientRpc();
+                DestroyEnemyClientRpc();
             }
             CheckDistance();
         }
@@ -115,14 +115,15 @@ public class PawliceMovement : NetworkBehaviour
                 if (target.GetComponent<PickableObject>()) {
                     if (target.GetComponent<FollowTransform>() == null)
                     {
-                        target.gameObject.GetComponent<Collider>().enabled = false;
+                        //target.gameObject.GetComponent<Collider>().enabled = false;
+                        SetColliderClientRpc(target.gameObject);
                         target.GetComponent<PickableObject>().setObjectParent(gameObject.GetComponent<EnemyHoldCatnip>().GetComponent<SpawnableObjParent>());
 
                     }
                     else
                     {
-                        target.gameObject.GetComponent<Collider>().enabled = false;
-                       
+                        //target.gameObject.GetComponent<Collider>().enabled = false;
+                        SetColliderClientRpc(target.gameObject);
                         target.gameObject.GetComponent<PickableObject>().currentParent().ClearSpawnObject();
                         target.GetComponent<PickableObject>().setObjectParent(gameObject.GetComponent<EnemyHoldCatnip>().GetComponent<SpawnableObjParent>());
                     }
@@ -139,7 +140,12 @@ public class PawliceMovement : NetworkBehaviour
             OnSpawnReturn();
         }
     }
-
+    [ClientRpc]
+    private void SetColliderClientRpc(NetworkObjectReference target)
+    {
+        GameObject picked = target;
+        picked.GetComponent<BoxCollider>().enabled = false;
+    }
     private void OnDestinationArrival() {
         target = spawnedMarker.transform;
         navMeshAgent.destination = target.position;
@@ -161,7 +167,7 @@ public class PawliceMovement : NetworkBehaviour
             }
             if (IsHost)
             {
-                DestoryEnemyClientRpc();
+                DestroyEnemyClientRpc();
             }
         }
         else
@@ -172,7 +178,7 @@ public class PawliceMovement : NetworkBehaviour
 
     // ServerRpc Luca to destroy enemy
     [ClientRpc]
-    private void DestoryEnemyClientRpc()
+    private void DestroyEnemyClientRpc()
     {
         Destroy(spawnedMarker);
         Destroy(gameObject);
@@ -192,9 +198,17 @@ public class PawliceMovement : NetworkBehaviour
 
    public void DestroyDogHome()
     {
+
+        DestroyDogHomeServerRpc();
+    }
+    [ServerRpc (RequireOwnership = false)]
+    public void DestroyDogHomeServerRpc()
+    {
+        var explosion = Resources.Load<GameObject>("smoke explosion");
+        GameObject smoke = Instantiate(explosion, spawnedMarker.transform.position, Quaternion.identity);
+        smoke.GetComponent<NetworkObject>().Spawn();
         DestroyGameDogHomeClientRpc();
     }
-
     [ClientRpc]
     private void DestroyGameDogHomeClientRpc()
     {

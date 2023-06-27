@@ -25,8 +25,8 @@ public class CharacterSelectColor : MonoBehaviour
 
     private void ConnectionManager_OnSameColorPlayer(object sender, System.EventArgs e)
     {
-        Debug.Log("EVENT FIRED WHEN FALSE");
-        Debug.Log("MATERIAL ID");
+        //Debug.Log("EVENT FIRED WHEN FALSE");
+        //Debug.Log("MATERIAL ID");
     }
 
     private void ConnectionManager_onListPlayerDataChanged(object sender, System.EventArgs e)
@@ -61,10 +61,10 @@ public class CharacterSelectColor : MonoBehaviour
                 {
                     materialId = materialId > 0 ? materialId - 1 : ConnectionManager.Instance.totalColors().Count - 1;
                    // Debug.Log("MAT " + materialId);
-                    Debug.Log("THIS MATERIAL ID IS NOT AVAILABLE GO TO THE NEXT ONE");
+                    //Debug.Log("THIS MATERIAL ID IS NOT AVAILABLE GO TO THE NEXT ONE");
                 }
                 ConnectionManager.Instance.ChangePlayerColor(materialId);
-                Debug.Log("FOUND AVAILABLE MATERIAL");
+                //Debug.Log("FOUND AVAILABLE MATERIAL");
             //}
             //else
             //{

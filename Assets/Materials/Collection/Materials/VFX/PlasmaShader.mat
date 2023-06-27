@@ -27,7 +27,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2500
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -98,14 +98,15 @@ Material:
     - Vector1_14db7db6b03c4d69b4461a6593fcc804: 0.01
     - Vector1_4f95872007c94b9095208effafbf76ef: 2
     - Vector1_7bf22ec2020240fd82b07f385db3a5de: 0.01
-    - Vector1_86d99b5b93b04049a82668abfec876ff: 1.4
-    - Vector1_971501703e244127b4f25a8ec35b285c: 0.1
+    - Vector1_86d99b5b93b04049a82668abfec876ff: 0.5
+    - Vector1_971501703e244127b4f25a8ec35b285c: 0
     - Vector1_990bd4c63dd9498192f420ec7fcac2e8: 0.1
     - Vector1_ad8d5674731a4f6e8f0d4d0b24c5b13c: 2
     - Vector1_b54bea80115c43aba79421364c55df6c: 0.03
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -120,7 +121,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -129,7 +130,9 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - Color_4c615f85e7654835b6e43f95b3714632: {r: 0.030333158, g: 2.143547, b: 1.7597566, a: 1}
     - Color_8a95b934879049e08e157cb1fb571707: {r: 0, g: 2.7576504, b: 5.5908804, a: 1}

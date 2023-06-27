@@ -58,6 +58,7 @@ public class PickAndPlace : NetworkBehaviour
             {
                 if (c.GetComponent<EnemyHoldCatnip>().HasSpawnObject())
                 {
+                    RemoveColliderServerRpc(c.GetComponent<EnemyHoldCatnip>().GetObject().gameObject);
                     c.GetComponent<EnemyHoldCatnip>().GetObject().setObjectParent(player.GetComponent<SpawnableObjParent>());
                     c.GetComponent<EnemyHoldCatnip>().KillEnemy();
                 }
@@ -121,7 +122,7 @@ public class PickAndPlace : NetworkBehaviour
 
             //Debug.Log(sortedColliders[0].name);
             
-            if (sortedColliders[0].name == "Furnace" && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
+            if (sortedColliders[0].GetComponent<FurnaceDetector>() && sortedColliders[0].GetComponent<FurnaceCook>().isFunraceEmpty()
                 && PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Unprocessed)
             {
                 //Debug.Log("FURNACE");
@@ -129,7 +130,7 @@ public class PickAndPlace : NetworkBehaviour
                 sortedColliders[0].gameObject.GetComponent<FurnaceCook>().StartToCoock();
                
             }
-            else if (sortedColliders[0].name == "chest")
+            else if (sortedColliders[0].GetComponent<ChestDetector>())
             {
                 if (PlayerNetwork.LocalIstance.GetObject().GetComponent<CatnipStatus>().currentStatus == CatnipStatus.status.Cut)
                 {
@@ -153,7 +154,7 @@ public class PickAndPlace : NetworkBehaviour
                 PlayerNetwork.LocalIstance.GetObject().setObjectParent(sortedColliders[0].GetComponent<SpawnableObjParent>());
                 PlayerNetwork.LocalIstance.ClearSpawnObject();
             }
-            else if (sortedColliders[0].name.Contains("place"))
+            else if (sortedColliders[0].GetComponent<TableDetector>())
             {
                // Debug.Log("Table");
                

@@ -59,7 +59,7 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
     public void KillEnemy()
     {
         //PlayerGetCatnip(player);
-        DestoryEnemyServerRpc();
+        DestroyEnemyServerRpc();
     }
     public void DestroyCatnipStolen()
     {
@@ -74,12 +74,15 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void DestoryEnemyServerRpc()
+    private void DestroyEnemyServerRpc()
     {
        // GameObject spawnedPlace = gameObject.GetComponent<PawliceMovement>().GetSpawnMarker();
         visualDebugger.AddMessage("KILL ENEMY");
         // Destroy(spawnedPlace);
         // Destroy(gameObject);
+        var explosion = Resources.Load<GameObject>("smoke explosion");
+        GameObject smoke = Instantiate(explosion, transform.position, Quaternion.identity);
+        smoke.GetComponent<NetworkObject>().Spawn();
         DestroyEnemyClientRpc();
     }
 
@@ -93,6 +96,9 @@ public class EnemyHoldCatnip : NetworkBehaviour, SpawnableObjParent, EnemyIntera
             GameObject.Find("UI sounds").transform.GetComponent<UISoundManager>().ClickSound(killEnemySound);
         }
         gameObject.GetComponent<PawliceMovement>().DestroyDogHome();
+        //var explosion = Resources.Load<GameObject>("smoke explosion");
+        //GameObject smoke = Instantiate(explosion, transform.position, Quaternion.identity);
+       // smoke.GetComponent<NetworkObject>().Spawn();
         Destroy(gameObject);
     }
 

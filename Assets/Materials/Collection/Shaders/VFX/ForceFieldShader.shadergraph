@@ -1,5 +1,5 @@
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.GraphData",
     "m_ObjectId": "7b09210be1194985b20214d4d8b0fa07",
     "m_Properties": [
@@ -23,6 +23,12 @@
         }
     ],
     "m_Keywords": [],
+    "m_Dropdowns": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "2eb71b2a82394c82afb8426cc8509a57"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "0a9be0d2bdbfa78693790df4fd453d2f"
@@ -479,10 +485,11 @@
         "serializedMesh": {
             "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
             "m_Guid": ""
-        }
+        },
+        "preventRotation": false
     },
     "m_Path": "URP Collection/VFX",
-    "m_ConcretePrecision": 0,
+    "m_GraphPrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -871,9 +878,13 @@
         "m_GuidSerialized": "36eada23-e86f-4ac3-9740-1b34c4b43f94"
     },
     "m_Name": "Pattern Texture",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Texture2D_2D8E0C75",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -882,6 +893,8 @@
         "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"672f499b3bcffc64b95c4f41037840f8\",\"type\":3}}",
         "m_Guid": ""
     },
+    "isMainTexture": false,
+    "useTilingAndOffset": false,
     "m_Modifiable": true,
     "m_DefaultType": 0
 }
@@ -1082,6 +1095,33 @@
     "m_DefaultValue": 0.0,
     "m_Labels": [
         "X"
+    ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "2eb71b2a82394c82afb8426cc8509a57",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "7d74467ef2328c8e85fa421ac6343857"
+        },
+        {
+            "m_Id": "bfedba8cf288d6838853233cdee589f4"
+        },
+        {
+            "m_Id": "5cb2921e98bde68abfacc6ef7931f007"
+        },
+        {
+            "m_Id": "1f122b3c91bfed89bc21693c5a1bf106"
+        },
+        {
+            "m_Id": "3e091fd3d6d0288785709f2a5936cbaa"
+        },
+        {
+            "m_Id": "8a95cea5f907668b8530d58229b32786"
+        }
     ]
 }
 
@@ -1346,9 +1386,13 @@
         "m_GuidSerialized": "96a79d9b-e93d-4e5b-a380-fb0ba5b83d0e"
     },
     "m_Name": "Scroll Speed",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_3803E86D",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -1726,9 +1770,13 @@
         "m_GuidSerialized": "ed7e2eb1-7226-4c26-95f5-91e26a2a9116"
     },
     "m_Name": "Fresnal Power",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_8BB708FF",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -2037,9 +2085,13 @@
         "m_GuidSerialized": "9d1742fb-8089-4584-9099-99156a844431"
     },
     "m_Name": "Offset",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_8ADEDED5",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -2121,9 +2173,13 @@
         "m_GuidSerialized": "c89c8211-f5b4-46b7-b9c5-0b37574e75fb"
     },
     "m_Name": "Fill",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_A41DB2B3",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -2233,17 +2289,23 @@
 }
 
 {
-    "m_SGVersion": 0,
+    "m_SGVersion": 1,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "903c31994ef04f59a9dc87bf3f68ef7c",
     "m_ActiveSubTarget": {
         "m_Id": "fe970d7bac0b4de992fb8c17fb63cc4a"
     },
+    "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
+    "m_ZTestMode": 4,
+    "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_TwoSided": false,
+    "m_RenderFace": 2,
     "m_AlphaClip": true,
-    "m_CustomEditorGUI": ""
+    "m_CastShadows": true,
+    "m_ReceiveShadows": true,
+    "m_CustomEditorGUI": "",
+    "m_SupportVFX": false
 }
 
 {
@@ -2548,9 +2610,13 @@
         "m_GuidSerialized": "cb62aa3b-74cb-4ee8-84d5-6e70bc2b9617"
     },
     "m_Name": "Emission Color",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_BE04FA87",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -2561,6 +2627,7 @@
         "b": 7.999999046325684,
         "a": 0.0
     },
+    "isMainColor": false,
     "m_ColorMode": 1
 }
 

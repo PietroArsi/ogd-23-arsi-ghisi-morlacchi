@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
+
+[RequireComponent(typeof(FurnaceDetector))]
 public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
 {
     private NetworkVariable<float> coockingTime = new NetworkVariable<float>(5f);
@@ -72,7 +74,6 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
         }
     }
 
-
     public string GetCookingTime()
     {
         if (coockingTime.Value > 0f)
@@ -98,11 +99,9 @@ public class FurnaceCook : NetworkBehaviour, SpawnableObjParent
     {
         if (IsClient)
         {
-            startCookingServerRpc();
-           
+            startCookingServerRpc();          
         }
     }
-
     public bool isFunraceEmpty()
     {
         return state.Value == FurnaceStates.Empty;

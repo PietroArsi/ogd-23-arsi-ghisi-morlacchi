@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+[RequireComponent(typeof(ChestDetector))]
 public class Storage : NetworkBehaviour,SpawnableObjParent
 {
     [SerializeField] private GameManager _gm;

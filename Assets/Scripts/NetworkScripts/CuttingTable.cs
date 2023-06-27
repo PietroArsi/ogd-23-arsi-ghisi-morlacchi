@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+[RequireComponent(typeof(TableDetector))]
 public class CuttingTable : NetworkBehaviour
 {
     private NetworkVariable<float> cuttingTime = new NetworkVariable<float>(5f);
