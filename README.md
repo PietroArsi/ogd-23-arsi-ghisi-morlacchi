@@ -27,9 +27,20 @@ Additional mechanics: catch mice for bonus points, build defensive traps and wal
 
 ## Screenshots
 
-| ![Title screen](images/IBG8jt.png) | ![Main menu](images/+sgx50.png) |
-| ![Harvesting catnip](images/RZUmu2.png) | ![Cooking area](images/NBJrLk.png) |
-| ![Cutting table](images/dQemey.png) | ![Cutting table (alt)](images/DyypMK.png) |
+<table>
+  <tr>
+    <td><img src="images/IBG8jt.png" alt="Title screen"></td>
+    <td><img src="images/+sgx50.png" alt="Main menu"></td>
+  </tr>
+  <tr>
+    <td><img src="images/RZUmu2.png" alt="Harvesting catnip"></td>
+    <td><img src="images/NBJrLk.png" alt="Cooking area"></td>
+  </tr>
+  <tr>
+    <td><img src="images/dQemey.png" alt="Cutting table"></td>
+    <td><img src="images/DyypMK.png" alt="Cutting table (alt)"></td>
+  </tr>
+</table>
 
 ---
 
