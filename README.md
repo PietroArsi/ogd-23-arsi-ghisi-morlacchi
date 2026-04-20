@@ -99,7 +99,6 @@ Dogs spawn at 30-second intervals and navigate via NavMesh agents (`NetworkNavMe
 - Evidence system: tracks pawlice suspicion; hitting 5 ends the game
 - Achievement system: persistent unlocks across sessions via `SaveManager`
 - Construction menu: runtime placement of traps and walls
-- Dynamic scoring: crunchies rating computed from final production volume
 - Audio management: separate managers for BGM, player SFX, and UI feedback
 
 ---
@@ -133,7 +132,7 @@ Dogs spawn at 30-second intervals and navigate via NavMesh agents (`NetworkNavMe
 
 Built by a team of three over one academic semester:
 
-- **Pietro Arsi** — UI systems, gameplay mechanics, scoring
+- **Pietro Arsi** — UI systems, gameplay mechanics
 - **Luca Ghisi** — networking foundation, enemy systems
 - **Giovanni Morlacchi** — game design, level design, concept and additional gameplay contributions
 
