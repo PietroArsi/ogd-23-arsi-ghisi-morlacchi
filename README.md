@@ -1,4 +1,4 @@
-# Catnipped!
+<img src="images/catnipped_logo.png" alt="Catnipped!" width="400">
 
 A cooperative multiplayer 3D game built with Unity where 2–4 players run an underground catnip operation — harvesting, cooking, and processing catnip while defending against P.U.P.S. (Paws United for Protecting Society) raids.
 
