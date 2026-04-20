@@ -4,6 +4,9 @@ A cooperative multiplayer 3D game built with Unity where 2–4 players run an un
 
 Developed as a team of three for the **Online Game Design** course at university.
 
+- [Game Design Document (GDD)](GDD_Catnipped.pdf)
+- [Technical Design Document (TDD)](TDD_Catnipped.pdf)
+
 ---
 
 ## Gameplay
