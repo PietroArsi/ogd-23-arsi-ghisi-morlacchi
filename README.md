@@ -24,7 +24,7 @@ Additional mechanics: catch mice for bonus points, build defensive traps and wal
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
@@ -39,46 +39,48 @@ Additional mechanics: catch mice for bonus points, build defensive traps and wal
 
 ---
 
-## Architecture Highlights
+## Architecture highlights
 
-### Networked State Machine
+### Networked state machine
 
-Game lifecycle is managed by a server-authoritative state machine (`GameManagerStates.cs`):
+The game's network lifecycle runs through a server-authoritative state machine (`GameManagerStates.cs`):
 
-```
-WaitingOtherPlayers → CountdownToStart (4s) → GamePlaying (300s) → GameEnd
-```
+1. Wait for all clients to spawn into the level
+2. Run a pre-match countdown
+3. Keep game state in sync across host and clients during the match
+4. Resolve win/loss and transition everyone to the end screen
+5. Handle host or client drops at any phase
 
-State is synchronized across all clients using `NetworkVariable<State>` with `OnValueChanged` callbacks. Only the host drives transitions; clients react to changes.
+State is synchronized via `NetworkVariable<State>` with `OnValueChanged` callbacks. Only the host drives transitions; clients react to changes.
 
-### Priority-Based Interaction System
+### Priority-based interaction system
 
-The pick-and-place system (`PickAndPlace.cs`) resolves multi-target interactions by sorting overlapping colliders by a priority score from `SpawnableObjParent.GetPriority()`. This cleanly handles cases where players stand near multiple interactables simultaneously without requiring explicit disambiguation from the player.
+When a player stands near multiple interactables at once, `PickAndPlace.cs` picks the highest-priority one using a score from `SpawnableObjParent.GetPriority()`. No disambiguation needed from the player.
 
-### Client-Server Architecture
+### Client-server architecture
 
 - Host manages game state, enemy spawning, and win/loss conditions via `[ServerRpc]`
 - State broadcasts use `[ClientRpc]` for UI updates, sound effects, and object visibility
-- Each `PlayerNetwork` instance exposes a `LocalInstance` reference — only populated on the owning client — keeping input handling strictly local
+- Each `PlayerNetwork` instance exposes a `LocalInstance` reference, populated only on the owning client, so input handling stays strictly local
 
-### Player Session Management
+### Player session management
 
 `ConnectionManager.cs` (singleton) maintains a `NetworkList<PlayerData>` visible to all clients. It handles color assignment, player name generation, Unity Authentication integration, and graceful disconnect for both host and client mid-lobby and mid-game.
 
 ### Enemy AI
 
-Dogs spawn at 30-second intervals during gameplay and navigate via NavMesh agents (`NetworkNavMeshAgent.cs`). Mice roam independently and can be caught by players for bonus points.
+Dogs spawn at 30-second intervals and navigate via NavMesh agents (`NetworkNavMeshAgent.cs`). Mice roam independently and can be caught by players for bonus points.
 
 ---
 
-## Key Systems
+## Key systems
 
-- **Cooking & Cutting pipelines** — timed multi-stage resource processing with network-synchronized states
-- **Evidence system** — tracks pawlice suspicion; reaching 5 ends the game
-- **Achievement system** — persistent unlocks tracked across sessions via `SaveManager`
-- **Construction menu** — runtime placement of traps and walls
-- **Dynamic scoring** — crunchies rating computed from final production volume
-- **Audio management** — separate managers for BGM, player SFX, and UI feedback
+- Cooking and cutting pipelines: timed multi-stage resource processing with network-synchronized states
+- Evidence system: tracks pawlice suspicion; hitting 5 ends the game
+- Achievement system: persistent unlocks across sessions via `SaveManager`
+- Construction menu: runtime placement of traps and walls
+- Dynamic scoring: crunchies rating computed from final production volume
+- Audio management: separate managers for BGM, player SFX, and UI feedback
 
 ---
 
@@ -119,7 +121,7 @@ Built by a team of three over one academic semester:
 
 ---
 
-## Running the Project
+## Running the project
 
 1. Install **Unity 2021.3.22f1** (available via Unity Hub)
 2. Clone the repository
