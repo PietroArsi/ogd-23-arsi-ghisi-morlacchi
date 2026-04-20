@@ -137,8 +137,6 @@ Built by a team of three over one academic semester:
 - **Luca Ghisi** — networking foundation, enemy systems
 - **Giovanni Morlacchi** — additional gameplay contributions
 
-~80 commits across a collaborative git workflow with feature branches and regular merges.
-
 ---
 
 ## Running the project
