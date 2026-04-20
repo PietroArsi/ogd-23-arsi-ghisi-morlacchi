@@ -135,7 +135,7 @@ Built by a team of three over one academic semester:
 
 - **Pietro Arsi** — UI systems, gameplay mechanics, scoring
 - **Luca Ghisi** — networking foundation, enemy systems
-- **Giovanni Morlacchi** — gamedesign, level design, concept and additional gameplay contributions
+- **Giovanni Morlacchi** — game design, level design, concept and additional gameplay contributions
 
 ---
 
